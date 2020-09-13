@@ -1,0 +1,10 @@
+---
+extends: default
+rules:
+  line-length:
+    max: 120
+  comments:
+    ignore: |
+      userdata.yml
+ignore: |
+    .venv/
