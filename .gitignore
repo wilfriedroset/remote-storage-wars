@@ -32,3 +32,16 @@ override.tf.json
 # Ignore CLI configuration files
 .terraformrc
 terraform.rc
+
+# Ansible part
+*.retry
+.cache/
+.molecule/
+.tox/
+__pycache__/
+tests/roles
+*.pyc
+
+# No need to commit roles and collections from ansible-galaxy
+playbook/roles/
+playbook/collections/
