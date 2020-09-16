@@ -1,4 +1,20 @@
 ---
+common_packages:
+  - apt-transport-https
+  - ca-certificates
+  - cron
+  - curl
+  - diffutils
+  - dnsutils
+  - git
+  - gnupg
+  - htop
+  - iftop
+  - iotop
+  - net-tools
+  - nmap
+  - telnet
+
 ansible_ssh_user: debian
 
 consul_node_role: client

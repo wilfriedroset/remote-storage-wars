@@ -5,6 +5,7 @@
   become: true
   become_user: root
   roles:
+    - local.common-packages
     - brianshumate.consul
   tasks:
     - name: Disable ipv6
