@@ -1,4 +1,6 @@
 ---
-roles: []
+roles:
+  - name: brianshumate.consul
+    version: v2.5.4
 
 collections: []

@@ -1,2 +1,15 @@
 ---
 ansible_ssh_user: debian
+
+consul_node_role: client
+consul_version: 1.8.4
+consul_group_name: meta-role_consul_server
+# FIXME: this will not be always eth1 when we use ONLY private network
+consul_iface: eth1
+consul_recursors:
+  - 213.186.33.99
+  - 8.8.8.8
+consul_dnsmasq_enable: true
+consul_dnsmasq_bind_interfaces: true
+consul_dnsmasq_listen_addresses:
+  - 127.0.0.1
