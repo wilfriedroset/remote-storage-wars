@@ -1,0 +1,6 @@
+---
+postgresql_python_library: python3-psycopg2
+postgresql_version: 12
+# Otherwise it will default to __postgresql_version
+postgresql_data_dir: "/var/lib/postgresql/{{ postgresql_version }}/main"
+postgresql_config_path: "/etc/postgresql/{{ postgresql_version }}/main"

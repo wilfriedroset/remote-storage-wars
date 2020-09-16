@@ -25,3 +25,13 @@ resource "openstack_networking_subnet_v2" "consul" {
   no_gateway      = true
   dns_nameservers = ["213.186.33.99", "8.8.8.8"]
 }
+
+resource "openstack_networking_subnet_v2" "postgresql" {
+  name            = "postgresql"
+  network_id      = openstack_networking_network_v2.private_network.id
+  ip_version      = 4
+  cidr            = cidrsubnet(var.private_network, 8, 5)
+  enable_dhcp     = true
+  no_gateway      = true
+  dns_nameservers = ["213.186.33.99", "8.8.8.8"]
+}

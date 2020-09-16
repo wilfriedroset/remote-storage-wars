@@ -2,5 +2,7 @@
 roles:
   - name: brianshumate.consul
     version: v2.5.4
+  - name: geerlingguy.postgresql
+    version: 2.2.1
 
 collections: []

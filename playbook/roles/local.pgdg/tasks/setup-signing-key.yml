@@ -1,0 +1,5 @@
+---
+- name: Add an Apt signing key for pgdg
+  apt_key:
+    url: "{{ pgdg_repository_key }}"
+    state: present
