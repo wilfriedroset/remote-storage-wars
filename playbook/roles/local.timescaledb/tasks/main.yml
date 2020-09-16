@@ -1,0 +1,4 @@
+---
+- include_tasks: setup-signing-key.yml
+- include_tasks: install-repository.yml
+- include_tasks: install-packages.yml

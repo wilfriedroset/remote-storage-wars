@@ -25,3 +25,4 @@
   roles:
     - local.pgdg
     - geerlingguy.postgresql
+    - local.timescaledb

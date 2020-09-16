@@ -1,0 +1,5 @@
+---
+- name: Add an Apt signing key for timescaledb
+  apt_key:
+    url: "{{ timescaledb_repository_key }}"
+    state: present

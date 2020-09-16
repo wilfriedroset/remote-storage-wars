@@ -1,0 +1,6 @@
+---
+- name: Install timescaledb repository
+  apt_repository:
+    repo: "deb https://packagecloud.io/timescale/timescaledb/debian/ {{ ansible_distribution_release }} main"
+    state: present
+    filename: timescaledb
