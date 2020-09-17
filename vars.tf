@@ -16,6 +16,8 @@ variable "public_network" {
 
 variable "private_network" {}
 
+variable "ingress" {}
+
 #  SSH Config
 
 variable "ssh_remote_user" {
