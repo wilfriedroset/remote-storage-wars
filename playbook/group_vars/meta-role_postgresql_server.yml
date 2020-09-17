@@ -9,6 +9,10 @@ postgresql_global_config_options:
     value: timescaledb
   - option: timescaledb.telemetry_level
     value: "off"
+  - option: listen_addresses
+    # This will configure postgresql to listen on the first ip in the given subnet
+    # This could be even more specific if we use the subnet dedicated to dbms for example
+    value: "{{ ansible_all_ipv4_addresses | ipaddr('10.0.0.0/8') | first }}"
 
 timescaledb_packages:
   - "timescaledb-postgresql-{{ postgresql_version }}"
