@@ -6,5 +6,7 @@ roles:
     version: 2.2.1
   - name: andrewrothstein.go
     version: v2.1.37
+  - name: cloudalchemy.grafana
+    version: 0.18.0
 
 collections: []

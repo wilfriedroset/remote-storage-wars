@@ -96,6 +96,16 @@ resource "openstack_networking_secgroup_v2" "timescale_ui_security_group" {
   description = "timescale security group"
 }
 
+resource "openstack_networking_secgroup_rule_v2" "grafana" {
+  direction         = "ingress"
+  ethertype         = "IPv4"
+  protocol          = "tcp"
+  port_range_min    = 3000
+  port_range_max    = 3000
+  remote_ip_prefix  = var.ingress
+  security_group_id = openstack_networking_secgroup_v2.timescale_ui_security_group.id
+}
+
 resource "openstack_networking_secgroup_rule_v2" "consul" {
   direction         = "ingress"
   ethertype         = "IPv4"
