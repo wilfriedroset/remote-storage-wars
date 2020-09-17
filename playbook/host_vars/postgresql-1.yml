@@ -18,3 +18,26 @@ postgresql_hba_entries:
   - {type: local, database: all, user: all, auth_method: peer}
   - {type: host, database: all, user: all, address: '127.0.0.1/32', auth_method: md5}
   - {type: host, database: all, user: all, address: '10.94.3.0/24', auth_method: md5}
+
+consul_services:
+  - name: "postgresql"
+    id: "postgresql"
+    address: "{{ ansible_all_ipv4_addresses | ipaddr('10.0.0.0/8') | first }}"
+    port: 5432
+    checks:
+      - tcp: "{{ ansible_all_ipv4_addresses | ipaddr('10.0.0.0/8') | first }}:5432"
+        interval: "10s"
+  - name: "tsbs"
+    id: "tsbs"
+    address: "{{ ansible_all_ipv4_addresses | ipaddr('10.0.0.0/8') | first }}"
+    port: 5432
+    checks:
+      - tcp: "{{ ansible_all_ipv4_addresses | ipaddr('10.0.0.0/8') | first }}:5432"
+        interval: "10s"
+  - name: "timescale"
+    id: "timescale"
+    address: "{{ ansible_all_ipv4_addresses | ipaddr('10.0.0.0/8') | first }}"
+    port: 5432
+    checks:
+      - tcp: "{{ ansible_all_ipv4_addresses | ipaddr('10.0.0.0/8') | first }}:5432"
+        interval: "10s"

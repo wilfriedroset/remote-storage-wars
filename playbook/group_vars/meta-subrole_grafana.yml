@@ -3,3 +3,12 @@ grafana_security:
   admin_user: admin
   # TODO: /!\ This is not secure do not use this in production at anytime
   admin_password: enter_your_secure_password
+
+consul_services:
+  - name: "grafana"
+    id: "grafana"
+    address: "{{ ansible_all_ipv4_addresses | ipaddr('10.0.0.0/8') | first }}"
+    port: 3000
+    checks:
+      - http: http://localhost:3000/
+        interval: "10s"
