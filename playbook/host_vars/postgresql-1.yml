@@ -3,10 +3,15 @@ postgresql_users:
   - name: tsbs
     password: tsbs
     role_attr_flags: SUPERUSER
+  - name: timescale
+    password: timescale
+    role_attr_flags: SUPERUSER
 
 postgresql_databases:
   - name: tsbs
     owner: tsbs
+  - name: timescale
+    owner: timescale
 
 postgresql_hba_entries:
   - {type: local, database: all, user: postgres, auth_method: peer}
