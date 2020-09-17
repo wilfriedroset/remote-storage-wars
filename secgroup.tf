@@ -88,3 +88,20 @@ resource "openstack_networking_secgroup_rule_v2" "postgresql" {
   remote_ip_prefix  = cidrsubnet(var.private_network, 8, 5)
   security_group_id = openstack_networking_secgroup_v2.timescale_postgresql_security_group.id
 }
+
+# UI
+
+resource "openstack_networking_secgroup_v2" "timescale_ui_security_group" {
+  name        = "timescale_ui_security_group"
+  description = "timescale security group"
+}
+
+resource "openstack_networking_secgroup_rule_v2" "consul" {
+  direction         = "ingress"
+  ethertype         = "IPv4"
+  protocol          = "tcp"
+  port_range_min    = 8500
+  port_range_max    = 8500
+  remote_ip_prefix  = var.ingress
+  security_group_id = openstack_networking_secgroup_v2.timescale_ui_security_group.id
+}

@@ -1,3 +1,4 @@
 ---
 consul_node_role: server
 consul_bootstrap_expect: true
+consul_addresses_http: "0.0.0.0"

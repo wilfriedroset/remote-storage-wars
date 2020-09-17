@@ -5,7 +5,7 @@ resource "openstack_compute_instance_v2" "consul_server" {
   flavor_name     = var.instance_flavor
   key_pair        = var.ssh_key_name
   user_data       = file("userdata.yml")
-  security_groups = ["timescale_ssh_security_group", "timescale_consul_security_group"]
+  security_groups = ["timescale_ssh_security_group", "timescale_consul_security_group", "timescale_ui_security_group"]
 
   metadata = {
     role = "consul_server"
