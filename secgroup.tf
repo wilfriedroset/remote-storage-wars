@@ -115,3 +115,20 @@ resource "openstack_networking_secgroup_rule_v2" "consul" {
   remote_ip_prefix  = var.ingress
   security_group_id = openstack_networking_secgroup_v2.timescale_ui_security_group.id
 }
+
+# Prometheus
+
+resource "openstack_networking_secgroup_v2" "timescale_prometheus_security_group" {
+  name        = "timescale_prometheus_security_group"
+  description = "timescale security group"
+}
+
+resource "openstack_networking_secgroup_rule_v2" "prometheus" {
+  direction         = "ingress"
+  ethertype         = "IPv4"
+  protocol          = "tcp"
+  port_range_min    = 9201
+  port_range_max    = 9201
+  remote_ip_prefix  = var.private_network
+  security_group_id = openstack_networking_secgroup_v2.timescale_prometheus_security_group.id
+}
