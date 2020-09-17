@@ -4,5 +4,7 @@ roles:
     version: v2.5.4
   - name: geerlingguy.postgresql
     version: 2.2.1
+  - name: andrewrothstein.go
+    version: v2.1.37
 
 collections: []

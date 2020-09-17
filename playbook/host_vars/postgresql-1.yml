@@ -1,0 +1,15 @@
+---
+postgresql_users:
+  - name: tsbs
+    password: tsbs
+    role_attr_flags: SUPERUSER
+
+postgresql_databases:
+  - name: tsbs
+    owner: tsbs
+
+postgresql_hba_entries:
+  - {type: local, database: all, user: postgres, auth_method: peer}
+  - {type: local, database: all, user: all, auth_method: peer}
+  - {type: host, database: all, user: all, address: '127.0.0.1/32', auth_method: md5}
+  - {type: host, database: all, user: all, address: '10.94.3.0/24', auth_method: md5}

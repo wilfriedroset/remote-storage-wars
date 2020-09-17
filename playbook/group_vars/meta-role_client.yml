@@ -1,0 +1,6 @@
+---
+postgresql_version: 12
+
+postgresql_client_packages:
+  - "postgresql-client-{{ postgresql_version }}"
+  - "postgresql-client-common"
