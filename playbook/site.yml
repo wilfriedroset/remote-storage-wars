@@ -7,6 +7,12 @@
   roles:
     - local.common-packages
     - brianshumate.consul
+  handlers:
+    - name: restart networking
+      service:
+        name: networking
+        state: restarted
+        sleep: 5
   tasks:
     - name: Disable ipv6
       sysctl:
@@ -16,6 +22,15 @@
         sysctl_set: true
         state: present
         reload: true
+    - name: Deploy dhclient.conf
+      copy:
+        dest: /etc/dhcp/dhclient.conf
+        src: files/dhclient.conf
+        backup: true
+        mode: 0644
+        owner: root
+        group: root
+      notify: restart networking
 
 - name: Configure PostgreSQL
   hosts: meta-role_postgresql_server
