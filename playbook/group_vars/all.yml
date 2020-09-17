@@ -18,6 +18,8 @@ common_packages:
 ansible_ssh_user: debian
 
 consul_node_role: client
+# TODO: /!\ This is not secure do not use this in production at anytime
+consul_raw_key: "y5vPZpzeALhaTlc2c5rJbzrplx34A/afro9SAMhiTK4="
 consul_version: 1.8.4
 consul_group_name: meta-role_consul_server
 # FIXME: this will not be always eth1 when we use ONLY private network
