@@ -49,20 +49,12 @@
   become_user: root
   roles:
     - local.pgdg
+    - andrewrothstein.go
   tasks:
     - name:
       apt:
         name: "{{ item }}"
       with_items: "{{ postgresql_client_packages }}"
-
-- name: Bootstrap tsbs
-  hosts: meta-subrole_tsbs
-  any_errors_fatal: true
-  become: true
-  become_user: root
-  roles:
-    - andrewrothstein.go
-  tasks:
     - name: Configure GOPATH
       copy:
         dest: /etc/profile.d/gopath.sh
