@@ -1,0 +1,14 @@
+---
+timescale_prometheus_cfg:
+  TS_PROM_DB_HOST: timescale.service
+  TS_PROM_DB_NAME: timescale
+  TS_PROM_DB_PASSWORD: timescale
+  TS_PROM_DB_USER: timescale
+consul_services:
+  - name: "timescale-prometheus"
+    id: "timescale-prometheus"
+    address: "{{ ansible_all_ipv4_addresses | ipaddr('10.0.0.0/8') | first }}"
+    port: 9201
+    checks:
+      - http: "http://{{ ansible_all_ipv4_addresses | ipaddr('10.0.0.0/8') | first }}:9201/healthz"
+        interval: "10s"

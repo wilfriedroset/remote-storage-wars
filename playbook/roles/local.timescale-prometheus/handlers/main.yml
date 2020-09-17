@@ -1,0 +1,7 @@
+---
+- name: restart timescale_prometheus
+  become: true
+  systemd:
+    daemon_reload: true
+    name: timescale_prometheus
+    state: restarted

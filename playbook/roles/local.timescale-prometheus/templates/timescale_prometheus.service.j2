@@ -1,0 +1,28 @@
+{{ ansible_managed | comment }}
+
+[Unit]
+Description=Timescale-Prometheus connector
+After=network-online.target
+
+[Service]
+Type=simple
+EnvironmentFile={{ timescale_prometheus_cfg_path }}
+ExecStart={{ timescale_prometheus_bin_path }}
+SyslogIdentifier=node_exporter
+Restart=always
+RestartSec=1
+StartLimitInterval=0
+
+PrivateTmp=yes
+ProtectHome=read-only
+ProtectHome=yes
+NoNewPrivileges=yes
+
+ProtectSystem=strict
+ProtectControlGroups=true
+ProtectKernelModules=true
+ProtectKernelTunables=yes
+ProtectSystem=full
+
+[Install]
+WantedBy=multi-user.target

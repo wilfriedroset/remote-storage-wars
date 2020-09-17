@@ -1,0 +1,9 @@
+---
+- name: Download binary
+  uri:
+    url: "{{ timescale_prometheus_bin_url }}"
+    dest: "{{ timescale_prometheus_bin_path }}"
+    creates: "{{ timescale_prometheus_bin_path }}"
+    mode: 0755
+    owner: root
+    group: bin

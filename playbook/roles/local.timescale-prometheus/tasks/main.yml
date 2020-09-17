@@ -1,0 +1,3 @@
+---
+- include_tasks: tasks/download.yml
+- include_tasks: tasks/configure.yml

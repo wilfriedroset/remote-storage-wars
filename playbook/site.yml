@@ -64,3 +64,11 @@
         owner: root
         group: root
         mode: '0644'
+
+- name: Boostrap timescale_prometheus connector
+  hosts: meta-subrole_timescale_prometheus
+  any_errors_fatal: true
+  become: true
+  become_user: root
+  roles:
+    - local.timescale-prometheus

@@ -1,0 +1,6 @@
+---
+timescale_prometheus_bin_version: 0.1.0-beta.4
+timescale_prometheus_bin_url: "https://github.com/timescale/timescale-prometheus/releases/download/{{ timescale_prometheus_bin_version }}/timescale-prometheus_{{ timescale_prometheus_bin_version }}_Linux_x86_64"  # yamllint disable-line rule:line-length
+timescale_prometheus_bin_path: /usr/local/bin/timescale_prometheus
+timescale_prometheus_cfg_path: /etc/timescale_prometheus.cfg
+timescale_prometheus_cfg: {}
