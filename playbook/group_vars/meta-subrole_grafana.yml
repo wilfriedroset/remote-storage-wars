@@ -14,14 +14,14 @@ grafana_datasources:
 consul_services:
   - name: "node-exporter"
     id: "node-exporter"
-    address: "{{ ansible_all_ipv4_addresses | ipaddr('10.0.0.0/8') | first }}"
+    address: "{{ private_ip }}"
     port: 9100
     checks:
-      - tcp: "{{ ansible_all_ipv4_addresses | ipaddr('10.0.0.0/8') | first }}:9100"
+      - tcp: "{{ private_ip }}:9100"
         interval: "10s"
   - name: "grafana"
     id: "grafana"
-    address: "{{ ansible_all_ipv4_addresses | ipaddr('10.0.0.0/8') | first }}"
+    address: "{{ private_ip }}"
     port: 3000
     checks:
       - http: http://localhost:3000/

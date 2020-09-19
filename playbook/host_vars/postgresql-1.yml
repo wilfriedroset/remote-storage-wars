@@ -22,29 +22,29 @@ postgresql_hba_entries:
 consul_services:
   - name: "node-exporter"
     id: "node-exporter"
-    address: "{{ ansible_all_ipv4_addresses | ipaddr('10.0.0.0/8') | first }}"
+    address: "{{ private_ip }}"
     port: 9100
     checks:
-      - tcp: "{{ ansible_all_ipv4_addresses | ipaddr('10.0.0.0/8') | first }}:9100"
+      - tcp: "{{ private_ip }}:9100"
         interval: "10s"
   - name: "postgresql"
     id: "postgresql"
-    address: "{{ ansible_all_ipv4_addresses | ipaddr('10.0.0.0/8') | first }}"
+    address: "{{ private_ip }}"
     port: 5432
     checks:
-      - tcp: "{{ ansible_all_ipv4_addresses | ipaddr('10.0.0.0/8') | first }}:5432"
+      - tcp: "{{ private_ip }}:5432"
         interval: "10s"
   - name: "tsbs"
     id: "tsbs"
-    address: "{{ ansible_all_ipv4_addresses | ipaddr('10.0.0.0/8') | first }}"
+    address: "{{ private_ip }}"
     port: 5432
     checks:
-      - tcp: "{{ ansible_all_ipv4_addresses | ipaddr('10.0.0.0/8') | first }}:5432"
+      - tcp: "{{ private_ip }}:5432"
         interval: "10s"
   - name: "timescale"
     id: "timescale"
-    address: "{{ ansible_all_ipv4_addresses | ipaddr('10.0.0.0/8') | first }}"
+    address: "{{ private_ip }}"
     port: 5432
     checks:
-      - tcp: "{{ ansible_all_ipv4_addresses | ipaddr('10.0.0.0/8') | first }}:5432"
+      - tcp: "{{ private_ip }}:5432"
         interval: "10s"
