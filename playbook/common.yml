@@ -5,6 +5,8 @@
   become: true
   become_user: root
   roles:
+    - dev-sec.ssh-hardening
+    - dev-sec.os-hardening
     - local.common-packages
     - brianshumate.consul
     - cloudalchemy.node-exporter
@@ -15,14 +17,6 @@
         state: restarted
         sleep: 5
   tasks:
-    - name: Disable ipv6
-      sysctl:
-        name: net.ipv6.conf.all.disable_ipv6
-        # Value is a string field
-        value: '1'
-        sysctl_set: true
-        state: present
-        reload: true
     - name: Deploy dhclient.conf
       copy:
         dest: /etc/dhcp/dhclient.conf

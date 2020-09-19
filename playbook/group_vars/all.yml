@@ -1,5 +1,7 @@
 ---
 private_ip: "{{ ansible_all_ipv4_addresses | ipaddr('10.0.0.0/8') | first }}"
+sysctl_overwrite:
+  net.ipv6.conf.all.disable_ipv6: 1
 common_packages:
   - apt-transport-https
   - ca-certificates

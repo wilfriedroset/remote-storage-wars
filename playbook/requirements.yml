@@ -12,5 +12,9 @@ roles:
     version: 2.15.5
   - name: cloudalchemy.node-exporter
     version: 0.21.5
+  - name: dev-sec.ssh-hardening
+    version: 9.7.0
+  - name: dev-sec.os-hardening
+    version: 6.2.0
 
 collections: []
