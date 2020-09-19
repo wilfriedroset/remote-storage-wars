@@ -1,0 +1,8 @@
+---
+- name: Boostrap prometheus
+  hosts: meta-subrole_prometheus
+  any_errors_fatal: true
+  become: true
+  become_user: root
+  roles:
+    - cloudalchemy.prometheus

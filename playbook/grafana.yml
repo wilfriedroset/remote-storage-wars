@@ -1,0 +1,7 @@
+- name: Install and configure grafana
+  hosts: meta-subrole_grafana
+  any_errors_fatal: true
+  become: true
+  become_user: root
+  roles:
+    - role: cloudalchemy.grafana

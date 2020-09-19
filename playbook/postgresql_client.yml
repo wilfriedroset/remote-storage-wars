@@ -1,0 +1,23 @@
+---
+- name: Bootstrap client basic configuration
+  hosts: meta-role_client
+  any_errors_fatal: true
+  become: true
+  become_user: root
+  roles:
+    - local.pgdg
+    - andrewrothstein.go
+  tasks:
+    - name:
+      apt:
+        name: "{{ item }}"
+      with_items: "{{ postgresql_client_packages }}"
+    - name: Configure GOPATH
+      copy:
+        dest: /etc/profile.d/gopath.sh
+        content: |
+          export GOPATH=$HOME/go/
+          export PATH="${GOPATH}/bin:${PATH}"
+        owner: root
+        group: root
+        mode: '0644'
