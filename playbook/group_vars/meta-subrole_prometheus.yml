@@ -1,0 +1,7 @@
+---
+prometheus_version: 2.21.0
+prometheus_web_external_url: "http://{{ ansible_host }}:9090"
+prometheus_remote_write:
+  - url: http://timescale-prometheus.node:9201/write
+prometheus_remote_read:
+  - url: http://timescale-prometheus.node:9201/read

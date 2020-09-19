@@ -73,6 +73,14 @@
   roles:
     - local.timescale-prometheus
 
+- name: Boostrap prometheus
+  hosts: meta-subrole_prometheus
+  any_errors_fatal: true
+  become: true
+  become_user: root
+  roles:
+    - cloudalchemy.prometheus
+
 - name: Install and configure grafana
   hosts: meta-subrole_grafana
   any_errors_fatal: true
