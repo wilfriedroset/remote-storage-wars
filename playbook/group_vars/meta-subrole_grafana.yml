@@ -4,6 +4,13 @@ grafana_security:
   # TODO: /!\ This is not secure do not use this in production at anytime
   admin_password: enter_your_secure_password
 
+grafana_datasources:
+  - name: "Prometheus"
+    type: "prometheus"
+    access: "proxy"
+    url: "http://timescale-prometheus.node:9201"
+    isDefault: true
+
 consul_services:
   - name: "grafana"
     id: "grafana"
