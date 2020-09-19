@@ -31,3 +31,27 @@ consul_dnsmasq_enable: true
 consul_dnsmasq_bind_interfaces: true
 consul_dnsmasq_listen_addresses:
   - 127.0.0.1
+
+node_exporter_version: 1.0.1
+node_exporter_web_listen_address: "{{ ansible_all_ipv4_addresses | ipaddr('10.0.0.0/8') | first }}:9100"
+node_exporter_enabled_collectors:
+  - cpu
+  - diskstats
+  - filesystem
+  - loadavg
+  - meminfo
+  - netclass
+  - netdev
+  - netstat
+  - processes
+  - systemd
+  - tcpstat
+
+consul_services:
+  - name: "node-exporter"
+    id: "node-exporter"
+    address: "{{ ansible_all_ipv4_addresses | ipaddr('10.0.0.0/8') | first }}"
+    port: 9100
+    checks:
+      - tcp: "{{ ansible_all_ipv4_addresses | ipaddr('10.0.0.0/8') | first }}:9100"
+        interval: "10s"

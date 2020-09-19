@@ -5,6 +5,13 @@ timescale_prometheus_cfg:
   TS_PROM_DB_PASSWORD: timescale
   TS_PROM_DB_USER: timescale
 consul_services:
+  - name: "node-exporter"
+    id: "node-exporter"
+    address: "{{ ansible_all_ipv4_addresses | ipaddr('10.0.0.0/8') | first }}"
+    port: 9100
+    checks:
+      - tcp: "{{ ansible_all_ipv4_addresses | ipaddr('10.0.0.0/8') | first }}:9100"
+        interval: "10s"
   - name: "timescale-prometheus"
     id: "timescale-prometheus"
     address: "{{ ansible_all_ipv4_addresses | ipaddr('10.0.0.0/8') | first }}"

@@ -7,6 +7,7 @@
   roles:
     - local.common-packages
     - brianshumate.consul
+    - cloudalchemy.node-exporter
   handlers:
     - name: restart networking
       service:
