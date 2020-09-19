@@ -5,3 +5,13 @@ prometheus_remote_write:
   - url: http://timescale-prometheus.node:9201/write
 prometheus_remote_read:
   - url: http://timescale-prometheus.node:9201/read
+prometheus_scrape_configs:
+  - job_name: consul
+    relabel_configs:
+      - source_labels: [__meta_consul_node]
+        target_label: hostname
+      - source_labels: [__meta_consul_dc]
+        target_label: dc
+    consul_sd_configs:
+      - server: 'localhost:8500'
+        services: [node-exporter]
