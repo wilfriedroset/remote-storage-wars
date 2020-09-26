@@ -8,6 +8,10 @@ variable "instance_flavor" {
   default = "s1-2"
 }
 
+variable "ovh_endpoint" {
+  default = "ovh-eu"
+}
+
 # Network configuration
 
 variable "public_network" {
