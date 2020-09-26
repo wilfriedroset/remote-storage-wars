@@ -1,4 +1,2 @@
 ---
 timescaledb_repository_key: https://packagecloud.io/timescale/timescaledb/gpgkey
-timescaledb_packages:
-  - "timescaledb-postgresql-{{ postgresql_version }}"
