@@ -34,6 +34,14 @@ resource "openstack_compute_instance_v2" "admin" {
   }
 }
 
+resource "ovh_domain_zone_record" "admin" {
+  zone      = var.domain_name
+  subdomain = openstack_compute_instance_v2.admin.name
+  fieldtype = "A"
+  ttl       = "60"
+  target    = openstack_compute_instance_v2.admin.access_ip_v4
+}
+
 output "admin" {
   value = openstack_compute_instance_v2.admin.network[0].fixed_ip_v4
 }

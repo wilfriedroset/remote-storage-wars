@@ -36,6 +36,15 @@ resource "openstack_compute_instance_v2" "consul_server" {
   }
 }
 
+resource "ovh_domain_zone_record" "consul_server" {
+  count     = length(openstack_compute_instance_v2.consul_server)
+  zone      = var.domain_name
+  subdomain = openstack_compute_instance_v2.consul_server[count.index].name
+  fieldtype = "A"
+  ttl       = "60"
+  target    = openstack_compute_instance_v2.consul_server[count.index].access_ip_v4
+}
+
 output "consul_server" {
   value = openstack_compute_instance_v2.consul_server[*].network[0].fixed_ip_v4
 }

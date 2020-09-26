@@ -35,6 +35,14 @@ resource "openstack_compute_instance_v2" "tsbs" {
   }
 }
 
+resource "ovh_domain_zone_record" "tsbs" {
+  zone      = var.domain_name
+  subdomain = openstack_compute_instance_v2.tsbs.name
+  fieldtype = "A"
+  ttl       = "60"
+  target    = openstack_compute_instance_v2.tsbs.access_ip_v4
+}
+
 output "tsbs" {
   value = openstack_compute_instance_v2.tsbs.network[0].fixed_ip_v4
 }
@@ -77,6 +85,15 @@ resource "openstack_compute_instance_v2" "timescale_prometheus" {
   }
 }
 
+resource "ovh_domain_zone_record" "timescale_prometheus" {
+  zone      = var.domain_name
+  subdomain = openstack_compute_instance_v2.timescale_prometheus.name
+  fieldtype = "A"
+  ttl       = "60"
+  target    = openstack_compute_instance_v2.timescale_prometheus.access_ip_v4
+}
+
+
 output "timescale_prometheus" {
   value = openstack_compute_instance_v2.timescale_prometheus.network[0].fixed_ip_v4
 }
@@ -118,6 +135,14 @@ resource "openstack_compute_instance_v2" "grafana" {
   }
 }
 
+resource "ovh_domain_zone_record" "grafana" {
+  zone      = var.domain_name
+  subdomain = openstack_compute_instance_v2.grafana.name
+  fieldtype = "A"
+  ttl       = "60"
+  target    = openstack_compute_instance_v2.grafana.access_ip_v4
+}
+
 output "grafana" {
   value = openstack_compute_instance_v2.grafana.network[0].fixed_ip_v4
 }
@@ -157,6 +182,14 @@ resource "openstack_compute_instance_v2" "prometheus" {
       "cloud-init status --wait > /dev/null"
     ]
   }
+}
+
+resource "ovh_domain_zone_record" "prometheus" {
+  zone      = var.domain_name
+  subdomain = openstack_compute_instance_v2.prometheus.name
+  fieldtype = "A"
+  ttl       = "60"
+  target    = openstack_compute_instance_v2.prometheus.access_ip_v4
 }
 
 output "prometheus" {

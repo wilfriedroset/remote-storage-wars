@@ -8,6 +8,8 @@ variable "instance_flavor" {
   default = "s1-2"
 }
 
+variable "domain_name" {}
+
 variable "ovh_endpoint" {
   default = "ovh-eu"
 }
