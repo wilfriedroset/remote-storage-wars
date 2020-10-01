@@ -16,5 +16,7 @@ roles:
     version: 9.7.0
   - name: dev-sec.os-hardening
     version: 6.2.0
+  - name: kostiantyn-nemchenko.patroni
+    version: v1.0.0
 
 collections: []

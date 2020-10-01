@@ -58,3 +58,5 @@ consul_services:
     checks:
       - tcp: "{{ private_ip }}:9100"
         interval: "10s"
+
+postgresql_version: 12

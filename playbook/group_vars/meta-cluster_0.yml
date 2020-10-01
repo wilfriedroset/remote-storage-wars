@@ -1,23 +1,17 @@
 ---
-postgresql_users:
-  - name: tsbs
-    password: tsbs
-    role_attr_flags: SUPERUSER
+cluster_id: 0
+patroni_users:
   - name: timescale
     password: timescale
     role_attr_flags: SUPERUSER
+  - name: nyc_data
+    password: nyc_data
 
-postgresql_databases:
-  - name: tsbs
-    owner: tsbs
+patroni_databases:
   - name: timescale
     owner: timescale
-
-postgresql_hba_entries:
-  - {type: local, database: all, user: postgres, auth_method: peer}
-  - {type: local, database: all, user: all, auth_method: peer}
-  - {type: host, database: all, user: all, address: '127.0.0.1/32', auth_method: md5}
-  - {type: host, database: all, user: all, address: '10.94.3.0/24', auth_method: md5}
+  - name: nyc_data
+    owner: nyc_data
 
 consul_services:
   - name: "node-exporter"

@@ -1,0 +1,56 @@
+---
+patroni_postgresql_version: "{{ postgresql_version }}"
+postgresql_user: postgres
+
+patroni_dcs: consul
+patroni_consul_consistency: consistent
+patroni_consul_register_service: true
+patroni_scope: "cluster{{ cluster_id }}"
+patroni_namespace: "/patroni/"
+
+patroni_bin_dir: /usr/bin
+patroni_config_file: "config.yml"
+patroni_log_destination: not_stderr
+patroni_restapi_listen: "{{ private_ip }}:8008"
+patroni_restapi_connect_address: "{{ private_ip }}:8008"
+
+# Don't want to install anything from pip
+patroni_system_packages: []
+patroni_pip_packages: []
+
+# Patroni is in pgdg repository
+patroni_postgresql_packages:
+  - {name: "postgresql-{{ patroni_postgresql_version }}", state: "present"}
+  - {name: "postgresql-client-{{ patroni_postgresql_version }}", state: "present"}
+  - {name: "postgresql-contrib-{{ patroni_postgresql_version }}", state: "present"}
+  - {name: "patroni", state: "present"}
+  - {name: "python3-consul", state: "present"}
+  - {name: "postgresql-{{ patroni_postgresql_version }}-pglogical", state: "present"}
+  - {name: "timescaledb-postgresql-{{ patroni_postgresql_version }}", state: "present"}
+  - {name: "postgresql-{{ patroni_postgresql_version }}-postgis-3", state: "present"}
+
+
+patroni_bootstrap_initdb:
+  - {option: "username", value: "postgres"}
+  - {option: "encoding", value: "UTF8"}
+  - {option: "data-checksums"}
+
+patroni_postgresql_listen: "{{ private_ip }}:5432"
+patroni_postgresql_connect_address: "{{ private_ip }}:5432"
+patroni_postgresql_pg_hba:
+  - {type: "local", database: "all", user: "all", method: "peer"}
+  - {type: "hostssl", database: "all", user: "all", address: "all", method: "md5"}
+  - {type: "host", database: "all", user: "all", address: "127.0.0.1/0", method: "md5"}
+  - {type: "host", database: "all", user: "all", address: "10.94.5.0/0", method: "md5"}
+  - {type: "host", database: "replication", user: "all", address: "127.0.0.1/0", method: "md5"}
+  - {type: "host", database: "replication", user: "all", address: "10.94.5.0/0", method: "md5"}
+
+patroni_postgresql_parameters:
+  - {option: "unix_socket_directories", value: "/var/run/postgresql"}
+  - {option: "shared_preload_libraries", value: "pg_stat_statements,pglogical,timescaledb"}
+  - {option: "timescaledb.telemetry_level", value: "off"}
+  - {option: "ssl", value: "on"}
+  - {option: "ssl_cert_file", value: "/etc/ssl/certs/ssl-cert-snakeoil.pem"}
+  - {option: "ssl_key_file", value: "/etc/ssl/private/ssl-cert-snakeoil.key"}
+  # yamllint disable-line rule:line-length
+  - {option: "ssl_ciphers", value: "ECDHE-ECDSA-AES256-GCM-SHA384:ECDHE-RSA-AES256-GCM-SHA384:ECDHE-ECDSA-CHACHA20-POLY1305:ECDHE-RSA-CHACHA20-POLY1305:ECDHE-ECDSA-AES128-GCM-SHA256:ECDHE-RSA-AES128-GCM-SHA256:ECDHE-ECDSA-AES256-SHA384:ECDHE-RSA-AES256-SHA384:ECDHE-ECDSA-AES128-SHA256:ECDHE-RSA-AES128-SHA256:DHE-RSA-AES256-SHA"}

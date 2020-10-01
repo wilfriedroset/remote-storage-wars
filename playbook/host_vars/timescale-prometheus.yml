@@ -1,6 +1,6 @@
 ---
 timescale_prometheus_cfg:
-  TS_PROM_DB_HOST: timescale.service
+  TS_PROM_DB_HOST: master.cluster0.service.consul
   TS_PROM_DB_NAME: timescale
   TS_PROM_DB_PASSWORD: timescale
   TS_PROM_DB_USER: timescale

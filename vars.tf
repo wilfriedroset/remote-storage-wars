@@ -8,6 +8,10 @@ variable "instance_flavor" {
   default = "s1-2"
 }
 
+variable "node_per_patroni_cluster" {
+  default = 3
+}
+
 variable "domain_name" {}
 
 variable "ovh_endpoint" {
