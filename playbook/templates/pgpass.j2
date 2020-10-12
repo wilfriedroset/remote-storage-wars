@@ -1,0 +1,3 @@
+{% for cred in pgpass -%}
+{{ cred.hostname|default('*') }}:{{ cred.port|default('*') }}:{{ cred.database|default('*') }}:{{ cred.username }}:{{ cred.password }}
+{% endfor %}

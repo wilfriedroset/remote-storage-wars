@@ -21,3 +21,10 @@
         owner: root
         group: root
         mode: '0644'
+    - name: Configure pgpass
+      template:
+        src: templates/pgpass.j2
+        dest: /home/debian/.pgpass
+        owner: debian
+        group: debian
+        mode: '0600'

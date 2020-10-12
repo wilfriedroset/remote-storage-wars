@@ -2,3 +2,7 @@
 postgresql_client_packages:
   - "postgresql-client-{{ postgresql_version }}"
   - "postgresql-client-common"
+
+pgpass:
+  - username: timescale
+    password: timescale
