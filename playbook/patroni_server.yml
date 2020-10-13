@@ -43,42 +43,47 @@
     - debug:
         var: pg_is_in_recovery.query_result[0].pg_is_in_recovery
 
-    # Shameless copy of https://github.com/geerlingguy/ansible-role-postgresql/blob/master/tasks/users.yml
-    - name: Ensure PostgreSQL users are present.
-      postgresql_user:
-        name: "{{ item.name }}"
-        password: "{{ item.password | default(omit) }}"
-        encrypted: "{{ item.encrypted | default(omit) }}"
-        priv: "{{ item.priv | default(omit) }}"
-        role_attr_flags: "{{ item.role_attr_flags | default(omit) }}"
-        db: "{{ item.db | default(omit) }}"
-        login_host: "{{ item.login_host | default('localhost') }}"
-        login_password: "{{ item.login_password | default(omit) }}"
-        login_user: "{{ item.login_user | default(postgresql_user) }}"
-        login_unix_socket: "{{ item.login_unix_socket | default('/var/run/postgresql') }}"
-        port: "{{ item.port | default(omit) }}"
-        state: "{{ item.state | default('present') }}"
-      with_items: "{{ patroni_users }}"
-      no_log: "{{ patroni_users_no_log|default(true) }}"
-      become: true
-      become_user: "{{ postgresql_user|default('postgres') }}"
-      when: not pg_is_in_recovery.query_result[0].pg_is_in_recovery
+    # We are running a cluster, let's write only where it matter
+    - name: Create databases associated roles and privs.
+      block:
+        # Shameless copy of https://github.com/geerlingguy/ansible-role-postgresql/blob/master/tasks/users.yml
+        - name: Ensure PostgreSQL users are present.
+          postgresql_user:
+            name: "{{ item.name }}"
+            password: "{{ item.password | default(omit) }}"
+            encrypted: "{{ item.encrypted | default(omit) }}"
+            priv: "{{ item.priv | default(omit) }}"
+            role_attr_flags: "{{ item.role_attr_flags | default(omit) }}"
+            db: "{{ item.db | default(omit) }}"
+            login_host: "{{ item.login_host | default('localhost') }}"
+            login_password: "{{ item.login_password | default(omit) }}"
+            login_user: "{{ item.login_user | default(postgresql_user) }}"
+            login_unix_socket: "{{ item.login_unix_socket | default('/var/run/postgresql') }}"
+            port: "{{ item.port | default(omit) }}"
+            state: "{{ item.state | default('present') }}"
+          with_items: "{{ patroni_users }}"
 
-    - name: Ensure PostgreSQL databases are present.
-      postgresql_db:
-        name: "{{ item.name }}"
-        lc_collate: "{{ item.lc_collate | default('en_US.UTF-8') }}"
-        lc_ctype: "{{ item.lc_ctype | default('en_US.UTF-8') }}"
-        encoding: "{{ item.encoding | default('UTF-8') }}"
-        template: "{{ item.template | default('template0') }}"
-        login_host: "{{ item.login_host | default('localhost') }}"
-        login_password: "{{ item.login_password | default(omit) }}"
-        login_user: "{{ item.login_user | default(postgresql_user) }}"
-        login_unix_socket: "{{ item.login_unix_socket | default('/var/run/postgresql') }}"
-        port: "{{ item.port | default(omit) }}"
-        owner: "{{ item.owner | default(postgresql_user) }}"
-        state: "{{ item.state | default('present') }}"
-      with_items: "{{ patroni_databases }}"
+        - name: Ensure PostgreSQL databases are present.
+          postgresql_db:
+            name: "{{ item.name }}"
+            lc_collate: "{{ item.lc_collate | default('en_US.UTF-8') }}"
+            lc_ctype: "{{ item.lc_ctype | default('en_US.UTF-8') }}"
+            encoding: "{{ item.encoding | default('UTF-8') }}"
+            template: "{{ item.template | default('template0') }}"
+            login_host: "{{ item.login_host | default('localhost') }}"
+            login_password: "{{ item.login_password | default(omit) }}"
+            login_user: "{{ item.login_user | default(postgresql_user) }}"
+            login_unix_socket: "{{ item.login_unix_socket | default('/var/run/postgresql') }}"
+            port: "{{ item.port | default(omit) }}"
+            owner: "{{ item.owner | default(postgresql_user) }}"
+            state: "{{ item.state | default('present') }}"
+          with_items: "{{ patroni_databases }}"
+
+        - include_tasks: tasks/postgresql-database-extension-create.yml
+          loop: "{{ patroni_databases }}"
+          loop_control:
+            loop_var: database
+
       become: true
       become_user: "{{ postgresql_user|default('postgres') }}"
       when: not pg_is_in_recovery.query_result[0].pg_is_in_recovery

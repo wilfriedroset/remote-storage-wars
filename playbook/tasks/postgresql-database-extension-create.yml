@@ -1,0 +1,9 @@
+---
+- name: "Add extension {{ extension.name }} to database {{ database.name }}"
+  postgresql_ext:
+    name: "{{ extension.name }}"
+    db: "{{ database.name }}"
+    version: "{{ extension.version|default(omit) }}"
+  loop: "{{ database.extensions }}"
+  loop_control:
+    loop_var: extension

@@ -6,3 +6,7 @@ postgresql_client_packages:
 pgpass:
   - username: timescale
     password: timescale
+  - username: tutorial
+    password: tutorial
+  - username: nyc_data
+    password: nyc_data
