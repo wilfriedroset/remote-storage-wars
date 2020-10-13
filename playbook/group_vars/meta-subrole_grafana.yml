@@ -11,6 +11,66 @@ grafana_datasources:
     url: "http://timescale-prometheus.node:9201"
     isDefault: true
 
+  - name: "timescale-prometheus"
+    type: "postgres"
+    sslmode: "require"
+    access: "proxy"
+    url: "replica.cluster0.service.consul:5432"
+    database: "timescale"
+    user: "timescale"
+    password: "timescale"
+    jsonData:
+      sslmode: require
+      timescaledb: true
+      postgresVersion: 1200
+
+  - name: "nyc_data"
+    type: "postgres"
+    sslmode: "require"
+    access: "proxy"
+    url: "replica.cluster0.service.consul:5432"
+    database: "nyc_data"
+    user: "nyc_data"
+    password: "nyc_data"
+    jsonData:
+      sslmode: require
+      postgresVersion: 1200
+      timescaledb: true
+
+  - name: "devices_small"
+    type: "postgres"
+    sslmode: "require"
+    access: "proxy"
+    url: "replica.cluster0.service.consul:5432"
+    database: "devices_small"
+    user: "tutorial"
+    password: "tutorial"
+    jsonData:
+      sslmode: require
+      postgresVersion: 1200
+      timescaledb: true
+
+  - name: "weather_small"
+    type: "postgres"
+    sslmode: "require"
+    access: "proxy"
+    url: "replica.cluster0.service.consul:5432"
+    database: "weather_small"
+    user: "tutorial"
+    password: "tutorial"
+    jsonData:
+      sslmode: require
+      postgresVersion: 1200
+      timescaledb: true
+
+grafana_plugins:
+  - grafana-worldmap-panel
+
+grafana_dashboards:
+  - dashboard_id: 1860
+    revision_id: 21
+    datasource: Prometheus
+
 consul_services:
   - name: "node-exporter"
     id: "node-exporter"
