@@ -1,0 +1,20 @@
+---
+victoriametrics_vmselect_cache_dir: "/usr/local/bin/victoria-cache"
+victoriametrics_vmselect_memory_allowed_percent: "60"
+victoriametrics_vmselect_service_args: ""  # Add extra variables here . Found more options with vmselect-prod --help
+
+consul_services:
+  - name: "node-exporter"
+    id: "node-exporter"
+    address: "{{ private_ip }}"
+    port: 9100
+    checks:
+      - tcp: "{{ private_ip }}:9100"
+        interval: "10s"
+  - name: "vmselect"
+    id: "vmselect"
+    address: "{{ private_ip }}"
+    port: 8481
+    checks:
+      - http: http://localhost:8481/health
+        interval: "10s"

@@ -1,0 +1,8 @@
+---
+- name: Configure VictoriaMetrics
+  hosts: meta-role_victoriametrics
+  any_errors_fatal: true
+  become: true
+  become_user: root
+  roles:
+    - slapper.ansible_victoriametrics_cluster_role

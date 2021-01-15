@@ -89,6 +89,23 @@ resource "openstack_networking_secgroup_rule_v2" "postgresql" {
   security_group_id = openstack_networking_secgroup_v2.timescale_postgresql_security_group.id
 }
 
+# VictoriaMetrics
+
+resource "openstack_networking_secgroup_v2" "timescale_victoriametrics_security_group" {
+  name        = "timescale_victoriametrics_security_group"
+  description = "timescale security group"
+}
+
+resource "openstack_networking_secgroup_rule_v2" "victoriametrics" {
+  direction         = "ingress"
+  ethertype         = "IPv4"
+  protocol          = "tcp"
+  port_range_min    = 5432
+  port_range_max    = 5432
+  remote_ip_prefix  = cidrsubnet(var.private_network, 8, 6)
+  security_group_id = openstack_networking_secgroup_v2.timescale_victoriametrics_security_group.id
+}
+
 # UI
 
 resource "openstack_networking_secgroup_v2" "timescale_ui_security_group" {

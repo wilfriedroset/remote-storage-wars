@@ -18,5 +18,6 @@ roles:
     version: 6.2.0
   - name: kostiantyn-nemchenko.patroni
     version: v1.0.0
+  - name: slapper.ansible_victoriametrics_cluster_role  # No tagged in ansible galayx
 
 collections: []

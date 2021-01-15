@@ -1,0 +1,21 @@
+---
+victoriametrics_vmstorage_data_dir: "/usr/local/bin/victoria-storage"
+victoriametrics_vmstorage_retention_period: "24"
+victoriametrics_vmstorage_memory_allowed_percent: "60"  # 60 is the default value
+victoriametrics_vmstorage_service_args: ""  # Add extra variables here .Found more options withvmstorage-prod --help
+
+consul_services:
+  - name: "node-exporter"
+    id: "node-exporter"
+    address: "{{ private_ip }}"
+    port: 9100
+    checks:
+      - tcp: "{{ private_ip }}:9100"
+        interval: "10s"
+  - name: "vmstorage"
+    id: "vmstorage"
+    address: "{{ private_ip }}"
+    port: 8482
+    checks:
+      - http: http://localhost:8482/health
+        interval: "10s"

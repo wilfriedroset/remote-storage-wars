@@ -16,6 +16,18 @@ variable "node_per_patroni_cluster" {
   default = 3
 }
 
+variable "node_vmstorage" {
+  default = 3
+}
+
+variable "node_vminsert" {
+  default = 3
+}
+
+variable "node_vmselect" {
+  default = 3
+}
+
 variable "domain_name" {}
 
 variable "ovh_endpoint" {

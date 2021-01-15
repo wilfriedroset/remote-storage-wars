@@ -5,11 +5,16 @@ grafana_security:
   admin_password: enter_your_secure_password
 
 grafana_datasources:
+  - name: "VictoriaMetrics"
+    type: "prometheus"
+    access: "proxy"
+    url: "http://lb.node:8481/select/0/prometheus"
+    isDefault: true
+
   - name: "Prometheus"
     type: "prometheus"
     access: "proxy"
     url: "http://timescale-prometheus.node:9201"
-    isDefault: true
 
   - name: "timescale-prometheus"
     type: "postgres"

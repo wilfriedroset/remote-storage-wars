@@ -2,6 +2,7 @@
 - import_playbook: common.yml
 - import_playbook: patroni_server.yml
 - import_playbook: postgresql_client.yml
+- import_playbook: victoriametrics.yml
 - import_playbook: timescale_prometheus.yml
 - import_playbook: prometheus.yml
 - import_playbook: grafana.yml

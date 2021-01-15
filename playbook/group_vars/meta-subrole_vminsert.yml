@@ -1,0 +1,19 @@
+---
+victoriametrics_vminsert_service_args: ""  # Add extra variables here . Found more options with vminsert-prod --help
+victoriametrics_vminsert_memory_allowed_percent: "60"
+
+consul_services:
+  - name: "node-exporter"
+    id: "node-exporter"
+    address: "{{ private_ip }}"
+    port: 9100
+    checks:
+      - tcp: "{{ private_ip }}:9100"
+        interval: "10s"
+  - name: "vminsert"
+    id: "vminsert"
+    address: "{{ private_ip }}"
+    port: 8480
+    checks:
+      - http: http://localhost:8480/health
+        interval: "10s"

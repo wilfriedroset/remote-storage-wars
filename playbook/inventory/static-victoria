@@ -1,0 +1,8 @@
+[vmstorage:children]
+meta-subrole_vmstorage
+
+[vminsert:children]
+meta-subrole_vminsert
+
+[vmselect:children]
+meta-subrole_vmselect
