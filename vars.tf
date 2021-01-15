@@ -8,6 +8,10 @@ variable "instance_flavor" {
   default = "s1-2"
 }
 
+variable "postgresql_instance_flavor" {
+  default = "s1-2"
+}
+
 variable "node_per_patroni_cluster" {
   default = 3
 }
