@@ -29,65 +29,30 @@ grafana_datasources:
       timescaledb: true
       postgresVersion: 1200
 
-  - name: "nyc_data"
-    type: "postgres"
-    sslmode: "require"
-    access: "proxy"
-    url: "replica.cluster0.service.consul:5432"
-    database: "nyc_data"
-    user: "nyc_data"
-    password: "nyc_data"
-    jsonData:
-      sslmode: require
-      postgresVersion: 1200
-      timescaledb: true
-
-  - name: "devices_small"
-    type: "postgres"
-    sslmode: "require"
-    access: "proxy"
-    url: "replica.cluster0.service.consul:5432"
-    database: "devices_small"
-    user: "tutorial"
-    password: "tutorial"
-    jsonData:
-      sslmode: require
-      postgresVersion: 1200
-      timescaledb: true
-
-  - name: "weather_small"
-    type: "postgres"
-    sslmode: "require"
-    access: "proxy"
-    url: "replica.cluster0.service.consul:5432"
-    database: "weather_small"
-    user: "tutorial"
-    password: "tutorial"
-    jsonData:
-      sslmode: require
-      postgresVersion: 1200
-      timescaledb: true
-
-  - name: "outflux"
-    type: "postgres"
-    sslmode: "require"
-    access: "proxy"
-    url: "replica.cluster0.service.consul:5432"
-    database: "outflux"
-    user: "outflux"
-    password: "outflux"
-    jsonData:
-      sslmode: require
-      postgresVersion: 1200
-      timescaledb: true
-
 grafana_plugins:
   - grafana-worldmap-panel
+  - grafana-piechart-panel
+  - digiapulssi-breadcrumb-panel
 
 grafana_dashboards:
   - dashboard_id: 1860
     revision_id: 21
     datasource: Prometheus
+  - dashboard_id: 11176
+    revision_id: 8
+    datasource: VictoriaMetrics
+  - dashboard_id: 11831
+    revision_id: 6
+    datasource: VictoriaMetrics
+  - dashboard_id: 3742
+    revision_id: 3
+    datasource: VictoriaMetrics
+  - dashboard_id: 455
+    revision_id: 2
+    datasource: VictoriaMetrics
+  - dashboard_id: 2428
+    revision_id: 7
+    datasource: VictoriaMetrics
 
 consul_services:
   - name: "node-exporter"
