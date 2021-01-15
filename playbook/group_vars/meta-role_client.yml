@@ -10,3 +10,5 @@ pgpass:
     password: tutorial
   - username: nyc_data
     password: nyc_data
+  - username: outflux
+    password: outflux

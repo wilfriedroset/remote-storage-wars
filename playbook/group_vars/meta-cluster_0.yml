@@ -8,6 +8,8 @@ patroni_users:
     password: nyc_data
   - name: tutorial
     password: tutorial
+  - name: outflux
+    password: outflux
 
 patroni_databases:
   - name: timescale
@@ -25,6 +27,10 @@ patroni_databases:
       - name: timescaledb
   - name: weather_small
     owner: tutorial
+    extensions:
+      - name: timescaledb
+  - name: outflux
+    owner: outflux
     extensions:
       - name: timescaledb
 

@@ -63,6 +63,19 @@ grafana_datasources:
       postgresVersion: 1200
       timescaledb: true
 
+  - name: "outflux"
+    type: "postgres"
+    sslmode: "require"
+    access: "proxy"
+    url: "replica.cluster0.service.consul:5432"
+    database: "outflux"
+    user: "outflux"
+    password: "outflux"
+    jsonData:
+      sslmode: require
+      postgresVersion: 1200
+      timescaledb: true
+
 grafana_plugins:
   - grafana-worldmap-panel
 
