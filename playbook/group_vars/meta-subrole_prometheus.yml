@@ -16,4 +16,4 @@ prometheus_scrape_configs:
         target_label: dc
     consul_sd_configs:
       - server: 'localhost:8500'
-        services: [node-exporter]
+        services: [node-exporter, vminsert, vmselect, vmstorage, postgresql-exporter]
