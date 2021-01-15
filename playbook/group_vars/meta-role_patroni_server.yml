@@ -54,3 +54,25 @@ patroni_postgresql_parameters:
   - {option: "ssl_key_file", value: "/etc/ssl/private/ssl-cert-snakeoil.key"}
   # yamllint disable-line rule:line-length
   - {option: "ssl_ciphers", value: "ECDHE-ECDSA-AES256-GCM-SHA384:ECDHE-RSA-AES256-GCM-SHA384:ECDHE-ECDSA-CHACHA20-POLY1305:ECDHE-RSA-CHACHA20-POLY1305:ECDHE-ECDSA-AES128-GCM-SHA256:ECDHE-RSA-AES128-GCM-SHA256:ECDHE-ECDSA-AES256-SHA384:ECDHE-RSA-AES256-SHA384:ECDHE-ECDSA-AES128-SHA256:ECDHE-RSA-AES128-SHA256:DHE-RSA-AES256-SHA"}
+
+postgres_exporter_version: 0.8.0
+postgres_exporter_checksum: 9af399257fe6ad20bf6ea7a4984721ae364bd574
+postgres_exporter_datasource: "user=postgres host=/var/run/postgresql database=postgres sslmode=disable"
+postgres_exporter_flags:
+  - '--extend.query-path=/var/lib/postgresql/queries.yml --disable-settings-metrics'
+
+consul_services:
+  - name: "node-exporter"
+    id: "node-exporter"
+    address: "{{ private_ip }}"
+    port: 9100
+    checks:
+      - tcp: "{{ private_ip }}:9100"
+        interval: "10s"
+  - name: "postgresql-exporter"
+    id: "postgresql-exporter"
+    address: "{{ private_ip }}"
+    port: 9187
+    checks:
+      - http: http://localhost:9187/health
+        interval: "10s"

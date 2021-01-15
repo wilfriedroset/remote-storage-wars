@@ -19,5 +19,7 @@ roles:
   - name: kostiantyn-nemchenko.patroni
     version: v1.0.0
   - name: slapper.ansible_victoriametrics_cluster_role  # No tagged in ansible galayx
+  - name: bdellegrazie.postgres_exporter
+    version: v4.1.0
 
 collections: []

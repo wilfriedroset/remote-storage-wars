@@ -8,6 +8,7 @@
     - local.pgdg
     - local.timescaledb
     - kostiantyn-nemchenko.patroni
+    - bdellegrazie.postgres_exporter
   tasks:
     - name: Create patronictl configuration directory
       file:
