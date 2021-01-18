@@ -8,19 +8,19 @@ grafana_datasources:
   - name: "VictoriaMetrics"
     type: "prometheus"
     access: "proxy"
-    url: "http://lb.node:8481/select/0/prometheus"
+    url: "http://victoriametrics-ro:8481/select/0/prometheus"
     isDefault: true
 
-  - name: "Prometheus"
+  - name: "promscale"
     type: "prometheus"
     access: "proxy"
     url: "http://timescale-prometheus.node:9201"
 
-  - name: "timescale-prometheus"
+  - name: "timescaledb"
     type: "postgres"
     sslmode: "require"
     access: "proxy"
-    url: "replica.cluster0.service.consul:5432"
+    url: "timescale-pg-ro:4000"
     database: "timescale"
     user: "timescale"
     password: "timescale"
