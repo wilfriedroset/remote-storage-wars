@@ -28,6 +28,10 @@ variable "node_vmselect" {
   default = 3
 }
 
+variable "lb_count" {
+  default = 2
+}
+
 variable "domain_name" {}
 
 variable "ovh_endpoint" {

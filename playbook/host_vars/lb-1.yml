@@ -1,0 +1,9 @@
+---
+
+consul_template_template_templates:
+  - src: "templates/haproxy-victoriametrics.ctmpl.j2"
+    dest: "haproxy.ctmpl"
+    cmd: "systemctl reload consul-template.service"
+    perms: "0600"
+    backup: "true"
+    wait: "2s"

@@ -21,5 +21,9 @@ roles:
   - name: slapper.ansible_victoriametrics_cluster_role  # No tagged in ansible galayx
   - name: bdellegrazie.postgres_exporter
     version: v4.1.0
+  - name: bdellegrazie.haproxy_exporter
+    version: v1.3.2
+  - name: griggheo.consul-template
+    version: 1.2.4
 
 collections: []

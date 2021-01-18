@@ -159,3 +159,50 @@ resource "openstack_networking_secgroup_rule_v2" "prometheus" {
   remote_ip_prefix  = var.private_network
   security_group_id = openstack_networking_secgroup_v2.timescale_prometheus_security_group.id
 }
+
+# LB
+
+resource "openstack_networking_secgroup_v2" "timescale_lb_security_group" {
+  name        = "timescale_lb_security_group"
+  description = "timescale security group"
+}
+
+resource "openstack_networking_secgroup_rule_v2" "lb_pg_rw" {
+  direction         = "ingress"
+  ethertype         = "IPv4"
+  protocol          = "tcp"
+  port_range_min    = 3000
+  port_range_max    = 3000
+  remote_ip_prefix  = cidrsubnet(var.private_network, 8, 4)
+  security_group_id = openstack_networking_secgroup_v2.timescale_lb_security_group.id
+}
+
+resource "openstack_networking_secgroup_rule_v2" "lb_pg_ro" {
+  direction         = "ingress"
+  ethertype         = "IPv4"
+  protocol          = "tcp"
+  port_range_min    = 4000
+  port_range_max    = 4000
+  remote_ip_prefix  = cidrsubnet(var.private_network, 8, 4)
+  security_group_id = openstack_networking_secgroup_v2.timescale_lb_security_group.id
+}
+
+resource "openstack_networking_secgroup_rule_v2" "lb_victoria_insert" {
+  direction         = "ingress"
+  ethertype         = "IPv4"
+  protocol          = "tcp"
+  port_range_min    = 8480
+  port_range_max    = 8480
+  remote_ip_prefix  = cidrsubnet(var.private_network, 8, 4)
+  security_group_id = openstack_networking_secgroup_v2.timescale_lb_security_group.id
+}
+
+resource "openstack_networking_secgroup_rule_v2" "lb_victoria_select" {
+  direction         = "ingress"
+  ethertype         = "IPv4"
+  protocol          = "tcp"
+  port_range_min    = 8481
+  port_range_max    = 8481
+  remote_ip_prefix  = cidrsubnet(var.private_network, 8, 4)
+  security_group_id = openstack_networking_secgroup_v2.timescale_lb_security_group.id
+}
