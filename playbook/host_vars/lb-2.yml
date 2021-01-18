@@ -47,3 +47,4 @@ consul_services:
     tags:
       - ro
       - rw
+      - lb
