@@ -12,10 +12,12 @@ consul_services:
     checks:
       - tcp: "{{ private_ip }}:9100"
         interval: "10s"
-  - name: "timescale-prometheus"
-    id: "timescale-prometheus"
+  - name: "promscale"
+    id: "promscale"
     address: "{{ private_ip }}"
     port: 9201
     checks:
       - http: "http://{{ private_ip }}:9201/healthz"
         interval: "10s"
+    tags:
+      - node

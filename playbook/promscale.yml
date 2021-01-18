@@ -1,6 +1,6 @@
 ---
 - name: Boostrap timescale_prometheus connector
-  hosts: meta-subrole_timescale_prometheus
+  hosts: meta-role_promscale
   any_errors_fatal: true
   become: true
   become_user: root

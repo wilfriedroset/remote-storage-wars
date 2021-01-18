@@ -65,3 +65,13 @@ resource "openstack_networking_subnet_v2" "victoriametrics" {
   no_gateway      = true
   dns_nameservers = ["213.186.33.99", "8.8.8.8"]
 }
+
+resource "openstack_networking_subnet_v2" "promscale" {
+  name            = "promscale"
+  network_id      = openstack_networking_network_v2.private_network.id
+  ip_version      = 4
+  cidr            = cidrsubnet(var.private_network, 8, 7)
+  enable_dhcp     = true
+  no_gateway      = true
+  dns_nameservers = ["213.186.33.99", "8.8.8.8"]
+}

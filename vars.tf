@@ -28,6 +28,10 @@ variable "node_vmselect" {
   default = 3
 }
 
+variable "promscale_count" {
+  default = 1
+}
+
 variable "lb_count" {
   default = 2
 }
