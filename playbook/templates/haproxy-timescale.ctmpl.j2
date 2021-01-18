@@ -46,3 +46,13 @@ listen read-only
 {{- range service "cluster0|any" }}
     server {{ .Node }} {{ .Address }}:5432 check port 8008{{ end }}
 {% endraw %}
+
+listen promscale
+    mode http
+    option httpchk GET /healthz
+    bind *:9201
+    default-server inter 5s fall 3 rise 2
+{% raw %}
+{{- range service "timescale-prometheus|any" }}
+    server {{ .Node }} {{ .Address }}:9201 check{{ end }}
+{% endraw %}

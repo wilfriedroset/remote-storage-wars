@@ -37,3 +37,13 @@ consul_services:
     checks:
       - tcp: "{{ private_ip }}:4000"
         interval: "10s"
+  - name: "promscale"
+    id: "promscale"
+    address: "{{ private_ip }}"
+    port: 9201
+    checks:
+      - tcp: "{{ private_ip }}:9201"
+        interval: "10s"
+    tags:
+      - ro
+      - rw
