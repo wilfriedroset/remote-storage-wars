@@ -23,15 +23,15 @@ consul_services:
     checks:
       - http: http://localhost:9101/health
         interval: "10s"
-  - name: "timescale-pg-rw"
-    id: "timescale-pg-rw"
+  - name: "timescaledb-rw"
+    id: "timescaledb-rw"
     address: "{{ private_ip }}"
     port: 3000
     checks:
       - tcp: "{{ private_ip }}:3000"
         interval: "10s"
-  - name: "timescale-pg-ro"
-    id: "timescale-pg-ro"
+  - name: "timescaledb-ro"
+    id: "timescaledb-ro"
     address: "{{ private_ip }}"
     port: 4000
     checks:

@@ -20,7 +20,7 @@ grafana_datasources:
     type: "postgres"
     sslmode: "require"
     access: "proxy"
-    url: "timescale-pg-ro:4000"
+    url: "timescaledb-ro:4000"
     database: "timescale"
     user: "timescale"
     password: "timescale"
