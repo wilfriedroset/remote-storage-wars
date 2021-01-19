@@ -12,10 +12,6 @@ roles:
     version: 2.15.5
   - name: cloudalchemy.node-exporter
     version: 0.21.5
-  - name: dev-sec.ssh-hardening
-    version: 9.7.0
-  - name: dev-sec.os-hardening
-    version: 6.2.0
   - name: kostiantyn-nemchenko.patroni
     version: v1.0.0
   - name: slapper.ansible_victoriametrics_cluster_role  # No tagged in ansible galayx
@@ -26,4 +22,6 @@ roles:
   - name: griggheo.consul-template
     version: 1.2.4
 
-collections: []
+collections:
+  - name: devsec.hardening
+    version: 7.0.0
