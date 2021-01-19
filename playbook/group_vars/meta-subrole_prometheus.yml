@@ -18,4 +18,4 @@ prometheus_scrape_configs:
         target_label: dc
     consul_sd_configs:
       - server: 'localhost:8500'
-        services: [node-exporter, victoriametrics, postgresql-exporter]
+        services: [node-exporter, victoriametrics, postgresql-exporter, haproxy-exporter]
