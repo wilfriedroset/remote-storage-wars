@@ -23,17 +23,10 @@ consul_services:
     checks:
       - http: http://localhost:9101/health
         interval: "10s"
-  - name: "victoriametrics-rw"
-    id: "victoriametrics-rw"
+  - name: "victoriametrics"
+    id: "victoriametrics"
     address: "{{ private_ip }}"
-    port: 8480
-    checks:
-      - tcp: "{{ private_ip }}:8480"
-        interval: "10s"
-  - name: "victoriametrics-ro"
-    id: "victoriametrics-ro"
-    address: "{{ private_ip }}"
-    port: 8481
-    checks:
-      - tcp: "{{ private_ip }}:8481"
-        interval: "10s"
+    tags:
+      - ro
+      - rw
+      - lb

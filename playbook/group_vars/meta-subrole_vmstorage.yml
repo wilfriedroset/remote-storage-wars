@@ -12,10 +12,12 @@ consul_services:
     checks:
       - tcp: "{{ private_ip }}:9100"
         interval: "10s"
-  - name: "vmstorage"
-    id: "vmstorage"
+  - name: "victoriametrics"
+    id: "victoriametrics"
     address: "{{ private_ip }}"
     port: 8482
     checks:
       - http: http://localhost:8482/health
         interval: "10s"
+    tags:
+      - storage

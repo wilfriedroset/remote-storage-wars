@@ -10,10 +10,12 @@ consul_services:
     checks:
       - tcp: "{{ private_ip }}:9100"
         interval: "10s"
-  - name: "vminsert"
-    id: "vminsert"
+  - name: "victoriametrics"
+    id: "victoriametrics"
     address: "{{ private_ip }}"
     port: 8480
     checks:
       - http: http://localhost:8480/health
         interval: "10s"
+    tags:
+      - insert

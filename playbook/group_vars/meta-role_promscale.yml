@@ -1,6 +1,6 @@
 ---
 timescale_prometheus_cfg:
-  TS_PROM_DB_HOST: timescaledb-rw.service.consul
+  TS_PROM_DB_HOST: rw.timescaledb.service.consul
   TS_PROM_DB_PORT: 3000
   TS_PROM_DB_NAME: timescale
   TS_PROM_DB_PASSWORD: timescale
