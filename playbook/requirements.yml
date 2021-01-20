@@ -21,7 +21,11 @@ roles:
     version: v1.3.2
   - name: griggheo.consul-template
     version: 1.2.4
+  - name: bdellegrazie.nginx_exporter
+    version: v3.2.0
 
 collections:
   - name: devsec.hardening
     version: 7.0.0
+  - name: nginxinc.nginx_core
+    version: 0.3.0
