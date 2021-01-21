@@ -8,7 +8,8 @@ prometheus_remote_read:
   - url: http://ro.promscale:9201/read
   - url: http://ro.victoriametrics:8481/select/0/prometheus
 prometheus_scrape_configs:
-  - job_name: consul
+  - job_name: node-exporter
+    metrics_path: /node_exporter/metrics
     relabel_configs:
       - source_labels: [__meta_consul_node]
         target_label: hostname
@@ -18,7 +19,115 @@ prometheus_scrape_configs:
         target_label: dc
     consul_sd_configs:
       - server: 'localhost:8500'
-        services: [node-exporter, victoriametrics, postgresql-exporter, haproxy-exporter]
+        services: [node-exporter]
+  - job_name: nginx-exporter
+    metrics_path: /nginx_exporter/metrics
+    relabel_configs:
+      - source_labels: [__meta_consul_node]
+        target_label: hostname
+      - source_labels: [__meta_consul_node]
+        target_label: instance
+      - source_labels: [__meta_consul_dc]
+        target_label: dc
+    consul_sd_configs:
+      - server: 'localhost:8500'
+        services: [nginx-exporter]
+  - job_name: victoriametrics-exporter
+    metrics_path: /victoriametrics_exporter/metrics
+    relabel_configs:
+      - source_labels: [__meta_consul_node]
+        target_label: hostname
+      - source_labels: [__meta_consul_node]
+        target_label: instance
+      - source_labels: [__meta_consul_dc]
+        target_label: dc
+    consul_sd_configs:
+      - server: 'localhost:8500'
+        services: [victoriametrics-exporter]
+  - job_name: postgresql-exporter
+    metrics_path: /postgresql_exporter/metrics
+    relabel_configs:
+      - source_labels: [__meta_consul_node]
+        target_label: hostname
+      - source_labels: [__meta_consul_node]
+        target_label: instance
+      - source_labels: [__meta_consul_dc]
+        target_label: dc
+    consul_sd_configs:
+      - server: 'localhost:8500'
+        services: [postgresql-exporter]
+  - job_name: haproxy-exporter
+    metrics_path: /haproxy_exporter/metrics
+    relabel_configs:
+      - source_labels: [__meta_consul_node]
+        target_label: hostname
+      - source_labels: [__meta_consul_node]
+        target_label: instance
+      - source_labels: [__meta_consul_dc]
+        target_label: dc
+    consul_sd_configs:
+      - server: 'localhost:8500'
+        services: [haproxy-exporter]
+  - job_name: prometheus-exporter
+    metrics_path: /prometheus_exporter/metrics
+    relabel_configs:
+      - source_labels: [__meta_consul_node]
+        target_label: hostname
+      - source_labels: [__meta_consul_node]
+        target_label: instance
+      - source_labels: [__meta_consul_dc]
+        target_label: dc
+    consul_sd_configs:
+      - server: 'localhost:8500'
+        services: [prometheus-exporter]
+
+consul_services:
+  - name: "node-exporter"
+    id: "node-exporter"
+    address: "{{ private_ip }}"
+    port: 8888
+    checks:
+      - tcp: "localhost:9100"
+        interval: "10s"
+  - name: "nginx-exporter"
+    id: "nginx-exporter"
+    address: "{{ private_ip }}"
+    port: 8888
+    checks:
+      - tcp: "localhost:8080"
+        interval: "10s"
+  - name: "prometheus-exporter"
+    id: "prometheus-exporter"
+    address: "{{ private_ip }}"
+    port: 8888
+    checks:
+      - tcp: "localhost:8080"
+        interval: "10s"
+  - name: "prometheus"
+    id: "prometheus"
+    address: "{{ private_ip }}"
+    port: 9090
+    checks:
+      - tcp: "{{ private_ip }}:9090"
+        interval: "10s"
+
+nginx_config_http_template:
+  app:
+    servers:
+      main:
+        reverse_proxy:
+          locations:
+            prometheus_exporter:
+              location: /prometheus_exporter/
+              proxy_cache: exporter
+              proxy_pass: "http://localhost:9090/"
+              proxy_cache_background_update: false
+              proxy_cache_lock: true
+              proxy_cache_min_uses: 1
+              proxy_set_header:
+                header_host:
+                  name: Host
+                  value: $host
 
 # For the purpose of the benchmarking we will **not** spawn the total amount of
 # instance, instead we will scrape several time the same instance with a
