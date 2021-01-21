@@ -35,23 +35,33 @@ grafana_plugins:
   - digiapulssi-breadcrumb-panel
 
 grafana_dashboards:
+  # Prometheus Node Exporter Full
   - dashboard_id: 1860
     revision_id: 21
-    datasource: Prometheus
+    datasource: VictoriaMetrics
+  # VictoriaMetrics - cluster
   - dashboard_id: 11176
     revision_id: 8
     datasource: VictoriaMetrics
-  - dashboard_id: 11831
-    revision_id: 6
-    datasource: VictoriaMetrics
-  - dashboard_id: 3742
-    revision_id: 3
-    datasource: VictoriaMetrics
+  # Postgres Overview
   - dashboard_id: 455
     revision_id: 2
     datasource: VictoriaMetrics
-  - dashboard_id: 2428
-    revision_id: 7
+  # HAproxy Servers | HAproxy
+  - dashboard_id: 367
+    revision_id: 3
+    datasource: VictoriaMetrics
+  # HAproxy Backend | HAproxy
+  - dashboard_id: 364
+    revision_id: 3
+    datasource: VictoriaMetrics
+  # HAproxy Frontend | HAproxy
+  - dashboard_id: 361
+    revision_id: 3
+    datasource: VictoriaMetrics
+  # Prometheus 2.0 Overview
+  - dashboard_id: 3662
+    revision_id: 2
     datasource: VictoriaMetrics
 
 consul_services:
