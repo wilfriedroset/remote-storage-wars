@@ -1,7 +1,8 @@
 ---
 victoriametrics_vmselect_cache_dir: "/usr/local/bin/victoria-cache"
 victoriametrics_vmselect_memory_allowed_percent: "60"
-victoriametrics_vmselect_service_args: ""  # Add extra variables here . Found more options with vmselect-prod --help
+# Add extra variables here . Found more options with vmselect-prod --help
+victoriametrics_vmselect_service_args: "-dedup.minScrapeInterval=1ms"
 
 consul_services:
   - name: "node-exporter"

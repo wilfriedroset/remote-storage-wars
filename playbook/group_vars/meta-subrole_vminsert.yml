@@ -1,5 +1,6 @@
 ---
-victoriametrics_vminsert_service_args: ""  # Add extra variables here . Found more options with vminsert-prod --help
+# Add extra variables here . Found more options with vminsert-prod --help
+victoriametrics_vminsert_service_args: "-replicationFactor=3"
 victoriametrics_vminsert_memory_allowed_percent: "60"
 
 consul_services:
