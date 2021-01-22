@@ -1,4 +1,5 @@
 ---
+timescale_prometheus_limitnofile: 1048576
 timescale_prometheus_cfg:
   TS_PROM_DB_HOST: rw.timescaledb.service.consul
   TS_PROM_DB_PORT: 3000

@@ -12,6 +12,7 @@ SyslogIdentifier=node_exporter
 Restart=always
 RestartSec=1
 StartLimitInterval=0
+LimitNOFILE={{ timescale_prometheus_limitnofile }}
 
 PrivateTmp=yes
 ProtectHome=read-only
