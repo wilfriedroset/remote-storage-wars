@@ -15,3 +15,12 @@
         regexp: 'node-{{ item }}$'
         state: present
       loop: "{{ range(fake_targets_count)|list }}"
+
+    - name: Create file_sd_config file
+      template:
+        src: bench-file-sd-config.yml.j2
+        dest: /etc/prometheus/file_sd/bench-file-sd-config.yml
+        owner: root
+        group: prometheus
+        mode: 0644
+      notify: reload prometheus

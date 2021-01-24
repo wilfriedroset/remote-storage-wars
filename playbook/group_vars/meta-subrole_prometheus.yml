@@ -20,6 +20,9 @@ prometheus_scrape_configs:
     consul_sd_configs:
       - server: 'localhost:8500'
         services: [node-exporter]
+    file_sd_configs:
+      - files:
+          - /etc/prometheus/file_sd/*.yml
   - job_name: nginx-exporter
     metrics_path: /nginx_exporter/metrics
     relabel_configs:
@@ -134,3 +137,4 @@ nginx_config_http_template:
 # different target name in prometheus configuration. This setting define how
 # many fake entries we need to add to /etc/hosts.
 fake_targets_count: 50
+fake_dc_count: 2

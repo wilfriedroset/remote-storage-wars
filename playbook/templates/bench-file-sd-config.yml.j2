@@ -1,0 +1,14 @@
+---
+#
+# {{ ansible_managed }}
+#
+
+{% for n in range(fake_targets_count) %}
+- targets: ['node-{{n}}:8888']
+  labels:
+    hostname: node-{{ n }}
+    instance: node-{{ n }}
+    host_number: cfg_{{n}}
+    job: node-exporter
+    dc: dc{{ fake_dc_count |random(seed=n) }}
+{% endfor %}
