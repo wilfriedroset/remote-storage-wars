@@ -26,7 +26,7 @@ patroni_postgresql_packages:
   - {name: "patroni", state: "present"}
   - {name: "python3-consul", state: "present"}
   - {name: "postgresql-{{ patroni_postgresql_version }}-pglogical", state: "present"}
-  - {name: "timescaledb-postgresql-{{ patroni_postgresql_version }}", state: "present"}
+  - {name: "timescaledb-2-postgresql-{{ patroni_postgresql_version }}", state: "present"}
   - {name: "postgresql-{{ patroni_postgresql_version }}-postgis-3", state: "present"}
 
 
