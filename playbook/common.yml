@@ -10,7 +10,6 @@
     - devsec.hardening.os_hardening
     - devsec.hardening.ssh_hardening
     - local.common-packages
-    - brianshumate.consul
     - cloudalchemy.node-exporter
   handlers:
     - name: restart networking
