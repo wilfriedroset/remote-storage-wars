@@ -33,13 +33,6 @@ consul_services:
     checks:
       - tcp: "{{ private_ip }}:5432"
         interval: "10s"
-  - name: "tsbs"
-    id: "tsbs"
-    address: "{{ private_ip }}"
-    port: 5432
-    checks:
-      - tcp: "{{ private_ip }}:5432"
-        interval: "10s"
   - name: "timescale"
     id: "timescale"
     address: "{{ private_ip }}"
