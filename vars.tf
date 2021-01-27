@@ -50,7 +50,13 @@ variable "public_network" {
 
 variable "private_network" {}
 
-variable "ingress" {}
+variable "ssh_ingress" {
+  default = []
+}
+
+variable "ui_ingress" {
+  default = []
+}
 
 #  SSH Config
 
