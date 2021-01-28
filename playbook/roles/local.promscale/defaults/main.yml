@@ -1,0 +1,7 @@
+---
+promscale_bin_version: 0.1.4
+promscale_bin_url: "https://github.com/timescale/promscale/releases/download/{{ promscale_bin_version }}/promscale_{{ promscale_bin_version }}_Linux_x86_64"  # yamllint disable-line rule:line-length
+promscale_bin_path: /usr/local/bin/promscale
+promscale_cfg_path: /etc/promscale.cfg
+promscale_cfg: {}
+promscale_limitnofile: 1024

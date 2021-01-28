@@ -1,5 +1,5 @@
 {{ ansible_managed | comment }}
 
-{% for key, value in timescale_prometheus_cfg.items() %}
+{% for key, value in promscale_cfg.items() %}
 {{ key }}={{ value }}
 {% endfor %}

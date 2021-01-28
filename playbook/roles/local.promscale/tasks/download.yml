@@ -1,0 +1,9 @@
+---
+- name: Download binary
+  uri:
+    url: "{{ promscale_bin_url }}"
+    dest: "{{ promscale_bin_path }}"
+    creates: "{{ promscale_bin_path }}"
+    mode: 0755
+    owner: root
+    group: bin

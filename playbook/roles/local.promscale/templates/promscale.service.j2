@@ -6,13 +6,13 @@ After=network-online.target
 
 [Service]
 Type=simple
-EnvironmentFile={{ timescale_prometheus_cfg_path }}
-ExecStart={{ timescale_prometheus_bin_path }}
+EnvironmentFile={{ promscale_cfg_path }}
+ExecStart={{ promscale_bin_path }}
 SyslogIdentifier=node_exporter
 Restart=always
 RestartSec=1
 StartLimitInterval=0
-LimitNOFILE={{ timescale_prometheus_limitnofile }}
+LimitNOFILE={{ promscale_limitnofile }}
 
 PrivateTmp=yes
 ProtectHome=read-only

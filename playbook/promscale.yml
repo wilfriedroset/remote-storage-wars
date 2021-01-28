@@ -1,8 +1,8 @@
 ---
-- name: Boostrap timescale_prometheus connector
+- name: Boostrap promscale connector
   hosts: meta-role_promscale
   any_errors_fatal: true
   become: true
   become_user: root
   roles:
-    - local.timescale-prometheus
+    - local.promscale
