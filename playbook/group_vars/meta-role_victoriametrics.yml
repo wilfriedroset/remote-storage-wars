@@ -2,6 +2,6 @@
 victoriametrics_repo_url: "https://github.com/VictoriaMetrics/VictoriaMetrics"
 # yamllint disable-line rule:line-length
 victoriametrics_download_url: "{{ victoriametrics_repo_url }}/releases/download/{{ victoriametrics_version }}/victoria-metrics-{{ victoriametrics_version }}-cluster.tar.gz"
-victoriametrics_version: "v1.46.0"
+victoriametrics_version: "v1.52.0"
 victoriametrics_system_user: "victoria"
 victoriametrics_system_group: "victoria"
