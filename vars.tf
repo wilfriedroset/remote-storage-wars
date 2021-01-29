@@ -1,69 +1,135 @@
 variable "cloud" {}
 
 variable "instance_image" {
-  default = "Debian 10"
+  description = "The name of image to use for the server."
+  type        = string
+  default     = "Debian 10"
 }
 
 variable "instance_flavor" {
-  default = "s1-2"
+  description = "The name of the instance to use for the servers."
+  type        = string
+  default     = "s1-2"
+  validation {
+    condition = contains([
+      "b2-7", "b2-15", "b2-30", "b2-60", "b2-120",
+      "c2-7", "c2-15", "c2-30", "c2-60", "c2-120",
+      "i1-45", "i1-90", "i1-180",
+      "r2-15", "r2-30", "r2-60", "r2-120", "r2-240",
+      "s1-2", "s1-4", "s1-8",
+    ], lower(var.instance_flavor))
+    error_message = "Unsupported instance flavor specified."
+  }
 }
 
 variable "postgresql_instance_flavor" {
-  default = "s1-2"
+  description = "The name of the instance to use for the postgresql servers."
+  type        = string
+  default     = "s1-2"
+  validation {
+    condition = contains([
+      "b2-7", "b2-15", "b2-30", "b2-60", "b2-120",
+      "c2-7", "c2-15", "c2-30", "c2-60", "c2-120",
+      "i1-45", "i1-90", "i1-180",
+      "r2-15", "r2-30", "r2-60", "r2-120", "r2-240",
+      "s1-2", "s1-4", "s1-8",
+    ], lower(var.postgresql_instance_flavor))
+    error_message = "Unsupported postgresql instance flavor specified."
+  }
 }
 
 variable "node_per_patroni_cluster" {
-  default = 3
+  description = "The number of nodes in patroni cluster."
+  type        = number
+  default     = 3
 }
 
 variable "node_vmstorage" {
-  default = 3
+  description = "The number of victoria metric's storage node."
+  type        = number
+  default     = 3
 }
 
 variable "node_vminsert" {
-  default = 3
+  description = "The number of victoria metric's insert node."
+  type        = number
+  default     = 3
 }
 
 variable "node_vmselect" {
-  default = 3
+  description = "The number of victoria metric's select node."
+  type        = number
+  default     = 3
 }
 
 variable "promscale_count" {
-  default = 1
+  description = "The number of promscale instance."
+  type        = number
+  default     = 1
 }
 
 variable "lb_count" {
-  default = 2
+  description = "The number of load balancer."
+  type        = number
+  default     = 2
 }
 
-variable "domain_name" {}
+variable "domain_name" {
+  description = "The name of the dns zone to use for dns entries."
+  type        = string
+}
 
 variable "ovh_endpoint" {
-  default = "ovh-eu"
+  description = "The name of the API endpoint to use."
+  type        = string
+  default     = "ovh-eu"
+  validation {
+    condition = contains([
+      "ovh-eu", "ovh-ca", "ovh-us", "soyoustart-eu", "soyoustart-ca", "kimsufi-ca", "kimsufi-eu", "runabove-ca"
+    ], lower(var.ovh_endpoint))
+    error_message = "Unsupported ovh endpoint specified."
+  }
 }
 
 # Network configuration
 
 variable "public_network" {
-  default = "Ext-Net"
+  description = "The name of the public network to use for servers."
+  type        = string
+  default     = "Ext-Net"
 }
 
-variable "private_network" {}
+variable "private_network" {
+  description = "The name of the private network to create and use for servers."
+  type        = string
+}
 
 variable "ssh_ingress" {
-  default = []
+  description = "The CIDRs to allow for ssh incoming connexion."
+  type        = list(string)
+  default     = []
 }
 
 variable "ui_ingress" {
-  default = []
+  description = "The CIDRs to allow for UI incoming connexion."
+  type        = list(string)
+  default     = []
 }
 
 #  SSH Config
 
 variable "ssh_remote_user" {
-  default = "debian"
+  description = "The user to log in as on the remote machine."
+  type        = string
+  default     = "debian"
 }
 
-variable "ssh_key_name" {}
+variable "ssh_key_name" {
+  description = "The name of the ssh public key to create and deploy on servers."
+  type        = string
+}
 
-variable "ssh_key" {}
+variable "ssh_key" {
+  description = "The ssh public key to create and deploy on servers."
+  type        = string
+}
