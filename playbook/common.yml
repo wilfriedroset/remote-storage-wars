@@ -18,6 +18,15 @@
         state: restarted
         sleep: 5
   tasks:
+    - name: Deploy extra authorized keys
+      authorized_key:
+        user: "{{ item.value.user|default(ansible_ssh_user) }}"
+        key: "{{ item.value.key }}"
+        state: present
+        key_options: "{{ item.value.key_options|default(omit) }}"
+        comment: "{{ item.value.comment|default(omit) }}"
+      loop: "{{ extra_authorized_keys|default({})|dict2items }}"
+
     - name: Deploy dhclient.conf
       copy:
         dest: /etc/dhcp/dhclient.conf
