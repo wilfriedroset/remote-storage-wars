@@ -2,7 +2,7 @@ resource "openstack_compute_instance_v2" "tsbs" {
   name            = "tsbs"
   image_name      = var.instance_image
   flavor_name     = var.instance_flavor
-  key_pair        = var.ssh_key_name
+  key_pair        = var.ssh.public_key_name
   user_data       = file("userdata.yml")
   security_groups = ["timescale_ssh_security_group", "timescale_consul_security_group"]
 
@@ -24,7 +24,7 @@ resource "openstack_compute_instance_v2" "tsbs" {
     # No need to define a password of private key. It will default to
     # default local ssh-key
     type = "ssh"
-    user = var.ssh_remote_user
+    user = var.ssh.username
     host = self.access_ip_v4
   }
   provisioner "remote-exec" {
@@ -51,7 +51,7 @@ resource "openstack_compute_instance_v2" "grafana" {
   name            = "grafana"
   image_name      = var.instance_image
   flavor_name     = var.instance_flavor
-  key_pair        = var.ssh_key_name
+  key_pair        = var.ssh.public_key_name
   user_data       = file("userdata.yml")
   security_groups = ["timescale_ssh_security_group", "timescale_consul_security_group", "timescale_ui_security_group"]
 
@@ -73,7 +73,7 @@ resource "openstack_compute_instance_v2" "grafana" {
     # No need to define a password of private key. It will default to
     # default local ssh-key
     type = "ssh"
-    user = var.ssh_remote_user
+    user = var.ssh.username
     host = self.access_ip_v4
   }
   provisioner "remote-exec" {
@@ -100,7 +100,7 @@ resource "openstack_compute_instance_v2" "prometheus" {
   name            = "prometheus"
   image_name      = var.instance_image
   flavor_name     = var.instance_flavor
-  key_pair        = var.ssh_key_name
+  key_pair        = var.ssh.public_key_name
   user_data       = file("userdata.yml")
   security_groups = ["timescale_ssh_security_group", "timescale_consul_security_group", "timescale_ui_security_group"]
 
@@ -122,7 +122,7 @@ resource "openstack_compute_instance_v2" "prometheus" {
     # No need to define a password of private key. It will default to
     # default local ssh-key
     type = "ssh"
-    user = var.ssh_remote_user
+    user = var.ssh.username
     host = self.access_ip_v4
   }
   provisioner "remote-exec" {

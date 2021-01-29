@@ -118,18 +118,16 @@ variable "ui_ingress" {
 
 #  SSH Config
 
-variable "ssh_remote_user" {
-  description = "The user to log in as on the remote machine."
-  type        = string
-  default     = "debian"
-}
-
-variable "ssh_key_name" {
-  description = "The name of the ssh public key to create and deploy on servers."
-  type        = string
-}
-
-variable "ssh_key" {
-  description = "The ssh public key to create and deploy on servers."
-  type        = string
+variable "ssh" {
+  description = "The ssh information to log in the remote machine."
+  type = object({
+    username        = string
+    public_key_name = string
+    public_key      = string
+  })
+  default = {
+    username        = "debian"
+    public_key_name = null
+    public_key      = null
+  }
 }

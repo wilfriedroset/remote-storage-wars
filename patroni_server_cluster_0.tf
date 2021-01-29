@@ -4,7 +4,7 @@ resource "openstack_compute_instance_v2" "patroni_server_cluster_0" {
   name            = format("postgresql-0-%d", count.index + 1)
   image_name      = var.instance_image
   flavor_name     = var.postgresql_instance_flavor
-  key_pair        = var.ssh_key_name
+  key_pair        = var.ssh.public_key_name
   user_data       = file("userdata.yml")
   security_groups = ["timescale_ssh_security_group", "timescale_consul_security_group", "timescale_postgresql_security_group"]
 
@@ -26,7 +26,7 @@ resource "openstack_compute_instance_v2" "patroni_server_cluster_0" {
     # No need to define a password of private key. It will default to
     # default local ssh-key
     type = "ssh"
-    user = var.ssh_remote_user
+    user = var.ssh.username
     host = self.access_ip_v4
   }
 
