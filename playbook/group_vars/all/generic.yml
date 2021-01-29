@@ -1,0 +1,19 @@
+---
+private_ip: "{{ ansible_all_ipv4_addresses | ipaddr('10.0.0.0/8') | first }}"
+common_packages:
+  - apt-transport-https
+  - ca-certificates
+  - cron
+  - curl
+  - diffutils
+  - dnsutils
+  - git
+  - gnupg
+  - htop
+  - iftop
+  - iotop
+  - net-tools
+  - nmap
+  - telnet
+
+ansible_ssh_user: debian
