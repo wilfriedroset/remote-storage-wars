@@ -1,0 +1,11 @@
+---
+# defaults file for consul-template
+consul_template_version: "0.25.1"
+consul_template_use_systemd: true
+consul_template_templates:
+  - name: "haproxy.ctmpl"
+    dest: "/etc/haproxy/haproxy.cfg"
+    cmd: "systemctl reload haproxy.service"
+    perms: "0600"
+    backup: "true"
+    wait: "2s"

@@ -1,0 +1,12 @@
+---
+cluster_id: 0
+patroni_users:
+  - name: timescale
+    password: timescale
+    role_attr_flags: SUPERUSER
+
+patroni_databases:
+  - name: timescale
+    owner: timescale
+    extensions:
+      - name: timescaledb

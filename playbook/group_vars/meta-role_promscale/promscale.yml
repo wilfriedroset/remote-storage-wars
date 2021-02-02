@@ -1,0 +1,8 @@
+---
+promscale_limitnofile: 1048576
+promscale_cfg:
+  TS_PROM_DB_HOST: rw.timescaledb.service.consul
+  TS_PROM_DB_PORT: 3000
+  TS_PROM_DB_NAME: timescale
+  TS_PROM_DB_PASSWORD: timescale
+  TS_PROM_DB_USER: timescale

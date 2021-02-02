@@ -1,0 +1,18 @@
+---
+nginx_config_http_template:
+  app:
+    servers:
+      main:
+        reverse_proxy:
+          locations:
+            postgresql_exporter:
+              location: /postgresql_exporter/
+              proxy_cache: exporter
+              proxy_pass: "http://localhost:9187/"
+              proxy_cache_background_update: false
+              proxy_cache_lock: true
+              proxy_cache_min_uses: 1
+              proxy_set_header:
+                header_host:
+                  name: Host
+                  value: $host

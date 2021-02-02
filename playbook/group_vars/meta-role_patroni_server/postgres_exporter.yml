@@ -1,0 +1,7 @@
+---
+postgres_exporter_version: 0.8.0
+postgres_exporter_checksum: 9af399257fe6ad20bf6ea7a4984721ae364bd574
+postgres_exporter_datasource: "user=postgres host=/var/run/postgresql database=postgres sslmode=disable"
+postgres_exporter_flags:
+  - '--extend.query-path=/var/lib/postgresql/queries.yml'
+  - '--web.listen-address=localhost:9187'

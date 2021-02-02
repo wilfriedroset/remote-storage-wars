@@ -1,0 +1,5 @@
+---
+victoriametrics_vmstorage_data_dir: "/usr/local/bin/victoria-storage"
+victoriametrics_vmstorage_retention_period: "24"
+victoriametrics_vmstorage_memory_allowed_percent: "60"  # 60 is the default value
+victoriametrics_vmstorage_service_args: ""  # Add extra variables here .Found more options withvmstorage-prod --help
