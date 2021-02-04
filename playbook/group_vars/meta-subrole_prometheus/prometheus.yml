@@ -20,6 +20,8 @@ prometheus_scrape_configs:
     consul_sd_configs:
       - server: 'localhost:8500'
         services: [node-exporter]
+  - job_name: node-exporter-bench
+    metrics_path: /node_exporter/metrics
     file_sd_configs:
       - files:
           - /etc/prometheus/file_sd/*.yml
