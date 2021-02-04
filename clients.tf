@@ -2,7 +2,7 @@ resource "openstack_compute_instance_v2" "tsbs" {
   count           = var.tsbs_count
   name            = format("tsbs-%d", count.index + 1)
   image_name      = var.instance_image
-  flavor_name     = var.instance_flavor
+  flavor_name     = var.tsbs_instance_flavor
   key_pair        = var.ssh.public_key_name
   user_data       = file("userdata.yml")
   security_groups = ["timescale_ssh_security_group", "timescale_consul_security_group"]
@@ -52,7 +52,7 @@ output "tsbs" {
 resource "openstack_compute_instance_v2" "grafana" {
   name            = "grafana"
   image_name      = var.instance_image
-  flavor_name     = var.instance_flavor
+  flavor_name     = var.grafana_instance_flavor
   key_pair        = var.ssh.public_key_name
   user_data       = file("userdata.yml")
   security_groups = ["timescale_ssh_security_group", "timescale_consul_security_group", "timescale_ui_security_group"]
@@ -101,7 +101,7 @@ output "grafana" {
 resource "openstack_compute_instance_v2" "prometheus" {
   name            = "prometheus"
   image_name      = var.instance_image
-  flavor_name     = var.instance_flavor
+  flavor_name     = var.prometheus_instance_flavor
   key_pair        = var.ssh.public_key_name
   user_data       = file("userdata.yml")
   security_groups = ["timescale_ssh_security_group", "timescale_consul_security_group", "timescale_ui_security_group"]

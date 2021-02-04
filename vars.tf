@@ -6,22 +6,6 @@ variable "instance_image" {
   default     = "Debian 10"
 }
 
-variable "instance_flavor" {
-  description = "The name of the instance to use for the servers."
-  type        = string
-  default     = "s1-2"
-  validation {
-    condition = contains([
-      "b2-7", "b2-15", "b2-30", "b2-60", "b2-120",
-      "c2-7", "c2-15", "c2-30", "c2-60", "c2-120",
-      "i1-45", "i1-90", "i1-180",
-      "r2-15", "r2-30", "r2-60", "r2-120", "r2-240",
-      "s1-2", "s1-4", "s1-8",
-    ], lower(var.instance_flavor))
-    error_message = "Unsupported instance flavor specified."
-  }
-}
-
 variable "postgresql_instance_flavor" {
   description = "The name of the instance to use for the postgresql servers."
   type        = string
@@ -35,6 +19,150 @@ variable "postgresql_instance_flavor" {
       "s1-2", "s1-4", "s1-8",
     ], lower(var.postgresql_instance_flavor))
     error_message = "Unsupported postgresql instance flavor specified."
+  }
+}
+
+variable "tsbs_instance_flavor" {
+  description = "The name of the instance to use for the tsbs servers."
+  type        = string
+  default     = "s1-2"
+  validation {
+    condition = contains([
+      "b2-7", "b2-15", "b2-30", "b2-60", "b2-120",
+      "c2-7", "c2-15", "c2-30", "c2-60", "c2-120",
+      "i1-45", "i1-90", "i1-180",
+      "r2-15", "r2-30", "r2-60", "r2-120", "r2-240",
+      "s1-2", "s1-4", "s1-8",
+    ], lower(var.tsbs_instance_flavor))
+    error_message = "Unsupported tsbs instance flavor specified."
+  }
+}
+
+variable "prometheus_instance_flavor" {
+  description = "The name of the instance to use for the prometheus servers."
+  type        = string
+  default     = "s1-2"
+  validation {
+    condition = contains([
+      "b2-7", "b2-15", "b2-30", "b2-60", "b2-120",
+      "c2-7", "c2-15", "c2-30", "c2-60", "c2-120",
+      "i1-45", "i1-90", "i1-180",
+      "r2-15", "r2-30", "r2-60", "r2-120", "r2-240",
+      "s1-2", "s1-4", "s1-8",
+    ], lower(var.prometheus_instance_flavor))
+    error_message = "Unsupported prometheus instance flavor specified."
+  }
+}
+
+variable "vminsert_instance_flavor" {
+  description = "The name of the instance to use for the vminsert servers."
+  type        = string
+  default     = "s1-2"
+  validation {
+    condition = contains([
+      "b2-7", "b2-15", "b2-30", "b2-60", "b2-120",
+      "c2-7", "c2-15", "c2-30", "c2-60", "c2-120",
+      "i1-45", "i1-90", "i1-180",
+      "r2-15", "r2-30", "r2-60", "r2-120", "r2-240",
+      "s1-2", "s1-4", "s1-8",
+    ], lower(var.vminsert_instance_flavor))
+    error_message = "Unsupported vminsert instance flavor specified."
+  }
+}
+
+variable "vmselect_instance_flavor" {
+  description = "The name of the instance to use for the vmselect servers."
+  type        = string
+  default     = "s1-2"
+  validation {
+    condition = contains([
+      "b2-7", "b2-15", "b2-30", "b2-60", "b2-120",
+      "c2-7", "c2-15", "c2-30", "c2-60", "c2-120",
+      "i1-45", "i1-90", "i1-180",
+      "r2-15", "r2-30", "r2-60", "r2-120", "r2-240",
+      "s1-2", "s1-4", "s1-8",
+    ], lower(var.vmselect_instance_flavor))
+    error_message = "Unsupported vmselect instance flavor specified."
+  }
+}
+
+variable "vmstorage_instance_flavor" {
+  description = "The name of the instance to use for the vmstorage servers."
+  type        = string
+  default     = "s1-2"
+  validation {
+    condition = contains([
+      "b2-7", "b2-15", "b2-30", "b2-60", "b2-120",
+      "c2-7", "c2-15", "c2-30", "c2-60", "c2-120",
+      "i1-45", "i1-90", "i1-180",
+      "r2-15", "r2-30", "r2-60", "r2-120", "r2-240",
+      "s1-2", "s1-4", "s1-8",
+    ], lower(var.vmstorage_instance_flavor))
+    error_message = "Unsupported vmstorage instance flavor specified."
+  }
+}
+
+variable "promscale_instance_flavor" {
+  description = "The name of the instance to use for the promscale servers."
+  type        = string
+  default     = "s1-2"
+  validation {
+    condition = contains([
+      "b2-7", "b2-15", "b2-30", "b2-60", "b2-120",
+      "c2-7", "c2-15", "c2-30", "c2-60", "c2-120",
+      "i1-45", "i1-90", "i1-180",
+      "r2-15", "r2-30", "r2-60", "r2-120", "r2-240",
+      "s1-2", "s1-4", "s1-8",
+    ], lower(var.promscale_instance_flavor))
+    error_message = "Unsupported promscale instance flavor specified."
+  }
+}
+
+variable "lb_instance_flavor" {
+  description = "The name of the instance to use for the lb servers."
+  type        = string
+  default     = "s1-2"
+  validation {
+    condition = contains([
+      "b2-7", "b2-15", "b2-30", "b2-60", "b2-120",
+      "c2-7", "c2-15", "c2-30", "c2-60", "c2-120",
+      "i1-45", "i1-90", "i1-180",
+      "r2-15", "r2-30", "r2-60", "r2-120", "r2-240",
+      "s1-2", "s1-4", "s1-8",
+    ], lower(var.lb_instance_flavor))
+    error_message = "Unsupported lb instance flavor specified."
+  }
+}
+
+variable "consul_instance_flavor" {
+  description = "The name of the instance to use for the consul servers."
+  type        = string
+  default     = "s1-2"
+  validation {
+    condition = contains([
+      "b2-7", "b2-15", "b2-30", "b2-60", "b2-120",
+      "c2-7", "c2-15", "c2-30", "c2-60", "c2-120",
+      "i1-45", "i1-90", "i1-180",
+      "r2-15", "r2-30", "r2-60", "r2-120", "r2-240",
+      "s1-2", "s1-4", "s1-8",
+    ], lower(var.consul_instance_flavor))
+    error_message = "Unsupported consul instance flavor specified."
+  }
+}
+
+variable "grafana_instance_flavor" {
+  description = "The name of the instance to use for the grafana servers."
+  type        = string
+  default     = "s1-2"
+  validation {
+    condition = contains([
+      "b2-7", "b2-15", "b2-30", "b2-60", "b2-120",
+      "c2-7", "c2-15", "c2-30", "c2-60", "c2-120",
+      "i1-45", "i1-90", "i1-180",
+      "r2-15", "r2-30", "r2-60", "r2-120", "r2-240",
+      "s1-2", "s1-4", "s1-8",
+    ], lower(var.grafana_instance_flavor))
+    error_message = "Unsupported grafana instance flavor specified."
   }
 }
 

@@ -2,7 +2,7 @@ resource "openstack_compute_instance_v2" "vmstorage" {
   count           = var.node_vmstorage
   name            = format("vmstorage-%d", count.index + 1)
   image_name      = var.instance_image
-  flavor_name     = var.instance_flavor
+  flavor_name     = var.vmstorage_instance_flavor
   key_pair        = var.ssh.public_key_name
   user_data       = file("userdata.yml")
   security_groups = ["timescale_ssh_security_group", "timescale_consul_security_group", "timescale_victoriametrics_security_group"]
