@@ -66,7 +66,7 @@ resource "openstack_compute_instance_v2" "grafana" {
 
   network {
     name        = openstack_networking_network_v2.private_network.name
-    fixed_ip_v4 = cidrhost(openstack_networking_subnet_v2.clients.cidr, 12)
+    fixed_ip_v4 = cidrhost(openstack_networking_subnet_v2.clients.cidr, 30)
   }
 
   connection {
