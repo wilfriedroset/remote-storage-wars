@@ -115,7 +115,7 @@ resource "openstack_compute_instance_v2" "prometheus" {
 
   network {
     name        = openstack_networking_network_v2.private_network.name
-    fixed_ip_v4 = cidrhost(openstack_networking_subnet_v2.clients.cidr, 13)
+    fixed_ip_v4 = cidrhost(openstack_networking_subnet_v2.clients.cidr, 31)
   }
 
   connection {
