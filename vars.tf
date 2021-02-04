@@ -62,6 +62,12 @@ variable "node_vmselect" {
   default     = 3
 }
 
+variable "tsbs_count" {
+  description = "The number of tsbs instance."
+  type        = number
+  default     = 1
+}
+
 variable "promscale_count" {
   description = "The number of promscale instance."
   type        = number

@@ -1,5 +1,6 @@
 resource "openstack_compute_instance_v2" "tsbs" {
-  name            = "tsbs"
+  count           = var.tsbs_count
+  name            = format("tsbs-%d", count.index + 1)
   image_name      = var.instance_image
   flavor_name     = var.instance_flavor
   key_pair        = var.ssh.public_key_name
@@ -17,7 +18,7 @@ resource "openstack_compute_instance_v2" "tsbs" {
 
   network {
     name        = openstack_networking_network_v2.private_network.name
-    fixed_ip_v4 = cidrhost(openstack_networking_subnet_v2.clients.cidr, 10)
+    fixed_ip_v4 = cidrhost(openstack_networking_subnet_v2.clients.cidr, count.index + 10)
   }
 
   connection {
@@ -37,14 +38,15 @@ resource "openstack_compute_instance_v2" "tsbs" {
 
 resource "ovh_domain_zone_record" "tsbs" {
   zone      = var.domain_name
-  subdomain = openstack_compute_instance_v2.tsbs.name
+  count     = length(openstack_compute_instance_v2.tsbs)
+  subdomain = openstack_compute_instance_v2.tsbs[count.index].name
   fieldtype = "A"
   ttl       = "60"
-  target    = openstack_compute_instance_v2.tsbs.access_ip_v4
+  target    = openstack_compute_instance_v2.tsbs[count.index].access_ip_v4
 }
 
 output "tsbs" {
-  value = openstack_compute_instance_v2.tsbs.network[0].fixed_ip_v4
+  value = openstack_compute_instance_v2.tsbs[*].network[0].fixed_ip_v4
 }
 
 resource "openstack_compute_instance_v2" "grafana" {
