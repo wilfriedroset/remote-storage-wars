@@ -7,15 +7,6 @@
   roles:
     - cloudalchemy.prometheus
   tasks:
-    - name: Add fake entry in /etc/hosts
-      lineinfile:
-        dest: /etc/hosts
-        # yamllint disable-line rule:line-length
-        line: "{{ hostvars.tsbs.openstack | json_query('addresses.*[].addr') | ipaddr('10.0.0.0/8') | first }} node-{{ item }}"
-        regexp: 'node-{{ item }}$'
-        state: present
-      loop: "{{ range(fake_targets_count)|list }}"
-
     - name: Create file_sd_config file
       template:
         src: bench-file-sd-config.yml.j2
@@ -23,4 +14,7 @@
         owner: root
         group: prometheus
         mode: 0644
+      vars:
+        # yamllint disable-line rule:line-length
+        fake_ips: "{{ groups['meta-subrole_tsbs'] | map('extract', hostvars, ['openstack', 'addresses'])|list|json_query('[].*[][][].addr')| ipaddr('10.0.0.0/8') }}"
       notify: reload prometheus
