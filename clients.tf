@@ -99,7 +99,8 @@ output "grafana" {
 }
 
 resource "openstack_compute_instance_v2" "prometheus" {
-  name            = "prometheus"
+  count           = var.prometheus_count
+  name            = format("prometheus-%d", count.index + 1)
   image_name      = var.instance_image
   flavor_name     = var.prometheus_instance_flavor
   key_pair        = var.ssh.public_key_name
@@ -117,7 +118,7 @@ resource "openstack_compute_instance_v2" "prometheus" {
 
   network {
     name        = openstack_networking_network_v2.private_network.name
-    fixed_ip_v4 = cidrhost(openstack_networking_subnet_v2.clients.cidr, 31)
+    fixed_ip_v4 = cidrhost(openstack_networking_subnet_v2.clients.cidr, count.index + 50)
   }
 
   connection {
@@ -137,12 +138,13 @@ resource "openstack_compute_instance_v2" "prometheus" {
 
 resource "ovh_domain_zone_record" "prometheus" {
   zone      = var.domain_name
-  subdomain = openstack_compute_instance_v2.prometheus.name
+  count     = length(openstack_compute_instance_v2.prometheus)
+  subdomain = openstack_compute_instance_v2.prometheus[count.index].name
   fieldtype = "A"
   ttl       = "60"
-  target    = openstack_compute_instance_v2.prometheus.access_ip_v4
+  target    = openstack_compute_instance_v2.prometheus[count.index].access_ip_v4
 }
 
 output "prometheus" {
-  value = openstack_compute_instance_v2.prometheus.network[0].fixed_ip_v4
+  value = openstack_compute_instance_v2.prometheus[*].network[0].fixed_ip_v4
 }

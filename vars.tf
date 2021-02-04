@@ -190,6 +190,12 @@ variable "node_vmselect" {
   default     = 3
 }
 
+variable "prometheus_count" {
+  description = "The number of prometheus instance."
+  type        = number
+  default     = 1
+}
+
 variable "tsbs_count" {
   description = "The number of tsbs instance."
   type        = number
