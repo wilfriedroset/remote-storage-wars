@@ -69,3 +69,4 @@ patroni_postgresql_parameters:
   - {option: "logging_collector", value: "on"}
   - {option: "syslog_facility", value: "LOCAL6"}
   - {option: "syslog_ident", value: "postgres"}
+  - {option: "wal_compression", value: "on"}
