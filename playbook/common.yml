@@ -27,12 +27,18 @@
         comment: "{{ item.value.comment|default(omit) }}"
       loop: "{{ extra_authorized_keys|default({})|dict2items }}"
 
-    - name: Deploy dhclient.conf
-      copy:
-        dest: /etc/dhcp/dhclient.conf
-        src: files/dhclient.conf
-        backup: true
+    - name: Deploy /etc/resolv.conf
+      template:
+        src: templates/resolv.conf.j2
+        dest: /etc/resolv.conf
         mode: 0644
         owner: root
         group: root
       notify: restart networking
+
+    - name: Ensure resolv.conf is immutable.
+      file:
+        path: /etc/resolv.conf
+        attr: +i
+      register: resolv_file
+      changed_when: "'i' not in resolv_file.diff.before.attributes"

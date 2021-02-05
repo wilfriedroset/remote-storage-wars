@@ -1,0 +1,6 @@
+# Managed by ansible
+domain {{ resolv_domain }}
+search {{ resolv_search|join(' ') }}
+{% for ip in resolv_nameserver -%}
+nameserver {{ ip }}
+{% endfor -%}

@@ -1,0 +1,10 @@
+---
+resolv_domain: dc1.consul
+resolv_search:
+  - dc1.consul.
+  - node.consul.
+  - service.consul.
+resolv_nameserver:
+  - 127.0.0.1
+  - 213.186.33.99
+  - 8.8.8.8
