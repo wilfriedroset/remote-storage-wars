@@ -7,3 +7,4 @@ promscale_cfg:
   TS_PROM_DB_PASSWORD: timescale
   TS_PROM_DB_USER: timescale
   TS_WEB_ENABLE_ADMIN_API: 1
+  TS_PROM_LOG_LEVEL: error
