@@ -8,3 +8,7 @@ promscale_cfg:
   TS_PROM_DB_USER: timescale
   TS_WEB_ENABLE_ADMIN_API: 1
   TS_PROM_LOG_LEVEL: error
+  # Let's pick a random id in positive not null smallint
+  TS_PROM_LEADER_ELECTION_PG_ADVISORY_LOCK_ID: "{{ range(1, 32767) |random(seed=ansible_hostname) }}"
+  # Setting PROMETHEUS_TIMEOUT just above prometheus scrape interval
+  TS_PROM_LEADER_ELECTION_PG_ADVISORY_LOCK_PROMETHEUS_TIMEOUT: 16s
