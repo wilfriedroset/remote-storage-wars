@@ -6,3 +6,4 @@ promscale_cfg:
   TS_PROM_DB_NAME: timescale
   TS_PROM_DB_PASSWORD: timescale
   TS_PROM_DB_USER: timescale
+  TS_WEB_ENABLE_ADMIN_API: 1
