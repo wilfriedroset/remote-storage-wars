@@ -17,3 +17,41 @@ common_packages:
   - telnet
 
 ansible_ssh_user: debian
+
+sysctl_config:
+  net.core.somaxconn: 16384
+  net.ipv4.tcp_max_syn_backlog: 16384
+
+  net.ipv4.conf.eth0.arp_ignore: 1
+  net.ipv4.conf.eth1.arp_ignore: 1
+
+  # arp_announce : 2 - Always use the best local address for this
+  net.ipv4.conf.eth0.arp_announce: 2
+  net.ipv4.conf.eth1.arp_announce: 2
+
+  # Disable Syn cookies
+  net.ipv4.tcp_syncookies: 0
+
+  # No arp between all NICs
+  net.ipv4.conf.all.arp_filter: 1
+  net.ipv4.conf.default.arp_filter: 1
+  net.ipv4.conf.lo.arp_filter: 1
+  net.ipv4.conf.eth0.arp_filter: 1
+  net.ipv4.conf.eth1.arp_filter: 1
+
+  # TCP tuning
+  net.ipv4.tcp_wmem: 4096 16384 16777216
+  net.ipv4.tcp_rmem: 4096 87380 16777216
+
+  # TCP timeout
+  net.ipv4.tcp_fin_timeout: 30
+  net.ipv4.tcp_keepalive_intvl: 30
+  net.ipv4.tcp_keepalive_probes: 5
+
+  fs.file-max: 1200000
+  net.ipv4.netfilter.ip_conntrack_max: 800000
+
+  # Neighbour table overflow protection
+  net.ipv4.neigh.default.gc_thresh1: 65536
+  net.ipv4.neigh.default.gc_thresh2: 131072
+  net.ipv4.neigh.default.gc_thresh3: 262144
