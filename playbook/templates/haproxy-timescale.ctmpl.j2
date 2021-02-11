@@ -7,7 +7,7 @@ global
   maxconn  8000
   pidfile  /var/run/haproxy.pid
   server-state-base  /var/lib/haproxy/state
-  stats  socket /run/haproxy/admin.sock mode 660 level admin
+  stats  socket /var/run/haproxy.sock mode 660 level admin
   stats  timeout 30s
   user  root
 
