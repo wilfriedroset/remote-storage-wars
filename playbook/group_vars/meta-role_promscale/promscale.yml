@@ -1,4 +1,5 @@
 ---
+promscale_bin_version: 0.2.0
 promscale_limitnofile: 1048576
 promscale_cfg:
   TS_PROM_DB_HOST: rw.timescaledb.service.consul
