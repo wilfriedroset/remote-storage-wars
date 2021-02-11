@@ -4,6 +4,11 @@ prometheus_web_external_url: "http://{{ ansible_host }}:9090"
 prometheus_remote_write:
   - url: http://rw.promscale.service.dc1.consul:9201/write
     name: timescaledb
+    remote_timeout: 30s
+    queue_config:
+      capacity: 10000
+      min_shards: 4
+      batch_send_deadline: 30s
   - url: http://rw.victoriametrics.service.dc1.consul:8480/insert/0/prometheus
     name: victoriametrics
 prometheus_remote_read:
