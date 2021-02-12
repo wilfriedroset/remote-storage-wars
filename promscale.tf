@@ -5,7 +5,7 @@ resource "openstack_compute_instance_v2" "promscale" {
   flavor_name     = var.promscale_instance_flavor
   key_pair        = var.ssh.public_key_name
   user_data       = file("userdata.yml")
-  security_groups = ["timescale_ssh_security_group", "timescale_consul_security_group", "timescale_prometheus_security_group"]
+  security_groups = ["timescale_ssh_security_group", "timescale_consul_security_group", "timescale_prometheus_security_group", "timescale_pprof_security_group"]
 
   metadata = {
     role = "promscale"
