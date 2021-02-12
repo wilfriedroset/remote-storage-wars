@@ -85,6 +85,7 @@ patroni_postgresql_parameters:
   - {option: "wal_compression", value: "on"}
   # Checkpoint tuning
   - {option: "checkpoint_timeout", value: "15min"}
+  - {option: "max_wal_size", value: "15GB"}
 
 tuning_file: "/var/lib/postgresql/{{ postgresql_version }}/{{ patroni_scope }}/postgresql.base.conf"
 sample_conf_file: "/usr/share/postgresql/{{ postgresql_version }}/postgresql.conf.sample"
