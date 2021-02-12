@@ -45,3 +45,6 @@ tests/roles
 # No need to commit roles and collections from ansible-galaxy
 playbook/roles/
 playbook/collections/
+
+# Allow users to overwrite bench settings
+x-bench-overwrite.yml

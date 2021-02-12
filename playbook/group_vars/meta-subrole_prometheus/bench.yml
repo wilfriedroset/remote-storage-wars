@@ -3,5 +3,8 @@
 # instance, instead we will scrape several time the same instance with a
 # different target name in prometheus configuration. This setting define how
 # many fake entries we need to add to /etc/hosts.
+
+# Those are the default setting, which can be overwritten in
+# x-bench-overwrite.yml without comminting the change.
 fake_targets_count: 50
 fake_dc_count: 2
