@@ -1,0 +1,13 @@
+listen vminsert
+    bind                            {{ private_ip }}:{{ vminsert_frontend_port|default(8480) }}
+    mode                            http
+
+{% include 'haproxy-http-listen-options.j2' %}
+
+    option  httpchk GET /health
+    http-check expect string OK
+
+{%- raw -%}
+{{ range service "insert.victoriametrics|any" }}
+    server {{ .Node }} {{ .Address }}:{{ .Port }} check{{ end }}
+{%- endraw -%}

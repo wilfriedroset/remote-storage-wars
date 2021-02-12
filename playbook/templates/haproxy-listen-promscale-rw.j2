@@ -1,0 +1,12 @@
+listen promscale
+    bind                            {{ private_ip }}:{{ promscale_frontend_port|default(9201)}}
+    mode                            http
+
+{% include 'haproxy-http-listen-options.j2' %}
+
+    option httpchk GET /healthz
+
+{%- raw -%}
+{{ range service "node.promscale|any" }}
+    server {{ .Node }} {{ .Address }}:{{ .Port }} check{{ end }}
+{%- endraw -%}

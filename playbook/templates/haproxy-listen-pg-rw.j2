@@ -1,0 +1,12 @@
+listen pg_ro
+    bind    {{ private_ip }}:{{ pg_ro_frontend_port|default(4000) }}
+    mode    tcp
+
+    option  tcplog
+
+    option  httpchk GET /read-only
+
+{%- raw -%}
+{{ range service "cluster0|any" }}
+    server {{ .Node }} {{ .Address }}:{{ .Port }} check port 8008{{ end }}
+{%- endraw -%}

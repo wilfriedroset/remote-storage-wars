@@ -1,0 +1,13 @@
+listen pg_rw
+    bind    {{ private_ip }}:{{ pg_ro_frontend_port|default(3000) }}
+    mode    tcp
+
+    option  tcplog
+
+    option  httpchk GET /read-write
+    default-server fall 5 inter 1000 rise 5 downinter 1000 on-marked-down shutdown-sessions weight 10 maxconn 2000
+
+{%- raw -%}
+{{ range service "cluster0|any" }}
+    server {{ .Node }} {{ .Address }}:{{ .Port }} check port 8008{{ end }}
+{%- endraw -%}

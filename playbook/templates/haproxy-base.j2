@@ -1,0 +1,42 @@
+global
+    daemon
+    master-worker
+    log-send-hostname
+
+    chroot              /var/lib/haproxy
+    log                 127.0.0.1 local2
+
+    pidfile             /var/run/haproxy.pid
+    server-state-base   /var/lib/haproxy/state
+
+    user                haproxy
+    group               haproxy
+
+    maxconn             40000
+
+    stats socket /var/run/haproxy.sock mode 666 level admin
+    stats timeout 30s
+
+    # utilize system-wide crypto-policies
+    ssl-default-bind-ciphers    PROFILE=SYSTEM
+    ssl-default-server-ciphers  PROFILE=SYSTEM
+
+defaults
+    log                             global
+    load-server-state-from-file     local
+    retries                         6
+
+    option                          dontlognull
+    option                          log-separate-errors
+
+    timeout  check                  5s
+    timeout  client                 1m
+    timeout  client-fin             10s
+    timeout  connect                3s
+    timeout  http-request           10s
+    timeout  queue                  1m
+    timeout  server                 1m
+    timeout  tunnel                 30m
+    timeout  http-keep-alive        10s
+
+    default-server fall 3 inter 1000 rise 2 downinter 1000 weight 10 maxconn 2000
