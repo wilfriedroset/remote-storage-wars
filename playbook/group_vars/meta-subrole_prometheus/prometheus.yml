@@ -1,5 +1,5 @@
 ---
-prometheus_version: 2.21.0
+prometheus_version: 2.24.1
 prometheus_web_external_url: "http://{{ ansible_host }}:9090"
 prometheus_remote_write:
   - url: http://rw.promscale.service.dc1.consul:9201/write
