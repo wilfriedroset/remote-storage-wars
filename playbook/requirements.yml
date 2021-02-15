@@ -21,7 +21,8 @@ roles:
   - name: bdellegrazie.haproxy_exporter
     version: v1.3.2
   - name: griggheo.consul-template
-    version: 1.2.4
+    version: ff5bcde
+    src: https://github.com/griggheo/ansible-consul-template.git
   - name: bdellegrazie.nginx_exporter
     version: v3.2.0
 
