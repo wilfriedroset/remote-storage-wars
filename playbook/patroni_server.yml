@@ -10,22 +10,6 @@
     - kostiantyn-nemchenko.patroni
     - bdellegrazie.postgres_exporter
   tasks:
-    - name: Check tuning file presence
-      stat:
-        path: "{{ tuning_file }}"
-      register: tuning_file_stat
-
-    - name: Check if tuning are required
-      # yamllint disable-line rule:line-length
-      shell: "/usr/bin/timescaledb-tune -dry-run -yes -conf-path {% if tuning_file_stat.stat.exists %}{{ tuning_file }}{% else %}{{ sample_conf_file }}{% endif %}"
-      register: check_tuning
-      changed_when: false
-
-    - name: Apply tuning
-      # yamllint disable-line rule:line-length
-      shell: "/usr/bin/timescaledb-tune -yes -conf-path {% if tuning_file_stat.stat.exists %}{{ tuning_file }}{% else %}{{ sample_conf_file }}{% endif %} -out-path {{ tuning_file }}"
-      when: "'settings will be updated' in check_tuning.stderr"
-
     - name: Create patronictl configuration directory
       file:
         state: directory
