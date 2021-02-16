@@ -8,7 +8,7 @@ nginx_config_http_template:
             victoriametrics_exporter:
               location: /victoriametrics_exporter/
               proxy_cache: exporter
-              proxy_pass: "http://localhost:8481/"
+              proxy_pass: "http://{{ private_ip }}:8481/"
               proxy_cache_background_update: false
               proxy_cache_lock: true
               proxy_cache_min_uses: 1

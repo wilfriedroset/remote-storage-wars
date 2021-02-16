@@ -19,14 +19,14 @@ consul_services:
     address: "{{ private_ip }}"
     port: 8888
     checks:
-      - http: http://localhost:8480/health
+      - http: "http://{{ private_ip }}:8480/health"
         interval: "10s"
   - name: "victoriametrics"
     id: "victoriametrics"
     address: "{{ private_ip }}"
     port: 8480
     checks:
-      - http: http://localhost:8480/health
+      - http: "http://{{ private_ip }}:8480/health"
         interval: "10s"
     tags:
       - insert
