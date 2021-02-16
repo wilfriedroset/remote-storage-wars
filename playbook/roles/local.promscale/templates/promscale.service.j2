@@ -1,14 +1,14 @@
 {{ ansible_managed | comment }}
 
 [Unit]
-Description=Timescale-Prometheus connector
+Description=Promscale connector
 After=network-online.target
 
 [Service]
 Type=simple
 EnvironmentFile={{ promscale_cfg_path }}
 ExecStart={{ promscale_bin_path }}
-SyslogIdentifier=node_exporter
+SyslogIdentifier=promscale
 Restart=always
 RestartSec=1
 StartLimitInterval=0
