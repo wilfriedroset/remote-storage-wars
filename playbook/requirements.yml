@@ -15,7 +15,10 @@ roles:
   - name: kostiantyn-nemchenko.patroni
     version: v1.0.0
   - name: slapper.ansible_victoriametrics_cluster_role
-    version: fe92bce
+    # Using fork as upstream does not allow to specify which address to listen to
+    # see: https://github.com/Slapper/ansible-victoriametrics-cluster-role/pull/2
+    version: c7946b3
+    src: https://github.com/wilfriedroset/ansible-victoriametrics-cluster-role.git
   - name: bdellegrazie.postgres_exporter
     version: v4.1.0
   - name: bdellegrazie.haproxy_exporter

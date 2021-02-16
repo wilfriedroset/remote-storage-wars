@@ -5,3 +5,7 @@ victoriametrics_download_url: "{{ victoriametrics_repo_url }}/releases/download/
 victoriametrics_version: "v1.52.0"
 victoriametrics_system_user: "victoria"
 victoriametrics_system_group: "victoria"
+
+victoriametrics_vmselect_listen_address: "{{ private_ip}}"
+victoriametrics_vmstorage_listen_address: "{{ private_ip}}"
+victoriametrics_vminsert_listen_address: "{{ private_ip}}"
