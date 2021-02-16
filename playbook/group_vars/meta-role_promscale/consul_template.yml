@@ -1,0 +1,16 @@
+---
+consul_template_templates:
+  - name: "promscale.cfg.ctmpl"
+    dest: "/etc/promscale.cfg"
+    cmd: "systemctl reload promscale.service"
+    perms: "0600"
+    backup: "true"
+    wait: '"2s"'
+
+consul_template_template_templates:
+  - src: "templates/promscale.cfg.ctmpl.j2"
+    dest: "promscale.cfg.ctmpl"
+    cmd: "systemctl reload consul-template.service"
+    perms: "0600"
+    backup: "true"
+    wait: "2s"

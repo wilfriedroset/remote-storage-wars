@@ -1,13 +1,14 @@
 ---
 promscale_bin_version: 0.2.0
 promscale_limitnofile: 1048576
+# Do not let role manage the configuration file
+# We will leverage consul-template to generate it accordingly with the
+# service discovery
+promscale_manage_cfg: false
 promscale_cfg:
-  PROMSCALE_DB_HOST: rw.timescaledb.service.consul
-  PROMSCALE_DB_PORT: 3000
-  PROMSCALE_DB_NAME: timescale
-  PROMSCALE_DB_PASSWORD: timescale
-  PROMSCALE_DB_USER: timescale
-  TS_WEB_ENABLE_ADMIN_API: 1
+  # yamllint disable-line rule:line-length
+  PROMSCALE_DB_URI: 'postgres://timescale:timescale@{%- raw -%}{{range $index, $service := service "cluster0" }}{{if ne $index 0}},{{end}}{{$service.Address}}:{{$service.Port}}{{end}}{%- endraw -%}/timescale?sslmode=require&target_session_attrs=read-write'
+  PROMSCALE_WEB_ENABLE_ADMIN_API: 1
   PROMSCALE_LOG_LEVEL: error
   # Let's pick a random id in positive not null smallint
   PROMSCALE_LEADER_ELECTION_PG_ADVISORY_LOCK_ID: "{{ range(1, 32767) |random(seed=ansible_hostname) }}"

@@ -6,3 +6,4 @@
   become_user: root
   roles:
     - local.promscale
+    - griggheo.consul-template
