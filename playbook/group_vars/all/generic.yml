@@ -7,6 +7,7 @@ common_packages:
   - curl
   - diffutils
   - dnsutils
+  - dstat
   - git
   - gnupg
   - htop
@@ -14,6 +15,7 @@ common_packages:
   - iotop
   - net-tools
   - nmap
+  - sysstat
   - telnet
 
 ansible_ssh_user: debian
