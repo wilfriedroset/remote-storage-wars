@@ -7,8 +7,12 @@ prometheus_remote_write:
   - url: http://rw.promscale.service.dc1.consul:9201/write
     name: timescaledb
     remote_timeout: 30s
+    # https://www.alibabacloud.com/help/doc-detail/114516.htm
+    # Let's aim for ~1M sample/sec
     queue_config:
       capacity: 10000
+      max_samples_per_send: 500
+      max_shards: 192
       min_shards: 4
       batch_send_deadline: 30s
   - url: http://rw.victoriametrics.service.dc1.consul:8480/insert/0/prometheus
