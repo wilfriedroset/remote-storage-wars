@@ -5,4 +5,4 @@ consul_template_templates:
     cmd: "systemctl reload haproxy.service"
     perms: "0600"
     backup: "true"
-    wait: "2s"
+    wait: '"2s"'
