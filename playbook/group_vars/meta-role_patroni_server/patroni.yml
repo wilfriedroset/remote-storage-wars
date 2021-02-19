@@ -76,7 +76,7 @@ patroni_postgresql_parameters:
   - {option: "log_filename", value: "postgresql.log"}
   # single quoting inside double quoting intended
   - {option: "log_line_prefix", value: "'%m db=%d,user=%u,app=%a,client=%h '"}
-  - {option: "log_min_duration_statement", value: 1000}
+  - {option: "log_min_duration_statement", value: 10000}
   - {option: "log_statement", value: "ddl"}
   - {option: "log_timezone", value: "UTC"}
   - {option: "logging_collector", value: "on"}
