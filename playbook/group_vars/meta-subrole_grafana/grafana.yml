@@ -5,11 +5,16 @@ grafana_security:
   admin_password: enter_your_secure_password
 
 grafana_datasources:
+  - name: "Prometheus"
+    type: "prometheus"
+    access: "proxy"
+    url: "http://prometheus:9090"
+    isDefault: true
+
   - name: "VictoriaMetrics"
     type: "prometheus"
     access: "proxy"
     url: "http://ro.victoriametrics:8481/select/0/prometheus"
-    isDefault: true
 
   - name: "promscale"
     type: "prometheus"
@@ -38,28 +43,28 @@ grafana_dashboards:
   # Prometheus Node Exporter Full
   - dashboard_id: 1860
     revision_id: 21
-    datasource: VictoriaMetrics
-  # VictoriaMetrics - cluster
+    datasource: Prometheus
+  # Prometheus - cluster
   - dashboard_id: 11176
     revision_id: 8
-    datasource: VictoriaMetrics
+    datasource: Prometheus
   # Postgres Overview
   - dashboard_id: 455
     revision_id: 2
-    datasource: VictoriaMetrics
+    datasource: Prometheus
   # HAproxy Servers | HAproxy
   - dashboard_id: 367
     revision_id: 3
-    datasource: VictoriaMetrics
+    datasource: Prometheus
   # HAproxy Backend | HAproxy
   - dashboard_id: 364
     revision_id: 3
-    datasource: VictoriaMetrics
+    datasource: Prometheus
   # HAproxy Frontend | HAproxy
   - dashboard_id: 361
     revision_id: 3
-    datasource: VictoriaMetrics
+    datasource: Prometheus
   # Prometheus 2.0 Overview
   - dashboard_id: 3662
     revision_id: 2
-    datasource: VictoriaMetrics
+    datasource: Prometheus
