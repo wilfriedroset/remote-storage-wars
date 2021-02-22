@@ -17,8 +17,7 @@ resource "openstack_compute_instance_v2" "vminsert" {
   }
 
   network {
-    name        = openstack_networking_network_v2.private_network.name
-    fixed_ip_v4 = cidrhost(openstack_networking_subnet_v2.victoriametrics.cidr, count.index + 10)
+    name = openstack_networking_network_v2.private_network.name
   }
 
   connection {

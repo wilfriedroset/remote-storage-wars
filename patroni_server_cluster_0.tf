@@ -18,8 +18,7 @@ resource "openstack_compute_instance_v2" "patroni_server_cluster_0" {
   }
 
   network {
-    name        = openstack_networking_network_v2.private_network.name
-    fixed_ip_v4 = cidrhost(openstack_networking_subnet_v2.postgresql.cidr, count.index + 10 + 0 * var.node_per_patroni_cluster)
+    name = openstack_networking_network_v2.private_network.name
   }
 
   connection {

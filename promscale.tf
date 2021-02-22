@@ -16,8 +16,7 @@ resource "openstack_compute_instance_v2" "promscale" {
   }
 
   network {
-    name        = openstack_networking_network_v2.private_network.name
-    fixed_ip_v4 = cidrhost(openstack_networking_subnet_v2.promscale.cidr, count.index + 10 + 0 * var.promscale_count)
+    name = openstack_networking_network_v2.private_network.name
   }
 
   connection {

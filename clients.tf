@@ -17,8 +17,7 @@ resource "openstack_compute_instance_v2" "tsbs" {
   }
 
   network {
-    name        = openstack_networking_network_v2.private_network.name
-    fixed_ip_v4 = cidrhost(openstack_networking_subnet_v2.clients.cidr, count.index + 10)
+    name = openstack_networking_network_v2.private_network.name
   }
 
   connection {
@@ -67,8 +66,7 @@ resource "openstack_compute_instance_v2" "grafana" {
   }
 
   network {
-    name        = openstack_networking_network_v2.private_network.name
-    fixed_ip_v4 = cidrhost(openstack_networking_subnet_v2.clients.cidr, 30)
+    name = openstack_networking_network_v2.private_network.name
   }
 
   connection {
@@ -117,8 +115,7 @@ resource "openstack_compute_instance_v2" "prometheus" {
   }
 
   network {
-    name        = openstack_networking_network_v2.private_network.name
-    fixed_ip_v4 = cidrhost(openstack_networking_subnet_v2.clients.cidr, count.index + 50)
+    name = openstack_networking_network_v2.private_network.name
   }
 
   connection {
