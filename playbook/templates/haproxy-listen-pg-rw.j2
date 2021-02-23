@@ -6,7 +6,7 @@ listen pg_ro
 
     option  httpchk GET /read-only
 
-{%- raw -%}
-{{ range service "cluster0|any" }}
+{{ '{{' }}range service "cluster{{ cluster_id }}|any" {{ '}}' }}
+{% raw -%}
     server {{ .Node }} {{ .Address }}:{{ .Port }} check port 8008{{ end }}
-{%- endraw -%}
+{% endraw %}
