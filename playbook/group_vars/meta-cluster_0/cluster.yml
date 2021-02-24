@@ -1,2 +1,0 @@
----
-cluster_id: "{{ openstack.metadata.cluster }}"
