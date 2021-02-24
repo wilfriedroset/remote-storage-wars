@@ -14,13 +14,6 @@ consul_services:
     checks:
       - tcp: "localhost:8080"
         interval: "10s"
-  - name: "postgresql"
-    id: "postgresql"
-    address: "{{ private_ip }}"
-    port: 5432
-    checks:
-      - tcp: "{{ private_ip }}:5432"
-        interval: "10s"
   - name: "timescale"
     id: "timescale"
     address: "{{ private_ip }}"
