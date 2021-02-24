@@ -1,6 +1,6 @@
 ---
 - name: Install loadbalancer
-  hosts: meta-role_lb
+  hosts: meta-role_lb,meta-role_patroni_lb
   any_errors_fatal: true
   become: true
   become_user: root

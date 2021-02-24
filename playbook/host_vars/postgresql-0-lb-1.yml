@@ -1,7 +1,7 @@
 ---
 
 consul_template_template_templates:
-  - src: "templates/haproxy-timescale.ctmpl.j2"
+  - src: "templates/haproxy-patroni.ctmpl.j2"
     dest: "haproxy.ctmpl"
     cmd: "systemctl reload consul-template.service"
     perms: "0600"
@@ -33,17 +33,6 @@ consul_services:
   - name: "timescaledb"
     id: "timescaledb"
     address: "{{ private_ip }}"
-    tags:
-      - ro
-      - rw
-      - lb
-  - name: "promscale"
-    id: "promscale"
-    address: "{{ private_ip }}"
-    port: 9201
-    checks:
-      - tcp: "{{ private_ip }}:9201"
-        interval: "10s"
     tags:
       - ro
       - rw

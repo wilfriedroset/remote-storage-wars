@@ -1,0 +1,16 @@
+---
+consul_template_templates:
+  - name: "haproxy.ctmpl"
+    dest: "/etc/haproxy/haproxy.cfg"
+    cmd: "systemctl reload haproxy.service"
+    perms: "0600"
+    backup: "true"
+    wait: '"2s"'
+
+consul_template_template_templates:
+  - src: "templates/haproxy-patroni.ctmpl.j2"
+    dest: "haproxy.ctmpl"
+    cmd: "systemctl reload consul-template.service"
+    perms: "0600"
+    backup: "true"
+    wait: "2s"

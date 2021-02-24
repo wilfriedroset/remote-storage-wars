@@ -211,7 +211,7 @@ variable "promscale_count" {
 variable "lb_count" {
   description = "The number of load balancer."
   type        = number
-  default     = 2
+  default     = 1
 }
 
 variable "domain_name" {
