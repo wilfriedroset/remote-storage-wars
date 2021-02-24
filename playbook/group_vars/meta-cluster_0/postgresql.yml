@@ -1,5 +1,4 @@
 ---
-cluster_id: 0
 patroni_users:
   - name: timescale
     password: timescale
