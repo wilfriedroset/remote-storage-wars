@@ -62,7 +62,7 @@
             login_unix_socket: "{{ item.login_unix_socket | default('/var/run/postgresql') }}"
             port: "{{ item.port | default(omit) }}"
             state: "{{ item.state | default('present') }}"
-          with_items: "{{ patroni_users }}"
+          with_items: "{{ patroni_users|default([]) }}"
 
         - name: Ensure PostgreSQL databases are present.
           postgresql_db:
@@ -78,10 +78,10 @@
             port: "{{ item.port | default(omit) }}"
             owner: "{{ item.owner | default(postgresql_user) }}"
             state: "{{ item.state | default('present') }}"
-          with_items: "{{ patroni_databases }}"
+          with_items: "{{ patroni_databases|default([]) }}"
 
         - include_tasks: tasks/postgresql-database-extension-create.yml
-          loop: "{{ patroni_databases }}"
+          loop: "{{ patroni_databases|default([]) }}"
           loop_control:
             loop_var: database
 
