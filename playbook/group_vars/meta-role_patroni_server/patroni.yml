@@ -34,7 +34,7 @@ patroni_bootstrap_dcs_postgresql_parameters:
   - {option: "max_connections", value: "500"}
   - {option: "max_locks_per_transaction", value: "64"}
   - {option: "max_worker_processes", value: "8"}
-  - {option: "max_prepared_transactions", value: "0"}
+  - {option: "max_prepared_transactions", value: "150"}
   - {option: "wal_level", value: "replica"}
   - {option: "wal_log_hints", value: "on"}
   - {option: "track_commit_timestamp", value: "off"}
@@ -98,6 +98,10 @@ patroni_postgresql_parameters:
   # Checkpoint tuning
   - {option: "checkpoint_timeout", value: "15min"}
   - {option: "max_wal_size", value: "15GB"}
+  # Setting up TimescaleDB 2.0 Multi-node
+  - {option: "enable_partitionwise_aggregate", value: "'on'"}
+  - {option: "jit", value: "'off'"}
+  - {option: "max_prepared_transactions", value: 150}
 
 tuning_file: "/var/lib/postgresql/{{ postgresql_version }}/{{ patroni_scope }}/postgresql.base.conf"
 sample_conf_file: "/usr/share/postgresql/{{ postgresql_version }}/postgresql.conf.sample"
