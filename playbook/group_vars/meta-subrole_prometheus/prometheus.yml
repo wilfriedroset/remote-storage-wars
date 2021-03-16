@@ -11,7 +11,7 @@ prometheus_remote_write:
     # Let's aim for ~1M sample/sec
     queue_config:
       capacity: 10000
-      max_samples_per_send: 500
+      max_samples_per_send: 1000
       max_shards: 192
       min_shards: 4
       batch_send_deadline: 30s
