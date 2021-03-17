@@ -1,0 +1,49 @@
+---
+- name: Bootstrap timescaledb distributed cluster
+  hosts: meta-cluster_timescaledb-access-node:&meta-role_patroni_server
+  any_errors_fatal: true
+  become: true
+  become_user: root
+  tasks:
+    - name: Deploy Password authentication material
+      lineinfile:
+        path: "{{ timescaledb_passfile_path }}"
+        line: "{{ item }}"
+        owner: postgres
+        group: postgres
+        mode: 0600
+        create: true
+      with_items: "{{ timescaledb_passfile }}"
+
+    # Identify which node is primary
+    - name: Get the recovery status of postgresql
+      postgresql_query:
+        query: select pg_is_in_recovery();
+      become: true
+      become_user: "{{ postgresql_user }}"
+      register: pg_is_in_recovery
+      retries: "{{ retries|default(10) }}"
+      delay: "{{ delay|default(30) }}"
+
+    - name: Add node to distributed cluster
+      block:
+        - name: Add data node cluster through lb
+          postgresql_query:
+            login_password: timescale
+            login_user: timescale
+            login_host: "{{ private_ip }}"
+            db: timescale
+            # yamllint disable-line rule:line-length
+            query: "SELECT add_data_node('{{ item.name }}', host => '{{ item.fqdn }}', port => {{ item.port }}, if_not_exists => true, password => '{{ item.password }}');"
+            # add_data_node cannot run inside a transaction block
+            autocommit: true
+          become: true
+          become_user: "{{ postgresql_user }}"
+          register: test
+          retries: "{{ retries|default(10) }}"
+          delay: "{{ delay|default(30) }}"
+          with_items: "{{ data_nodes|default([]) }}"
+
+      become: true
+      become_user: "{{ postgresql_user|default('postgres') }}"
+      when: not pg_is_in_recovery.query_result[0].pg_is_in_recovery

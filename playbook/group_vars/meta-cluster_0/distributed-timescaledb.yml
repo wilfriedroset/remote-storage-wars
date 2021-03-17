@@ -1,0 +1,12 @@
+---
+data_nodes:
+  - {name: "patroni-dn-shard-1", fqdn: "patroni-dn-shard-1-lb-1", port: 3000, password: "timescale"}
+  - {name: "patroni-dn-shard-2", fqdn: "patroni-dn-shard-2-lb-1", port: 3000, password: "timescale"}
+  - {name: "patroni-dn-shard-3", fqdn: "patroni-dn-shard-3-lb-1", port: 3000, password: "timescale"}
+
+timescaledb_passfile:
+  # FIXME: Don't be lazy and use a secured way to deploy this
+  - "*:*:*:timescale:timescale"
+
+# FIXME
+timescaledb_passfile_path: "/var/lib/postgresql/{{ postgresql_version }}/{{ patroni_scope }}/passfile"

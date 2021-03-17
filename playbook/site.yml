@@ -3,6 +3,7 @@
 - import_playbook: consul.yml
 - import_playbook: lb.yml
 - import_playbook: patroni_server.yml
+- import_playbook: distributed-timescaledb.yml
 - import_playbook: postgresql_client.yml
 - import_playbook: victoriametrics.yml
 - import_playbook: promscale.yml
