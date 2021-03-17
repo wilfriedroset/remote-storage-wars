@@ -31,11 +31,11 @@ patroni_postgresql_packages:
 
 
 patroni_bootstrap_dcs_postgresql_parameters:
-  - {option: "max_connections", value: "500"}
+  - {option: "max_connections", value: "1000"}
   - {option: "max_locks_per_transaction", value: "64"}
   - {option: "max_worker_processes", value: "8"}
   # It is recommended that max_prepared_transactions >= max_connections
-  - {option: "max_prepared_transactions", value: "500"}
+  - {option: "max_prepared_transactions", value: "1000"}
   - {option: "wal_level", value: "replica"}
   - {option: "wal_log_hints", value: "on"}
   - {option: "track_commit_timestamp", value: "off"}
