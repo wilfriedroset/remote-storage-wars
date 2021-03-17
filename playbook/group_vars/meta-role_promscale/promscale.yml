@@ -1,5 +1,5 @@
 ---
-promscale_bin_version: 0.2.0
+promscale_bin_version: 0.2.1
 promscale_limitnofile: 1048576
 # Do not let role manage the configuration file
 # We will leverage consul-template to generate it accordingly with the
@@ -7,7 +7,7 @@ promscale_limitnofile: 1048576
 promscale_manage_cfg: false
 promscale_cfg:
   # yamllint disable-line rule:line-length
-  PROMSCALE_DB_URI: 'postgres://timescale:timescale@{%- raw -%}{{range $index, $service := service "cluster0" }}{{if ne $index 0}},{{end}}{{$service.Address}}:{{$service.Port}}{{end}}{%- endraw -%}/timescale?sslmode=require&target_session_attrs=read-write'
+  PROMSCALE_DB_URI: 'postgres://timescale:timescale@{%- raw -%}{{range $index, $service := service "clustertimescaledb-access-node" }}{{if ne $index 0}},{{end}}{{$service.Address}}:{{$service.Port}}{{end}}{%- endraw -%}/timescale?sslmode=require&target_session_attrs=read-write'
   PROMSCALE_WEB_ENABLE_ADMIN_API: 1
   PROMSCALE_LOG_LEVEL: warn
   # According to promscale documentation the ID is supposed to be unique per
