@@ -1,6 +1,6 @@
 ---
 - name: Bootstrap client basic configuration
-  hosts: meta-role_client
+  hosts: meta-role_client,meta-role_promscale
   any_errors_fatal: true
   become: true
   become_user: root
