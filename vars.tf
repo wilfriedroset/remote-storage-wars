@@ -9,7 +9,7 @@ variable "instance_image" {
 variable "postgresql_instance_flavor" {
   description = "The name of the instance to use for the postgresql servers."
   type        = string
-  default     = "s1-2"
+  default     = "c2-60"
   validation {
     condition = contains([
       "b2-7", "b2-15", "b2-30", "b2-60", "b2-120",
@@ -25,7 +25,7 @@ variable "postgresql_instance_flavor" {
 variable "tsbs_instance_flavor" {
   description = "The name of the instance to use for the tsbs servers."
   type        = string
-  default     = "s1-2"
+  default     = "c2-30"
   validation {
     condition = contains([
       "b2-7", "b2-15", "b2-30", "b2-60", "b2-120",
@@ -41,7 +41,7 @@ variable "tsbs_instance_flavor" {
 variable "prometheus_instance_flavor" {
   description = "The name of the instance to use for the prometheus servers."
   type        = string
-  default     = "s1-2"
+  default     = "c2-120"
   validation {
     condition = contains([
       "b2-7", "b2-15", "b2-30", "b2-60", "b2-120",
@@ -57,7 +57,7 @@ variable "prometheus_instance_flavor" {
 variable "vminsert_instance_flavor" {
   description = "The name of the instance to use for the vminsert servers."
   type        = string
-  default     = "s1-2"
+  default     = "c2-60"
   validation {
     condition = contains([
       "b2-7", "b2-15", "b2-30", "b2-60", "b2-120",
@@ -73,7 +73,7 @@ variable "vminsert_instance_flavor" {
 variable "vmselect_instance_flavor" {
   description = "The name of the instance to use for the vmselect servers."
   type        = string
-  default     = "s1-2"
+  default     = "c2-30"
   validation {
     condition = contains([
       "b2-7", "b2-15", "b2-30", "b2-60", "b2-120",
@@ -89,7 +89,7 @@ variable "vmselect_instance_flavor" {
 variable "vmstorage_instance_flavor" {
   description = "The name of the instance to use for the vmstorage servers."
   type        = string
-  default     = "s1-2"
+  default     = "c2-30"
   validation {
     condition = contains([
       "b2-7", "b2-15", "b2-30", "b2-60", "b2-120",
@@ -105,7 +105,7 @@ variable "vmstorage_instance_flavor" {
 variable "promscale_instance_flavor" {
   description = "The name of the instance to use for the promscale servers."
   type        = string
-  default     = "s1-2"
+  default     = "c2-60"
   validation {
     condition = contains([
       "b2-7", "b2-15", "b2-30", "b2-60", "b2-120",
@@ -121,7 +121,7 @@ variable "promscale_instance_flavor" {
 variable "lb_instance_flavor" {
   description = "The name of the instance to use for the lb servers."
   type        = string
-  default     = "s1-2"
+  default     = "c2-15"
   validation {
     condition = contains([
       "b2-7", "b2-15", "b2-30", "b2-60", "b2-120",
@@ -137,7 +137,7 @@ variable "lb_instance_flavor" {
 variable "consul_instance_flavor" {
   description = "The name of the instance to use for the consul servers."
   type        = string
-  default     = "s1-2"
+  default     = "c2-15"
   validation {
     condition = contains([
       "b2-7", "b2-15", "b2-30", "b2-60", "b2-120",
@@ -153,7 +153,7 @@ variable "consul_instance_flavor" {
 variable "grafana_instance_flavor" {
   description = "The name of the instance to use for the grafana servers."
   type        = string
-  default     = "s1-2"
+  default     = "c2-15"
   validation {
     condition = contains([
       "b2-7", "b2-15", "b2-30", "b2-60", "b2-120",
@@ -175,7 +175,7 @@ variable "node_per_patroni_cluster" {
 variable "node_vmstorage" {
   description = "The number of victoria metric's storage node."
   type        = number
-  default     = 3
+  default     = 6
 }
 
 variable "node_vminsert" {
