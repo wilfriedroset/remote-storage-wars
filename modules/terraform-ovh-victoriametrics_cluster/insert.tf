@@ -1,11 +1,11 @@
 resource "openstack_compute_instance_v2" "vminsert" {
-  count           = var.node_vminsert
-  name            = format("vminsert-%d", count.index + 1)
+  count           = var.vminsert_node_count
+  name            = format(var.vminsert_node_instance_name_template, count.index + 1)
   image_name      = var.instance_image
   flavor_name     = var.vminsert_instance_flavor
   key_pair        = var.ssh.public_key_name
-  user_data       = file("userdata.yml")
-  security_groups = ["timescale_ssh_security_group", "timescale_consul_security_group", "timescale_victoriametrics_security_group"]
+  user_data       = file(var.userdata)
+  security_groups = var.vminsert_node_security_groups
 
   metadata = {
     role    = "victoriametrics"
@@ -17,7 +17,7 @@ resource "openstack_compute_instance_v2" "vminsert" {
   }
 
   network {
-    name = openstack_networking_network_v2.private_network.name
+    name = var.private_network
   }
 
   connection {

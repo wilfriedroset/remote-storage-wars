@@ -1,4 +1,8 @@
 #jinja2: trim_blocks:False
 {% include 'haproxy-base.j2' %}
+{% if listen_vminsert|default(false) %}
 {% include 'haproxy-listen-vminsert.j2' %}
+{% endif %}
+{% if listen_vmselect|default(false) %}
 {% include 'haproxy-listen-vmselect.j2' %}
+{% endif %}

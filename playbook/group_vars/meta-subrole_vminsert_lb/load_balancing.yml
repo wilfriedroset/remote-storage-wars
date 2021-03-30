@@ -1,4 +1,5 @@
 ---
+listen_vminsert: true
 
 consul_template_template_templates:
   - src: "templates/haproxy-victoriametrics.ctmpl.j2"
@@ -34,6 +35,4 @@ consul_services:
     id: "victoriametrics"
     address: "{{ private_ip }}"
     tags:
-      - ro
       - rw
-      - lb

@@ -1,0 +1,38 @@
+---
+listen_vmselect: true
+
+consul_template_template_templates:
+  - src: "templates/haproxy-victoriametrics.ctmpl.j2"
+    dest: "haproxy.ctmpl"
+    cmd: "systemctl reload consul-template.service"
+    perms: "0600"
+    backup: "true"
+    wait: "2s"
+
+consul_services:
+  - name: "node-exporter"
+    id: "node-exporter"
+    address: "{{ private_ip }}"
+    port: 8888
+    checks:
+      - tcp: "localhost:9100"
+        interval: "10s"
+  - name: "nginx-exporter"
+    id: "nginx-exporter"
+    address: "{{ private_ip }}"
+    port: 8888
+    checks:
+      - tcp: "localhost:8080"
+        interval: "10s"
+  - name: "haproxy-exporter"
+    id: "haproxy-exporter"
+    address: "{{ private_ip }}"
+    port: 8888
+    checks:
+      - http: http://localhost:9101/health
+        interval: "10s"
+  - name: "victoriametrics"
+    id: "victoriametrics"
+    address: "{{ private_ip }}"
+    tags:
+      - ro
