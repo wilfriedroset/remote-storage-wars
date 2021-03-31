@@ -34,6 +34,11 @@ grafana_datasources:
       timescaledb: true
       postgresVersion: 1200
 
+  - name: "loki"
+    type: "loki"
+    access: "proxy"
+    url: "http://loki.service.dc1.consul:3100"
+
 grafana_plugins:
   - grafana-worldmap-panel
   - grafana-piechart-panel
