@@ -112,3 +112,27 @@ prometheus_scrape_configs:
     consul_sd_configs:
       - server: 'localhost:8500'
         services: [promscale-exporter]
+  - job_name: promtail-exporter
+    metrics_path: /promtail_exporter/metrics
+    relabel_configs:
+      - source_labels: [__meta_consul_node]
+        target_label: hostname
+      - source_labels: [__meta_consul_node]
+        target_label: instance
+      - source_labels: [__meta_consul_dc]
+        target_label: dc
+    consul_sd_configs:
+      - server: 'localhost:8500'
+        services: [promtail-exporter]
+  - job_name: loki-exporter
+    metrics_path: /loki_exporter/metrics
+    relabel_configs:
+      - source_labels: [__meta_consul_node]
+        target_label: hostname
+      - source_labels: [__meta_consul_node]
+        target_label: instance
+      - source_labels: [__meta_consul_dc]
+        target_label: dc
+    consul_sd_configs:
+      - server: 'localhost:8500'
+        services: [loki-exporter]
