@@ -36,3 +36,10 @@ consul_services:
     address: "{{ private_ip }}"
     tags:
       - ro
+  - name: "promtail"
+    id: "promtail"
+    address: "127.0.0.1"
+    port: 9080
+    checks:
+      - tcp: "localhost:9080"
+        interval: "10s"

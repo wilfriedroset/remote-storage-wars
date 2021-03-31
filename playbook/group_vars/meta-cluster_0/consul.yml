@@ -21,3 +21,17 @@ consul_services:
     checks:
       - tcp: "{{ private_ip }}:5432"
         interval: "10s"
+  - name: "promtail"
+    id: "promtail"
+    address: "127.0.0.1"
+    port: 9080
+    checks:
+      - tcp: "localhost:9080"
+        interval: "10s"
+  - name: "promtail-exporter"
+    id: "promtail-exporter"
+    address: "{{ private_ip }}"
+    port: 8888
+    checks:
+      - tcp: "localhost:9080"
+        interval: "10s"
