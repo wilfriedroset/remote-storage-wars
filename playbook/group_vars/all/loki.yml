@@ -1,0 +1,6 @@
+---
+loki_version: '2.2.0'
+loki_bins:
+  - promtail
+
+loki_listen_port: 3100

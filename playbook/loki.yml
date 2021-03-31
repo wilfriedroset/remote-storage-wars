@@ -1,0 +1,8 @@
+---
+- name: Install Loki & Promtail
+  hosts: all
+  any_errors_fatal: true
+  become: true
+  become_user: root
+  roles:
+    - diogenxs.loki

@@ -1,0 +1,38 @@
+---
+promtail_scrape_config:
+  - job_name: journald
+    journal:
+      labels:
+        job: journald
+        host: "{{ ansible_hostname }}"
+      max_age: 12h
+    relabel_configs:
+      - source_labels:
+          - __journal__systemd_unit
+        target_label: unit
+  - job_name: postgresql
+    static_configs:
+      - labels:
+          job: postgresql
+          host: "{{ ansible_hostname }}"
+          __path__: /var/log/postgresql/*log
+    pipeline_stages:
+      - multiline:
+          firstline: '^\d{4}-\d{2}-\d{2}'
+          max_wait_time: 3s
+          # default is 128, we might need more depending on the size of the query
+          max_lines: 256
+      - regex:
+          # yamllint disable-line rule:line-length
+          expression: '^(?P<time>\d{4}-\d{2}-\d{2} \d{2}:\d{2}:\d{2}.\d{3} \S+) db=\[?(?P<database>\w*)\]?,user=\[?(?P<user>\w*)\]?,app=\[?(?P<app>\w*)\]?,client=\[?(?P<client>\w*)\]?\s(?P<level>\S+):\s(?P<content>(.*|\n)*)'
+      - timestamp:
+          source: time
+          format: '2006-01-02 15:04:05.000 UTC'
+      - labels:
+          # Explicit the labels in order to avoid ansible putting a `null` in the configuration file
+          database: database
+          user: user
+          app: app
+          client: client
+      - output:
+          source: content

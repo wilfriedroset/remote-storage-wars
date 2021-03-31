@@ -1,0 +1,11 @@
+---
+# Need to overwrite all/loki.yml
+loki_bins:
+  - loki
+  - promtail
+  - logcli
+
+loki_listen_address: "{{ private_ip }}"
+loki_server_config:
+  http_listen_address: "{{ loki_listen_address }}"
+  grpc_listen_address: "{{ loki_listen_address }}"

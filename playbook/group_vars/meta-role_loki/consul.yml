@@ -1,0 +1,44 @@
+---
+consul_services:
+  - name: "node-exporter"
+    id: "node-exporter"
+    address: "{{ private_ip }}"
+    port: 8888
+    checks:
+      - tcp: "localhost:9100"
+        interval: "10s"
+  - name: "nginx-exporter"
+    id: "nginx-exporter"
+    address: "{{ private_ip }}"
+    port: 8888
+    checks:
+      - tcp: "localhost:8080"
+        interval: "10s"
+  - name: "loki"
+    id: "loki"
+    address: "{{ private_ip }}"
+    port: "{{ loki_listen_port }}"
+    checks:
+      - http: "http://{{ private_ip }}:{{ loki_listen_port }}/ready"
+        interval: "10s"
+  - name: "loki-exporter"
+    id: "loki-exporter"
+    address: "{{ private_ip }}"
+    port: 8888
+    checks:
+      - http: "http://{{ private_ip }}:{{ loki_listen_port }}/ready"
+        interval: "10s"
+  - name: "promtail"
+    id: "promtail"
+    address: "127.0.0.1"
+    port: 9080
+    checks:
+      - tcp: "localhost:9080"
+        interval: "10s"
+  - name: "promtail-exporter"
+    id: "promtail-exporter"
+    address: "{{ private_ip }}"
+    port: 8888
+    checks:
+      - tcp: "localhost:9080"
+        interval: "10s"

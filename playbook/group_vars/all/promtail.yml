@@ -1,0 +1,27 @@
+---
+promtail_listen_address: "127.0.0.1"
+
+promtail_client_config:
+  - url: "http://loki.service.dc1.consul:{{ loki_listen_port }}/loki/api/v1/push"
+
+promtail_server_config:
+  http_listen_address: "{{ promtail_listen_address }}"
+  http_listen_port: 9080
+  grpc_listen_address: "{{ promtail_listen_address }}"
+  grpc_listen_port: 0
+
+promtail_scrape_config:
+  - job_name: journald
+    journal:
+      labels:
+        job: journald
+        host: "{{ ansible_hostname }}"
+      max_age: 12h
+    relabel_configs:
+      - source_labels:
+          - __journal__systemd_unit
+        target_label: unit
+
+promtail_target_config: []
+promtail_positions_config:
+  filename: /tmp/positions.yaml
