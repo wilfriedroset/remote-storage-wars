@@ -1,3 +1,4 @@
+---
 consul_services:
   - name: "node-exporter"
     id: "node-exporter"
