@@ -42,3 +42,9 @@
         attr: +i
       register: resolv_file
       changed_when: "'i' not in resolv_file.diff.before.attributes"
+
+    - name: Make sure debian.example.com is not present in /etc/hosts
+      lineinfile:
+        path: /etc/hosts
+        state: absent
+        regexp: '127.0.1.1\s*debian.example.com'
