@@ -3,7 +3,8 @@ variable "cloud" {}
 variable "instance_image" {
   description = "The name of image to use for the server."
   type        = string
-  default     = "Debian 10"
+  # This requires to build the image with packer first.
+  default = "Debian 10 - TSDB Infra - generic"
 }
 
 variable "postgresql_instance_flavor" {
