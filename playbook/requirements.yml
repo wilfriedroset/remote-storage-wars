@@ -31,6 +31,8 @@ roles:
   - name: diogenxs.loki
     src: https://github.com/diogenxs/ansible-role-loki.git
     version: f74de4a
+  - name: andrewrothstein.etcd-cluster
+    version: v2.0.0
 
 collections:
   - name: devsec.hardening

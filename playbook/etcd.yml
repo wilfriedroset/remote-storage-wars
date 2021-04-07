@@ -1,0 +1,8 @@
+---
+- name: Bootstrap etcd cluster
+  hosts: meta-role_etcd_server
+  any_errors_fatal: true
+  become: true
+  become_user: root
+  roles:
+    - andrewrothstein.etcd-cluster

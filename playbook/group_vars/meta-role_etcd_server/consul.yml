@@ -1,0 +1,37 @@
+---
+consul_services:
+  - name: "node-exporter"
+    id: "node-exporter"
+    address: "{{ private_ip }}"
+    port: 8888
+    checks:
+      - tcp: "localhost:9100"
+        interval: "10s"
+  - name: "nginx-exporter"
+    id: "nginx-exporter"
+    address: "{{ private_ip }}"
+    port: 8888
+    checks:
+      - tcp: "localhost:8080"
+        interval: "10s"
+  - name: "promtail"
+    id: "promtail"
+    address: "127.0.0.1"
+    port: 9080
+    checks:
+      - tcp: "localhost:9080"
+        interval: "10s"
+  - name: "promtail-exporter"
+    id: "promtail-exporter"
+    address: "{{ private_ip }}"
+    port: 8888
+    checks:
+      - tcp: "localhost:9080"
+        interval: "10s"
+  - name: "etcd"
+    id: "etcd"
+    address: "{{ private_ip }}"
+    port: "{{ etcd_port_client }}"
+    checks:
+      - tcp: "{{ private_ip }}:{{ etcd_port_client }}"
+        interval: "10s"

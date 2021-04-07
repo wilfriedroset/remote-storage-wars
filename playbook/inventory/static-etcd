@@ -1,0 +1,2 @@
+[etcd_master:children]
+meta-role_etcd_server

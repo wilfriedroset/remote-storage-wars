@@ -1,0 +1,11 @@
+---
+etcd_iface_public: 'eth1'
+etcd_iface_cluster: 'eth1'
+etcd_port_client: 2379
+etcd_port_peer: 2380
+# The role does not support automatic generation of those certificate
+etcd_secure: false
+etcd_pki_dir: /var/lib/etcd/etcd.pki
+
+etcd_cluster_name: etcd_cluster
+etcd_initial_cluster_token: 8661c608-5345-40d8-b95e-ac6e30c097c2

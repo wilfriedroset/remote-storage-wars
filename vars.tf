@@ -151,6 +151,22 @@ variable "consul_instance_flavor" {
   }
 }
 
+variable "etcd_instance_flavor" {
+  description = "The name of the instance to use for the etcd servers."
+  type        = string
+  default     = "c2-15"
+  validation {
+    condition = contains([
+      "b2-7", "b2-15", "b2-30", "b2-60", "b2-120",
+      "c2-7", "c2-15", "c2-30", "c2-60", "c2-120",
+      "i1-45", "i1-90", "i1-180",
+      "r2-15", "r2-30", "r2-60", "r2-120", "r2-240",
+      "s1-2", "s1-4", "s1-8",
+    ], lower(var.etcd_instance_flavor))
+    error_message = "Unsupported etcd instance flavor specified."
+  }
+}
+
 variable "grafana_instance_flavor" {
   description = "The name of the instance to use for the grafana servers."
   type        = string
