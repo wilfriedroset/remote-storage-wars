@@ -231,6 +231,51 @@ variable "lb_count" {
   default     = 1
 }
 
+
+variable "m3_dbnode_count" {
+  description = "The number of m3 dbnode instance."
+  type        = number
+  default     = 3
+}
+
+variable "m3_coordinator_count" {
+  description = "The number of m3 coordinator instance."
+  type        = number
+  default     = 1
+}
+
+variable "m3_dbnode_instance_flavor" {
+  description = "The name of the instance to use for the m3_dbnode servers."
+  type        = string
+  default     = "c2-60"
+  validation {
+    condition = contains([
+      "b2-7", "b2-15", "b2-30", "b2-60", "b2-120",
+      "c2-7", "c2-15", "c2-30", "c2-60", "c2-120",
+      "i1-45", "i1-90", "i1-180",
+      "r2-15", "r2-30", "r2-60", "r2-120", "r2-240",
+      "s1-2", "s1-4", "s1-8",
+    ], lower(var.m3_dbnode_instance_flavor))
+    error_message = "Unsupported m3_dbnode instance flavor specified."
+  }
+}
+
+variable "m3_coordinator_instance_flavor" {
+  description = "The name of the instance to use for the m3_coordinator servers."
+  type        = string
+  default     = "c2-60"
+  validation {
+    condition = contains([
+      "b2-7", "b2-15", "b2-30", "b2-60", "b2-120",
+      "c2-7", "c2-15", "c2-30", "c2-60", "c2-120",
+      "i1-45", "i1-90", "i1-180",
+      "r2-15", "r2-30", "r2-60", "r2-120", "r2-240",
+      "s1-2", "s1-4", "s1-8",
+    ], lower(var.m3_coordinator_instance_flavor))
+    error_message = "Unsupported m3_coordinator instance flavor specified."
+  }
+}
+
 variable "domain_name" {
   description = "The name of the dns zone to use for dns entries."
   type        = string
