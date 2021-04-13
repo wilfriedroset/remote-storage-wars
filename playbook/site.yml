@@ -1,6 +1,7 @@
 ---
 - import_playbook: common.yml
 - import_playbook: consul.yml
+- import_playbook: etcd.yml
 - import_playbook: lb.yml
 - import_playbook: patroni_server.yml
 - import_playbook: distributed-timescaledb.yml
