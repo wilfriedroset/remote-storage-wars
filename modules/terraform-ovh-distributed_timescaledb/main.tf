@@ -1,6 +1,7 @@
 module "patroni-access-node" {
   source = "../terraform-ovh-patroni_cluster/"
 
+  instance_image                 = var.instance_image
   node_count                     = var.node_count
   userdata                       = var.userdata
   patroni_instance_name_template = var.access_node_patroni_instance_name_template
@@ -21,6 +22,7 @@ module "patroni-data-node-shard" {
 
   count = var.shard_count
 
+  instance_image                 = var.instance_image
   node_count                     = var.node_count
   userdata                       = var.userdata
   patroni_instance_name_template = format(var.data_node_patroni_instance_name_template, count.index + 1)
