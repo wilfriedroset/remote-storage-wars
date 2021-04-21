@@ -1,3 +1,0 @@
-[submodule "playbook/plugins/mitogen"]
-	path = playbook/plugins/mitogen
-	url = https://github.com/mitogen-hq/mitogen.git
