@@ -10,7 +10,7 @@
     - devsec.hardening.os_hardening
     - devsec.hardening.ssh_hardening
     - local.common-packages
-    - cloudalchemy.node-exporter
+    - cloudalchemy.node_exporter
   handlers:
     - name: restart networking
       service:

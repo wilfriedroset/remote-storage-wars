@@ -10,8 +10,8 @@ roles:
     version: 0.18.0
   - name: cloudalchemy.prometheus
     version: 2.15.5
-  - name: cloudalchemy.node-exporter
-    version: 0.21.5
+  - name: cloudalchemy.node_exporter
+    version: 2.0.0
   - name: kostiantyn-nemchenko.patroni
     version: v1.0.0
   - name: slapper.ansible_victoriametrics_cluster_role
