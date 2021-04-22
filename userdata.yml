@@ -5,3 +5,6 @@ package_upgrade: true
 packages:
   # Required by ansible
   - python3-apt
+
+# Configure to manage /etc/hosts
+manage_etc_hosts: true
