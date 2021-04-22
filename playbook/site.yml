@@ -1,5 +1,4 @@
 ---
-- import_playbook: common.yml
 - import_playbook: consul.yml
 - import_playbook: etcd.yml
 - import_playbook: lb.yml
