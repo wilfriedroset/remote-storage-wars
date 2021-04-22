@@ -8,4 +8,4 @@ loki_bins:
 loki_listen_address: "{{ private_ip }}"
 loki_server_config:
   http_listen_address: "{{ loki_listen_address }}"
-  grpc_listen_address: "{{ loki_listen_address }}"
+  grpc_listen_address: 127.0.0.1
