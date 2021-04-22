@@ -3,26 +3,24 @@ roles:
   - name: brianshumate.consul
     version: v2.5.4
   - name: geerlingguy.postgresql
-    version: 2.2.1
+    version: 3.1.0
   - name: andrewrothstein.go
-    version: v2.1.37
+    version: v2.1.48
   - name: cloudalchemy.grafana
     version: 0.18.0
   - name: cloudalchemy.prometheus
-    version: 2.15.5
+    version: 3.0.0
   - name: cloudalchemy.node_exporter
     version: 2.0.0
   - name: kostiantyn-nemchenko.patroni
-    version: v1.0.0
+    version: v1.0.1
   - name: slapper.ansible_victoriametrics_cluster_role
-    # Using fork as upstream does not allow to specify which address to listen to
-    # see: https://github.com/Slapper/ansible-victoriametrics-cluster-role/pull/2
-    version: c7946b3
-    src: https://github.com/wilfriedroset/ansible-victoriametrics-cluster-role.git
+    version: 291a9b6
+    src: https://github.com/Slapper/ansible-victoriametrics-cluster-role.git
   - name: bdellegrazie.postgres_exporter
-    version: v4.1.0
+    version: v4.1.1
   - name: bdellegrazie.haproxy_exporter
-    version: v1.3.2
+    version: v1.4.0
   - name: griggheo.consul-template
     version: ff5bcde
     src: https://github.com/griggheo/ansible-consul-template.git
@@ -36,6 +34,6 @@ roles:
 
 collections:
   - name: devsec.hardening
-    version: 7.0.0
+    version: 7.5.0
   - name: nginxinc.nginx_core
     version: 0.3.0

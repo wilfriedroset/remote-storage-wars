@@ -1,6 +1,12 @@
 ---
-postgres_exporter_version: 0.8.0
-postgres_exporter_checksum: 9af399257fe6ad20bf6ea7a4984721ae364bd574
+postgres_exporter_version: 0.9.0
+postgres_exporter_checksum: ff541bd3ee19c0ae003d71424a75edfcc8695e828dd20d5b4555ce433c89d60b
+
+# Waiting for https://github.com/bdellegrazie/ansible-role-postgres_exporter/pull/16
+postgres_exporter_dist: "postgres_exporter-{{ postgres_exporter_version }}.linux-amd64"
+# yamllint disable-line rule:line-length
+postgres_exporter_url: "https://github.com/prometheus-community/postgres_exporter/releases/download/v{{ postgres_exporter_version }}/{{ postgres_exporter_dist }}.tar.gz"
+
 postgres_exporter_datasource: "user=postgres host=/var/run/postgresql database=postgres sslmode=disable"
 postgres_exporter_flags:
   - '--extend.query-path=/var/lib/postgresql/queries.yml'
