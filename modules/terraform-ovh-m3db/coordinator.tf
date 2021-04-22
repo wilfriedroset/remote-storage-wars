@@ -6,7 +6,7 @@ module "m3db_coordinator" {
   instance_image  = var.instance_image
   instance_flavor = var.coordinator_instance_flavor
   ssh             = var.ssh
-  userdata        = var.userdata
+  userdata_path   = var.userdata_path
   security_groups = var.coordinator_security_groups
 
   instance_metadata = {

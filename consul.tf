@@ -6,7 +6,7 @@ module "consul_server" {
   instance_image  = var.instance_image
   instance_flavor = var.consul_instance_flavor
   ssh             = var.ssh
-  userdata        = "userdata.yml"
+  userdata_path   = "userdata.yml"
   security_groups = ["timescale_ssh_security_group", "timescale_consul_security_group", "timescale_ui_security_group"]
 
   instance_metadata = {

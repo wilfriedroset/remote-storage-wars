@@ -6,7 +6,7 @@ module "patroni_lb" {
   instance_image  = var.instance_image
   instance_flavor = var.lb_instance_flavor
   ssh             = var.ssh
-  userdata        = var.userdata
+  userdata_path   = var.userdata_path
   security_groups = var.lb_security_groups
 
   instance_metadata = {

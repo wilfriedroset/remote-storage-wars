@@ -6,7 +6,7 @@ module "promscale" {
   instance_image  = var.instance_image
   instance_flavor = var.promscale_instance_flavor
   ssh             = var.ssh
-  userdata        = "userdata.yml"
+  userdata_path   = "userdata.yml"
   security_groups = ["timescale_ssh_security_group", "timescale_consul_security_group", "timescale_prometheus_security_group", "timescale_pprof_security_group"]
 
   instance_metadata = {

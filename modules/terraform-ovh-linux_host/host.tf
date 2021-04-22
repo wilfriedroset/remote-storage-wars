@@ -3,7 +3,7 @@ resource "openstack_compute_instance_v2" "linuxhost" {
   image_name      = var.instance_image
   flavor_name     = var.instance_flavor
   key_pair        = var.ssh.public_key_name
-  user_data       = file(var.userdata)
+  user_data       = file(var.userdata_path)
   security_groups = var.security_groups
 
   metadata = var.instance_metadata

@@ -6,7 +6,7 @@ module "etcd_server" {
   instance_image  = var.instance_image
   instance_flavor = var.instance_flavor
   ssh             = var.ssh
-  userdata        = var.userdata
+  userdata_path   = var.userdata_path
   security_groups = var.security_groups
 
   instance_metadata = {

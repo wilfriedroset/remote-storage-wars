@@ -6,7 +6,7 @@ module "vmselect" {
   instance_image  = var.instance_image
   instance_flavor = var.vmselect_instance_flavor
   ssh             = var.ssh
-  userdata        = var.userdata
+  userdata_path   = var.userdata_path
   security_groups = var.vmselect_node_security_groups
 
   instance_metadata = {

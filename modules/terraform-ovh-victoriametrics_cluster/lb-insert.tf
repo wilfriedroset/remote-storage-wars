@@ -10,7 +10,7 @@ module "lb_insert" {
   instance_image  = var.instance_image
   instance_flavor = var.lb_instance_flavor
   ssh             = var.ssh
-  userdata        = var.userdata
+  userdata_path   = var.userdata_path
   security_groups = var.vminsert_lb_security_groups
 
   instance_metadata = {

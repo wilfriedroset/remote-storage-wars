@@ -1,8 +1,8 @@
 module "victoriametrics" {
   source = "./modules/terraform-ovh-victoriametrics_cluster"
 
-  userdata = "userdata.yml"
-  ssh      = var.ssh
+  userdata_path = "userdata.yml"
+  ssh           = var.ssh
 
   instance_image = var.instance_image
 

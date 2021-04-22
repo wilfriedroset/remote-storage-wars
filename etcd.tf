@@ -2,7 +2,7 @@ module "etcd" {
   source = "./modules/terraform-ovh-etcd/"
 
   node_count      = 3
-  userdata        = "userdata.yml"
+  userdata_path   = "userdata.yml"
   instance_image  = var.instance_image
   ssh             = var.ssh
   private_network = openstack_networking_network_v2.private_network.name

@@ -5,7 +5,7 @@ module "m3db" {
   coordinator_count = var.m3_coordinator_count
 
   instance_image              = var.instance_image
-  userdata                    = "userdata.yml"
+  userdata_path               = "userdata.yml"
   ssh                         = var.ssh
   private_network             = openstack_networking_network_v2.private_network.name
   domain_name                 = var.domain_name

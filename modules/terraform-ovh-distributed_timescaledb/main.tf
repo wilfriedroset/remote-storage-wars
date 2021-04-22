@@ -3,7 +3,7 @@ module "patroni-access-node" {
 
   instance_image                 = var.instance_image
   node_count                     = var.node_count
-  userdata                       = var.userdata
+  userdata_path                  = var.userdata_path
   patroni_instance_name_template = var.access_node_patroni_instance_name_template
   lb_instance_name_template      = var.access_node_lb_instance_name_template
   ssh                            = var.ssh
@@ -24,7 +24,7 @@ module "patroni-data-node-shard" {
 
   instance_image                 = var.instance_image
   node_count                     = var.node_count
-  userdata                       = var.userdata
+  userdata_path                  = var.userdata_path
   patroni_instance_name_template = format(var.data_node_patroni_instance_name_template, count.index + 1)
   lb_instance_name_template      = format(var.data_node_lb_instance_name_template, count.index + 1)
   ssh                            = var.ssh

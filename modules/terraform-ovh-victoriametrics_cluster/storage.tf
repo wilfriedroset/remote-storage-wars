@@ -6,7 +6,7 @@ module "vmstorage" {
   instance_image  = var.instance_image
   instance_flavor = var.vmstorage_instance_flavor
   ssh             = var.ssh
-  userdata        = var.userdata
+  userdata_path   = var.userdata_path
   security_groups = var.vmstorage_node_security_groups
 
   instance_metadata = {

@@ -6,7 +6,7 @@ module "patroni_servers" {
   instance_image  = var.instance_image
   instance_flavor = var.patroni_instance_flavor
   ssh             = var.ssh
-  userdata        = var.userdata
+  userdata_path   = var.userdata_path
   security_groups = var.patroni_security_groups
 
   instance_metadata = {

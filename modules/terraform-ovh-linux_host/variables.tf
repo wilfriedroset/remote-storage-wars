@@ -45,7 +45,7 @@ variable "ssh" {
   }
 }
 
-variable "userdata" {
+variable "userdata_path" {
   description = "Path of the userdata file to user."
   type        = string
 }
