@@ -46,16 +46,6 @@ variable "lb_instance_flavor" {
   description = "The name of the instance to use lb."
   type        = string
   default     = "s1-2"
-  validation {
-    condition = contains([
-      "b2-7", "b2-15", "b2-30", "b2-60", "b2-120",
-      "c2-7", "c2-15", "c2-30", "c2-60", "c2-120",
-      "i1-45", "i1-90", "i1-180",
-      "r2-15", "r2-30", "r2-60", "r2-120", "r2-240",
-      "s1-2", "s1-4", "s1-8",
-    ], lower(var.lb_instance_flavor))
-    error_message = "Unsupported instance flavor specified."
-  }
 }
 
 # Insert component
@@ -88,16 +78,6 @@ variable "vminsert_instance_flavor" {
   description = "The name of the instance to use for vminsert."
   type        = string
   default     = "s1-2"
-  validation {
-    condition = contains([
-      "b2-7", "b2-15", "b2-30", "b2-60", "b2-120",
-      "c2-7", "c2-15", "c2-30", "c2-60", "c2-120",
-      "i1-45", "i1-90", "i1-180",
-      "r2-15", "r2-30", "r2-60", "r2-120", "r2-240",
-      "s1-2", "s1-4", "s1-8",
-    ], lower(var.vminsert_instance_flavor))
-    error_message = "Unsupported instance flavor specified."
-  }
 }
 
 variable "vminsert_lb_security_groups" {
@@ -142,16 +122,6 @@ variable "vmselect_instance_flavor" {
   description = "The name of the instance to use for vmselect."
   type        = string
   default     = "s1-2"
-  validation {
-    condition = contains([
-      "b2-7", "b2-15", "b2-30", "b2-60", "b2-120",
-      "c2-7", "c2-15", "c2-30", "c2-60", "c2-120",
-      "i1-45", "i1-90", "i1-180",
-      "r2-15", "r2-30", "r2-60", "r2-120", "r2-240",
-      "s1-2", "s1-4", "s1-8",
-    ], lower(var.vmselect_instance_flavor))
-    error_message = "Unsupported instance flavor specified."
-  }
 }
 
 variable "vmselect_lb_security_groups" {
@@ -184,16 +154,6 @@ variable "vmstorage_instance_flavor" {
   description = "The name of the instance to use for vmstorage."
   type        = string
   default     = "s1-2"
-  validation {
-    condition = contains([
-      "b2-7", "b2-15", "b2-30", "b2-60", "b2-120",
-      "c2-7", "c2-15", "c2-30", "c2-60", "c2-120",
-      "i1-45", "i1-90", "i1-180",
-      "r2-15", "r2-30", "r2-60", "r2-120", "r2-240",
-      "s1-2", "s1-4", "s1-8",
-    ], lower(var.vmstorage_instance_flavor))
-    error_message = "Unsupported instance flavor specified."
-  }
 }
 
 variable "vmstorage_node_security_groups" {

@@ -32,32 +32,12 @@ variable "dbnode_instance_flavor" {
   description = "The name of the instance to use dbnode."
   type        = string
   default     = "s1-2"
-  validation {
-    condition = contains([
-      "b2-7", "b2-15", "b2-30", "b2-60", "b2-120",
-      "c2-7", "c2-15", "c2-30", "c2-60", "c2-120",
-      "i1-45", "i1-90", "i1-180",
-      "r2-15", "r2-30", "r2-60", "r2-120", "r2-240",
-      "s1-2", "s1-4", "s1-8",
-    ], lower(var.dbnode_instance_flavor))
-    error_message = "Unsupported instance flavor specified."
-  }
 }
 
 variable "coordinator_instance_flavor" {
   description = "The name of the instance to use coordinator."
   type        = string
   default     = "s1-2"
-  validation {
-    condition = contains([
-      "b2-7", "b2-15", "b2-30", "b2-60", "b2-120",
-      "c2-7", "c2-15", "c2-30", "c2-60", "c2-120",
-      "i1-45", "i1-90", "i1-180",
-      "r2-15", "r2-30", "r2-60", "r2-120", "r2-240",
-      "s1-2", "s1-4", "s1-8",
-    ], lower(var.coordinator_instance_flavor))
-    error_message = "Unsupported instance flavor specified."
-  }
 }
 
 variable "ssh" {
