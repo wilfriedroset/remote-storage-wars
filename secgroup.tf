@@ -29,7 +29,7 @@ resource "openstack_networking_secgroup_rule_v2" "consul_dns" {
   protocol          = "tcp"
   port_range_min    = 8600
   port_range_max    = 8600
-  remote_ip_prefix  = var.private_network
+  remote_ip_prefix  = var.private_network.ip_range
   security_group_id = openstack_networking_secgroup_v2.timescale_consul_security_group.id
 }
 
@@ -39,7 +39,7 @@ resource "openstack_networking_secgroup_rule_v2" "consul_http" {
   protocol          = "tcp"
   port_range_min    = 8500
   port_range_max    = 8500
-  remote_ip_prefix  = var.private_network
+  remote_ip_prefix  = var.private_network.ip_range
   security_group_id = openstack_networking_secgroup_v2.timescale_consul_security_group.id
 }
 
@@ -49,7 +49,7 @@ resource "openstack_networking_secgroup_rule_v2" "consul_serf_lan" {
   protocol          = "tcp"
   port_range_min    = 8301
   port_range_max    = 8301
-  remote_ip_prefix  = var.private_network
+  remote_ip_prefix  = var.private_network.ip_range
   security_group_id = openstack_networking_secgroup_v2.timescale_consul_security_group.id
 }
 
@@ -59,7 +59,7 @@ resource "openstack_networking_secgroup_rule_v2" "consul_serf_wan" {
   protocol          = "tcp"
   port_range_min    = 8302
   port_range_max    = 8302
-  remote_ip_prefix  = var.private_network
+  remote_ip_prefix  = var.private_network.ip_range
   security_group_id = openstack_networking_secgroup_v2.timescale_consul_security_group.id
 }
 
@@ -69,7 +69,7 @@ resource "openstack_networking_secgroup_rule_v2" "consul_server" {
   protocol          = "tcp"
   port_range_min    = 8300
   port_range_max    = 8300
-  remote_ip_prefix  = var.private_network
+  remote_ip_prefix  = var.private_network.ip_range
   security_group_id = openstack_networking_secgroup_v2.timescale_consul_security_group.id
 }
 
@@ -86,7 +86,7 @@ resource "openstack_networking_secgroup_rule_v2" "postgresql" {
   protocol          = "tcp"
   port_range_min    = 5432
   port_range_max    = 5432
-  remote_ip_prefix  = cidrsubnet(var.private_network, 8, 5)
+  remote_ip_prefix  = var.private_network.ip_range
   security_group_id = openstack_networking_secgroup_v2.timescale_postgresql_security_group.id
 }
 
@@ -103,7 +103,7 @@ resource "openstack_networking_secgroup_rule_v2" "victoriametrics" {
   protocol          = "tcp"
   port_range_min    = 5432
   port_range_max    = 5432
-  remote_ip_prefix  = cidrsubnet(var.private_network, 8, 6)
+  remote_ip_prefix  = var.private_network.ip_range
   security_group_id = openstack_networking_secgroup_v2.timescale_victoriametrics_security_group.id
 }
 
@@ -160,7 +160,7 @@ resource "openstack_networking_secgroup_rule_v2" "prometheus" {
   protocol          = "tcp"
   port_range_min    = 9201
   port_range_max    = 9201
-  remote_ip_prefix  = var.private_network
+  remote_ip_prefix  = var.private_network.ip_range
   security_group_id = openstack_networking_secgroup_v2.timescale_prometheus_security_group.id
 }
 
@@ -177,7 +177,7 @@ resource "openstack_networking_secgroup_rule_v2" "lb_pg_rw" {
   protocol          = "tcp"
   port_range_min    = 3000
   port_range_max    = 3000
-  remote_ip_prefix  = cidrsubnet(var.private_network, 8, 4)
+  remote_ip_prefix  = var.private_network.ip_range
   security_group_id = openstack_networking_secgroup_v2.timescale_lb_security_group.id
 }
 
@@ -187,7 +187,7 @@ resource "openstack_networking_secgroup_rule_v2" "lb_pg_ro" {
   protocol          = "tcp"
   port_range_min    = 4000
   port_range_max    = 4000
-  remote_ip_prefix  = cidrsubnet(var.private_network, 8, 4)
+  remote_ip_prefix  = var.private_network.ip_range
   security_group_id = openstack_networking_secgroup_v2.timescale_lb_security_group.id
 }
 
@@ -197,7 +197,7 @@ resource "openstack_networking_secgroup_rule_v2" "lb_victoria_insert" {
   protocol          = "tcp"
   port_range_min    = 8480
   port_range_max    = 8480
-  remote_ip_prefix  = cidrsubnet(var.private_network, 8, 4)
+  remote_ip_prefix  = var.private_network.ip_range
   security_group_id = openstack_networking_secgroup_v2.timescale_lb_security_group.id
 }
 
@@ -207,7 +207,7 @@ resource "openstack_networking_secgroup_rule_v2" "lb_victoria_select" {
   protocol          = "tcp"
   port_range_min    = 8481
   port_range_max    = 8481
-  remote_ip_prefix  = cidrsubnet(var.private_network, 8, 4)
+  remote_ip_prefix  = var.private_network.ip_range
   security_group_id = openstack_networking_secgroup_v2.timescale_lb_security_group.id
 }
 

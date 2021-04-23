@@ -10,67 +10,67 @@ variable "instance_image" {
 variable "postgresql_instance_flavor" {
   description = "The name of the instance to use for the postgresql servers."
   type        = string
-  default     = "c2-60"
+  default     = "s1-2"
 }
 
 variable "tsbs_instance_flavor" {
   description = "The name of the instance to use for the tsbs servers."
   type        = string
-  default     = "c2-30"
+  default     = "s1-2"
 }
 
 variable "prometheus_instance_flavor" {
   description = "The name of the instance to use for the prometheus servers."
   type        = string
-  default     = "c2-120"
+  default     = "s1-2"
 }
 
 variable "vminsert_instance_flavor" {
   description = "The name of the instance to use for the vminsert servers."
   type        = string
-  default     = "c2-60"
+  default     = "s1-2"
 }
 
 variable "vmselect_instance_flavor" {
   description = "The name of the instance to use for the vmselect servers."
   type        = string
-  default     = "c2-30"
+  default     = "s1-2"
 }
 
 variable "vmstorage_instance_flavor" {
   description = "The name of the instance to use for the vmstorage servers."
   type        = string
-  default     = "c2-30"
+  default     = "s1-2"
 }
 
 variable "promscale_instance_flavor" {
   description = "The name of the instance to use for the promscale servers."
   type        = string
-  default     = "c2-60"
+  default     = "s1-2"
 }
 
 variable "lb_instance_flavor" {
   description = "The name of the instance to use for the lb servers."
   type        = string
-  default     = "c2-15"
+  default     = "s1-2"
 }
 
 variable "consul_instance_flavor" {
   description = "The name of the instance to use for the consul servers."
   type        = string
-  default     = "c2-15"
+  default     = "s1-2"
 }
 
 variable "etcd_instance_flavor" {
   description = "The name of the instance to use for the etcd servers."
   type        = string
-  default     = "c2-15"
+  default     = "s1-2"
 }
 
 variable "grafana_instance_flavor" {
   description = "The name of the instance to use for the grafana servers."
   type        = string
-  default     = "c2-15"
+  default     = "s1-2"
 }
 
 variable "node_per_patroni_cluster" {
@@ -137,13 +137,13 @@ variable "m3_coordinator_count" {
 variable "m3_dbnode_instance_flavor" {
   description = "The name of the instance to use for the m3_dbnode servers."
   type        = string
-  default     = "c2-60"
+  default     = "s1-2"
 }
 
 variable "m3_coordinator_instance_flavor" {
   description = "The name of the instance to use for the m3_coordinator servers."
   type        = string
-  default     = "c2-60"
+  default     = "s1-2"
 }
 
 variable "domain_name" {
@@ -167,8 +167,15 @@ variable "public_network" {
 }
 
 variable "private_network" {
-  description = "The name of the private network to create and use for servers."
-  type        = string
+  description = "Private network to create and use for servers."
+  type = object({
+    name     = string
+    ip_range = string
+  })
+  default = {
+    name     = "Remote-Storage-War"
+    ip_range = "10.94.1.0/24"
+  }
 }
 
 variable "ssh_ingress" {
