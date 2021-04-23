@@ -279,6 +279,7 @@ variable "m3_coordinator_instance_flavor" {
 variable "domain_name" {
   description = "The name of the dns zone to use for dns entries."
   type        = string
+  default     = ""
 }
 
 variable "ovh_endpoint" {
