@@ -7,7 +7,7 @@ module "promscale" {
   instance_flavor = var.promscale_instance_flavor
   ssh             = var.ssh
   userdata_path   = "userdata.yml"
-  security_groups = ["timescale_ssh_security_group", "timescale_consul_security_group", "timescale_prometheus_security_group", "timescale_pprof_security_group"]
+  security_groups = ["ssh_security_group", "pprof_ui_security_group"]
 
   instance_metadata = {
     role = "promscale"

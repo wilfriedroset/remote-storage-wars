@@ -7,7 +7,7 @@ module "tsbs" {
   instance_flavor = var.tsbs_instance_flavor
   ssh             = var.ssh
   userdata_path   = "userdata.yml"
-  security_groups = ["timescale_ssh_security_group", "timescale_consul_security_group"]
+  security_groups = ["ssh_security_group"]
 
   instance_metadata = {
     role    = "client"
@@ -26,7 +26,7 @@ module "grafana" {
   instance_flavor = var.grafana_instance_flavor
   ssh             = var.ssh
   userdata_path   = "userdata.yml"
-  security_groups = ["timescale_ssh_security_group", "timescale_consul_security_group", "timescale_ui_security_group"]
+  security_groups = ["ssh_security_group", "grafana_ui_security_group"]
 
   instance_metadata = {
     role    = "client"
@@ -46,7 +46,7 @@ module "prometheus" {
   instance_flavor = var.prometheus_instance_flavor
   ssh             = var.ssh
   userdata_path   = "userdata.yml"
-  security_groups = ["timescale_ssh_security_group", "timescale_consul_security_group", "timescale_ui_security_group"]
+  security_groups = ["ssh_security_group", "prometheus_ui_security_group"]
 
   instance_metadata = {
     role    = "client"
