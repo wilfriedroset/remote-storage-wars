@@ -16,3 +16,7 @@ module "loki" {
   private_network = openstack_networking_network_v2.private_network.name
   domain_name     = var.domain_name
 }
+
+output "loki" {
+  value = var.domain_name != "" ? module.loki[*].domain_zone_record : module.loki[*].linuxhost
+}

@@ -17,3 +17,14 @@ module "prometheus" {
   private_network = openstack_networking_network_v2.private_network.name
   domain_name     = var.domain_name
 }
+
+output "prometheus" {
+  value = var.domain_name != "" ? module.prometheus[*].domain_zone_record : module.prometheus[*].linuxhost
+}
+
+output "prometheus_url" {
+  value = [
+    for instance in module.prometheus[*] :
+    var.domain_name != "" ? "http://${instance.domain_zone_record}:9090" : "http://${instance.linuxhost}:9090"
+  ]
+}

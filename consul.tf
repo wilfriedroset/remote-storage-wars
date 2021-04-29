@@ -16,3 +16,14 @@ module "consul_server" {
   private_network = openstack_networking_network_v2.private_network.name
   domain_name     = var.domain_name
 }
+
+output "consul" {
+  value = var.domain_name != "" ? module.consul_server[*].domain_zone_record : module.consul_server[*].linuxhost
+}
+
+output "consul_url" {
+  value = [
+    for instance in module.consul_server[*] :
+    var.domain_name != "" ? "http://${instance.domain_zone_record}:8500" : "http://${instance.linuxhost}:8500"
+  ]
+}

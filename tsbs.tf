@@ -17,3 +17,7 @@ module "tsbs" {
   private_network = openstack_networking_network_v2.private_network.name
   domain_name     = var.domain_name
 }
+
+output "tsbs" {
+  value = var.domain_name != "" ? module.tsbs[*].domain_zone_record : module.tsbs[*].linuxhost
+}

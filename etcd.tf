@@ -11,3 +11,7 @@ module "etcd" {
 
   instance_flavor = var.etcd_instance_flavor
 }
+
+output "etcd" {
+  value = var.domain_name != "" ? module.etcd[*].domain_zone_record : module.etcd[*].linuxhost
+}

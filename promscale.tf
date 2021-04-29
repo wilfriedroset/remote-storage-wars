@@ -16,3 +16,7 @@ module "promscale" {
   private_network = openstack_networking_network_v2.private_network.name
   domain_name     = var.domain_name
 }
+
+output "promscale" {
+  value = var.domain_name != "" ? module.promscale[*].domain_zone_record : module.promscale[*].linuxhost
+}
