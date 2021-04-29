@@ -1,7 +1,7 @@
 {
     "_meta": {
         "hash": {
-            "sha256": "4827ad249a0403e1e4ef78aaff568c11e7e467472aca42c03f5c505da7489b91"
+            "sha256": "dedbf78f56758c0683345a749b9b30c53d2601f7b4e815398223db00bfe3ed8e"
         },
         "pipfile-spec": 6,
         "requires": {
@@ -350,11 +350,11 @@
         },
         "openstacksdk": {
             "hashes": [
-                "sha256:6eab1affc54dd9e4a086658560add148766de3d39290030027208f7d63164de5",
-                "sha256:8ee4d8fe8bc97bc57b2152aaf44b8fda1178e9acb3dbc51a88bc52fb34ab6407"
+                "sha256:3480a15f8e17fe7536d02525da6ead98b7529d4a3211c138b5cfea8e3880e407",
+                "sha256:9c7633746a5603ef059f95f33d5aa8116066204de65b572c877a8c31120ef65b"
             ],
             "index": "pypi",
-            "version": "==0.55.0"
+            "version": "==0.56.0"
         },
         "os-service-types": {
             "hashes": [
@@ -373,11 +373,11 @@
         },
         "oslo.config": {
             "hashes": [
-                "sha256:f50bb71439af4515bce3cf1c2b60d36da70c3cfbf5b1b7e3cd4c4cf868f2c3e9",
-                "sha256:fc7786e464ca986bb61f0a927bab2b71b679f3076ad006fcf1895b763428a0ca"
+                "sha256:396bbd4f29f9679c56134d013ee2e9d03e4d4265360d91c21d30e8e26099f9d7",
+                "sha256:dadb10ea187b6282622a31be3a15bd1c45dc0bc2a4f232ec8762ae8196982f28"
             ],
             "markers": "python_version >= '3.6'",
-            "version": "==8.5.0"
+            "version": "==8.6.0"
         },
         "oslo.i18n": {
             "hashes": [
@@ -413,11 +413,11 @@
         },
         "pbr": {
             "hashes": [
-                "sha256:5fad80b613c402d5b7df7bd84812548b2a61e9977387a80a5fc5c396492b13c9",
-                "sha256:b236cde0ac9a6aedd5e3c34517b423cd4fd97ef723849da6b0d2231142d89c00"
+                "sha256:42df03e7797b796625b1029c0400279c7c34fd7df24a7d7818a1abb5b38710dd",
+                "sha256:c68c661ac5cc81058ac94247278eeda6d2e6aecb3e227b0387c30d277e7ef8d4"
             ],
             "markers": "python_version >= '2.6'",
-            "version": "==5.5.1"
+            "version": "==5.6.0"
         },
         "prettytable": {
             "hashes": [
@@ -480,6 +480,14 @@
             ],
             "index": "pypi",
             "version": "==5.5.0"
+        },
+        "python-swiftclient": {
+            "hashes": [
+                "sha256:06919d59676d3e215f4da4f3f930d71880dda3528289842b25199509df712411",
+                "sha256:eb53bf614eb276896002884c9cf5c2bbdff56da49e9e343df088d180baf8c685"
+            ],
+            "index": "pypi",
+            "version": "==3.11.1"
         },
         "pytz": {
             "hashes": [
