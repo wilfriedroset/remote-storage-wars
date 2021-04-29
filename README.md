@@ -12,6 +12,7 @@ You should expect to have breaking changes or partly working stuffs often as thi
 
 * [Terraform >= 0.15.0](https://www.terraform.io/downloads.html)
 * [Packer >= 1.7.0](https://learn.hashicorp.com/tutorials/packer/getting-started-install)
+* [Terragrunt >= 0.29.1](https://terragrunt.gruntwork.io/docs/getting-started/install/)
 * [Pipenv >= 2020.11.15](https://pipenv.pypa.io/en/latest/)
   * with Python 3.6+
 * [Openstack provider](https://www.ovhcloud.com/en/public-cloud/)
@@ -61,6 +62,16 @@ Here it is something similar but with the Openstack CLI.
 ```
 ❯ openstack flavor list
 Missing value auth-url required for auth plugin password
+```
+
+### Terragrunt
+
+Terragrunt relies on a swift backend. Once you have the necessary in place (e.g: credentials) make sure to have the correct environment variable in place.
+
+```
+export OS_REGION_NAME="XXX"
+export OS_CLOUD="XXX"
+terragrunt init
 ```
 
 ### Create your virtual environment
