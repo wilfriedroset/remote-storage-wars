@@ -5,6 +5,6 @@ rules:
     max: 120
   comments:
     ignore: |
-      userdata.yml
+      ./userdata.yml
 ignore: |
     .venv/

@@ -1,14 +1,14 @@
 module "victoriametrics" {
-  source = "./modules/terraform-ovh-victoriametrics_cluster"
+  source = "../modules/terraform-ovh-victoriametrics_cluster"
 
-  userdata_path = "userdata.yml"
+  userdata_path = "../userdata.yml"
   ssh           = var.ssh
 
   instance_image = var.instance_image
 
   domain_name     = var.domain_name
   public_network  = var.public_network
-  private_network = openstack_networking_network_v2.private_network.name
+  private_network = var.private_network.name
 
   vminsert_instance_flavor      = var.vminsert_instance_flavor
   vminsert_lb_count             = 1

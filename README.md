@@ -74,6 +74,11 @@ export OS_CLOUD="XXX"
 terragrunt init
 ```
 
+Graph [dependencies between modules](https://terragrunt.gruntwork.io/docs/features/execute-terraform-commands-on-multiple-modules-at-once/#dependencies-between-modules):
+```
+terragrunt graph-dependencies | dot -Tsvg > graph.svg
+```
+
 ### Create your virtual environment
 
 From the root directory you simply need to run `pipenv install`. Example:

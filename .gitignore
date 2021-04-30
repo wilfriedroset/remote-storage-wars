@@ -51,3 +51,7 @@ playbook/collections/
 
 # Allow users to overwrite bench settings
 x-bench-overwrite.yml
+*/variables.tf
+*/versions.tf
+*/providers.tf
+*/backend.tf
