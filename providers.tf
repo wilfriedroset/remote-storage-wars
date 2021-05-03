@@ -1,5 +1,6 @@
 provider "openstack" {
-  cloud = var.cloud
+  cloud  = var.cloud
+  region = var.region_name
 }
 
 provider "ovh" {

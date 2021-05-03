@@ -1,4 +1,5 @@
 variable "cloud" {}
+variable "region_name" {}
 
 variable "instance_image" {
   description = "The name of image to use for the server."
