@@ -6,6 +6,7 @@ provider "registry.terraform.io/ovh/ovh" {
   constraints = "~> 0.9.1"
   hashes = [
     "h1:RzSUqRtk/b+xRqQQzoEa7ldLOz7oXsBL0o4FckK5v3A=",
+    "h1:bdQ8n3eoIp9LoEr3wTHH2yEC1JZmx0NSbOzoXpLIwxc=",
     "zh:04423b3fddf4ba548b61826c776c1b8b6561d4c8e68405328f7ab27e4a91cbef",
     "zh:0f82e6238574d7b83e83c443cf4ef744c17f493c668afd2880e8419183640b17",
     "zh:40f258e0d903669da3e8eb02b9cedff076b463557ecb0774c0d20da8229ad10c",
@@ -21,6 +22,7 @@ provider "registry.terraform.io/terraform-provider-openstack/openstack" {
   constraints = "~> 1.31"
   hashes = [
     "h1:dLzm5X8m+hBYpfTc/ztgAp17W12RqLYke4wbEcrD/NQ=",
+    "h1:ss5Gk/hk+CWVqjoqoN/qnFTydCJLsJWKqDwdB/zN5Sk=",
     "zh:15769997862be7361f5f6a6f7ab7cc94307f59a53f032024f52b17c3915db5df",
     "zh:221d443036dd60dea8a2ccdbd0624d2c4b813774e2eb7216ff632cc44d51b17e",
     "zh:4db7dc395e0e5adb2e286c417e5784038cd4adb9a5de7a8cc7e1ea53d08884f7",

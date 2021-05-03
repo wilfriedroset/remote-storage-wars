@@ -16,6 +16,7 @@ You should expect to have breaking changes or partly working stuffs often as thi
 * [Pipenv >= 2020.11.15](https://pipenv.pypa.io/en/latest/)
   * with Python 3.6+
 * [Openstack provider](https://www.ovhcloud.com/en/public-cloud/)
+  * with compute (Nova) and objects storage (Swift) capabilities
 * [OVHcloud account](https://www.ovhcloud.com/en/) (optional for DNS record only)
 
 ## Getting started
@@ -32,7 +33,7 @@ Once all requirements have been installed you can start playing with everything.
 
 ### Configure Openstack client
 
-Terraform, Packer and Ansible rely on Openstack's API, have a look at [Openstack documentation](https://docs.openstack.org/os-client-config/latest/user/configuration.html) on how to configure it properly can be found here.
+Terraform, Terragrunt, Packer and Ansible rely on Openstack's API, have a look at [Openstack documentation](https://docs.openstack.org/os-client-config/latest/user/configuration.html) on how to configure it properly can be found here.
 
 The simplest way is to have a `clouds.yaml` which can be located in the current directory, `~/.config/openstack` or `/etc/openstack`. Another solution can be to use environment variables as they are supported by all three tools. You can retrieve either `clouds.yaml` or `openrc.sh` from [Horizon](https://docs.openstack.org/horizon/latest/). Alternatively you can mix all solutions but you need to watch out for undefined setting otherwise you will end up with errors.
 
@@ -74,7 +75,10 @@ export OS_CLOUD="XXX"
 terragrunt init
 ```
 
+Alternatively you can source `openrc.sh` which should be provided to you by your Openstack provider.
+
 Graph [dependencies between modules](https://terragrunt.gruntwork.io/docs/features/execute-terraform-commands-on-multiple-modules-at-once/#dependencies-between-modules):
+
 ```
 terragrunt graph-dependencies | dot -Tsvg > graph.svg
 ```
@@ -104,8 +108,9 @@ The definition on how the image is built is under [packer-boxes](packer-boxes/).
 
 ### Deploy the infrastructure
 
-Terraform is used for deploying all resources. Most variables can be overwritten in **override.tf**. You need to at least define:
+Terraform is used for deploying all resources. Most variables can be overwritten in **override.tfvars**. You need to at least define:
 * **cloud**: name of the *cloud* to use from *clouds.yaml*.
+* **region_name**: The region of the OpenStack cloud to use.
 * **ssh_ingress**: list of CIDRs to allow for ssh incoming connexion.
 * **ui_ingress**: list of CIDRs to allow for UI incoming connexion.
 * **private_network**: name of the private network to create and use for servers.
@@ -113,7 +118,7 @@ Terraform is used for deploying all resources. Most variables can be overwritten
 
 Review the plan and apply:
 ```
-❯ terraform plan | grep Plan
+❯ terragrunt run-all plan | grep Plan
 Plan: 71 to add, 0 to change, 0 to destroy.
 ```
 
@@ -122,7 +127,7 @@ You might also have a look at the flavor instances definition and pick one from 
 ❯ openstack flavor list | \grep -Ev 'flex|win'
 ```
 
-Terraform will deploy everything (network, security groups, instances...) and wait for everything to be up and running. Once completed you can move on to the bootstrap with Ansible part.
+Terragrunt & Terraform will deploy everything (network, security groups, instances...) and wait for everything to be up and running. Once completed you can move on to the bootstrap with Ansible part.
 
 ### Bootstrap with Ansible
 

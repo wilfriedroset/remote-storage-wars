@@ -51,7 +51,8 @@ playbook/collections/
 
 # Allow users to overwrite bench settings
 x-bench-overwrite.yml
-*/variables.tf
-*/versions.tf
-*/providers.tf
-*/backend.tf
+# generate by terragrunt based on terragrunt.hcl & common.hcl
+common.tf
+versions.tf
+providers.tf
+backend.tf
