@@ -3,5 +3,5 @@ include {
 }
 
 dependencies {
-  paths = ["../ssh", "../secgroups", "../network", "../consul", "../prometheus", "../distributed_timescaledb"]
+  paths = ["../ssh", "../network", "../consul", "../prometheus", "../distributed_timescaledb"]
 }
