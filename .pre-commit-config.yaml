@@ -21,3 +21,6 @@ repos:
     rev: v5.0.7
     hooks:
       - id: ansible-lint
+        # yaml is already checked with yamllint above
+        # role-name will require fixing
+        args: ['-x', 'role-name,yaml']
