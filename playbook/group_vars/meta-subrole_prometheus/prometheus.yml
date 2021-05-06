@@ -52,6 +52,7 @@ prometheus_scrape_configs:
     consul_sd_configs:
       - server: 'localhost:8500'
         services: [victoriametrics]
+        tags: ['insert', 'select', 'storage']
   - job_name: postgresql
     metrics_path: /metrics
     relabel_configs:
