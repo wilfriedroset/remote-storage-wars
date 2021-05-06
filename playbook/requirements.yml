@@ -24,8 +24,6 @@ roles:
   - name: griggheo.consul-template
     version: ff5bcde
     src: https://github.com/griggheo/ansible-consul-template.git
-  - name: bdellegrazie.nginx_exporter
-    version: v3.2.0
   - name: diogenxs.loki
     src: https://github.com/diogenxs/ansible-role-loki.git
     version: f74de4a
@@ -35,5 +33,3 @@ roles:
 collections:
   - name: devsec.hardening
     version: 7.5.0
-  - name: nginxinc.nginx_core
-    version: 0.3.0
