@@ -13,23 +13,16 @@ consul_services:
   - name: "node-exporter"
     id: "node-exporter"
     address: "{{ private_ip }}"
-    port: 8888
+    port: 9100
     checks:
-      - tcp: "localhost:9100"
-        interval: "10s"
-  - name: "nginx-exporter"
-    id: "nginx-exporter"
-    address: "{{ private_ip }}"
-    port: 8888
-    checks:
-      - tcp: "localhost:8080"
+      - tcp: "{{ private_ip }}:9100"
         interval: "10s"
   - name: "haproxy-exporter"
     id: "haproxy-exporter"
     address: "{{ private_ip }}"
-    port: 8888
+    port: 9101
     checks:
-      - http: http://localhost:9101/health
+      - http: "http://{{ private_ip }}:9101/health"
         interval: "10s"
   - name: "victoriametrics"
     id: "victoriametrics"
@@ -38,8 +31,8 @@ consul_services:
       - ro
   - name: "promtail"
     id: "promtail"
-    address: "127.0.0.1"
+    address: "{{ private_ip }}"
     port: 9080
     checks:
-      - tcp: "localhost:9080"
+      - tcp: "{{ private_ip }}:9080"
         interval: "10s"

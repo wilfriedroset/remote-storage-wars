@@ -1,5 +1,5 @@
 ---
-promtail_listen_address: "127.0.0.1"
+promtail_listen_address: "{{ private_ip }}"
 
 promtail_client_config:
   - url: "http://loki.service.dc1.consul:{{ loki_listen_port }}/loki/api/v1/push"

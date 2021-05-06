@@ -4,7 +4,7 @@
 #
 
 {% for n in range(fake_targets_count) %}
-- targets: ['{{ fake_ips|random(seed=n) }}:8888']
+- targets: ['{{ fake_ips|random(seed=n) }}:9100']
   labels:
     hostname: node-{{ n }}
     instance: node-{{ n }}

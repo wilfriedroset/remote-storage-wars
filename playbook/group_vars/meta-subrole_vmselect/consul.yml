@@ -3,16 +3,9 @@ consul_services:
   - name: "node-exporter"
     id: "node-exporter"
     address: "{{ private_ip }}"
-    port: 8888
+    port: 9100
     checks:
-      - tcp: "localhost:9100"
-        interval: "10s"
-  - name: "victoriametrics-exporter"
-    id: "victoriametrics-exporter"
-    address: "{{ private_ip }}"
-    port: 8888
-    checks:
-      - http: "http://{{ private_ip }}:8481/health"
+      - tcp: "{{ private_ip }}:9100"
         interval: "10s"
   - name: "victoriametrics"
     id: "victoriametrics"
@@ -25,15 +18,8 @@ consul_services:
       - select
   - name: "promtail"
     id: "promtail"
-    address: "127.0.0.1"
+    address: "{{ private_ip }}"
     port: 9080
     checks:
-      - tcp: "localhost:9080"
-        interval: "10s"
-  - name: "promtail-exporter"
-    id: "promtail-exporter"
-    address: "{{ private_ip }}"
-    port: 8888
-    checks:
-      - tcp: "localhost:9080"
+      - tcp: "{{ private_ip }}:9080"
         interval: "10s"

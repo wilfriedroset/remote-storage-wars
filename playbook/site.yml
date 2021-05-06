@@ -7,7 +7,6 @@
 - import_playbook: postgresql_client.yml
 - import_playbook: victoriametrics.yml
 - import_playbook: promscale.yml
-- import_playbook: proxy_exporter.yml
 - import_playbook: prometheus.yml
 - import_playbook: loki.yml
 - import_playbook: grafana.yml

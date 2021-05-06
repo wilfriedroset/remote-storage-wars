@@ -10,4 +10,4 @@ postgres_exporter_url: "https://github.com/prometheus-community/postgres_exporte
 postgres_exporter_datasource: "user=postgres host=/var/run/postgresql database=postgres sslmode=disable"
 postgres_exporter_flags:
   - '--extend.query-path=/var/lib/postgresql/queries.yml'
-  - '--web.listen-address=localhost:9187'
+  - '--web.listen-address={{ private_ip }}:9187'
