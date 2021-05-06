@@ -4,7 +4,7 @@ module "loki" {
   count           = 1
   instance_name   = "loki"
   instance_image  = var.instance_image
-  instance_flavor = "b2-7"
+  instance_flavor = var.loki_instance_flavor
   ssh             = var.ssh
   userdata_path   = "../userdata.yml"
   security_groups = ["ssh_security_group"]
