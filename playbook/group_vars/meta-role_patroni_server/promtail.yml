@@ -28,11 +28,24 @@ promtail_scrape_config:
       - timestamp:
           source: time
           format: '2006-01-02 15:04:05.000 UTC'
+      # need to format PostgreSQL default log level to have grafana color properly
+      # DEBUG5, DEBUG4, DEBUG3, DEBUG2, DEBUG1, INFO, NOTICE, WARNING, ERROR, LOG, FATAL, and PANIC
+      # Grafana: https://github.com/grafana/grafana/blob/main/packages/grafana-data/src/types/logs.ts#L9-L27
+      - template:
+          source: level
+          template: '{% raw %}{{ regexReplaceAllLiteral "DEBUG.*" .level "debug" }}{% endraw %}'
+      - template:
+          source: level
+          template: '{% raw %}{{ regexReplaceAllLiteral "INFO|NOTICE|LOG" .level "info" }}{% endraw %}'
+      - template:
+          source: level
+          template: '{% raw %}{{ ToLower .level }}{% endraw %}'
       - labels:
           # Explicit the labels in order to avoid ansible putting a `null` in the configuration file
           database: database
           user: user
           app: app
           client: client
+          level: level
       - output:
           source: content
