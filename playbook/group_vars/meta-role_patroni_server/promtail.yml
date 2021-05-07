@@ -24,7 +24,7 @@ promtail_scrape_config:
           max_lines: 256
       - regex:
           # yamllint disable-line rule:line-length
-          expression: '^(?P<time>\d{4}-\d{2}-\d{2} \d{2}:\d{2}:\d{2}.\d{3} \S+) db=\[?(?P<database>\w*)\]?,user=\[?(?P<user>\w*)\]?,app=\[?(?P<app>\w*)\]?,client=\[?(?P<client>\w*)\]?\s(?P<level>\S+):\s(?P<content>(.*|\n)*)'
+          expression: '^(?P<time>\d{4}-\d{2}-\d{2} \d{2}:\d{2}:\d{2}.\d{3} \S+) db=\[?(?P<database>.*?)\]?,user=\[?(?P<user>.*?)\]?,app=\[?(?P<app>.*?)\]?,client=\[?(?P<client>.*?)\]?\s(?P<level>\S+):\s(?P<content>(.*|\n)*)'
       - timestamp:
           source: time
           format: '2006-01-02 15:04:05.000 UTC'
