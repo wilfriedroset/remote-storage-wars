@@ -73,3 +73,5 @@ grafana_dashboards:
   - dashboard_id: 3662
     revision_id: 2
     datasource: Prometheus
+
+grafana_dashboards_dir: files/grafana/dashboards/

@@ -8,6 +8,48 @@ Let's put them in the same infrastructure and see where it get's us, just for fu
 
 You should expect to have breaking changes or partly working stuffs often as this is a learning playground. I would not recommend to put this project in (real) production.
 
+## Targets
+
+On top of learning a few thing about time-series and generally cloud technologies, we will try to challenge each backend to see how much we can rely on it. This is a vast topic, it imply cost, performance, scalability, reliability and so on.
+
+### Hachimon
+
+To make it a bit more fun, we will walk on the [hachimon path](https://naruto.fandom.com/wiki/Eight_Gates):
+* Gate of Opening
+  * 1k targets
+  * 1000 series/target
+  * ~ 66k datapoints/sec
+* Gate of Healing
+  * 2k targets
+  * 1000 series/target,
+  * ~133k datapoints/sec
+* Gate of Life
+  * 4k targets
+  * 1000 series/target
+  * ~266k datapoints/sec
+* Gate of Pain
+  * 4k targets
+  * 1000 series/target
+  * ~266k datapoints/sec after deduplication
+  * dual prometheus to increase pressure on deduplication features
+* Gate of Limit
+  * 4k targets
+  * 2500 series/target to increase pressure on storage
+  * ~660k datapoints/sec
+  * dual prometheus
+* Gate of View
+  * 8k targets
+  * 2500 series/target
+  * ~1.3M datapoints/sec
+  * dual prometheus
+* Gate of Wonder
+  * 10k targets
+  * 2500 series/target
+  * ~1.6M datapoints/sec
+  * dual prometheus
+* Gate of Death:
+  * Add as many targets as you can until the backend almost reach death
+
 ## Requirements
 
 * [Terraform >= 0.15.0](https://www.terraform.io/downloads.html)
