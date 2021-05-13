@@ -10,11 +10,5 @@ promscale_cfg:
   PROMSCALE_DB_URI: 'postgres://timescale:timescale@{%- raw -%}{{range $index, $service := service "clustertimescaledb-access-node" }}{{if ne $index 0}},{{end}}{{$service.Address}}:{{$service.Port}}{{end}}{%- endraw -%}/timescale?sslmode=require&target_session_attrs=read-write'
   PROMSCALE_WEB_ENABLE_ADMIN_API: 1
   PROMSCALE_LOG_LEVEL: warn
-  # According to promscale documentation the ID is supposed to be unique per
-  # prometheus group, as we have only one prometheus group let's use a simple lock-id
-  # https://github.com/timescale/promscale/blob/master/docs/high-avaliability/prometheus-HA.md
-  PROMSCALE_LEADER_ELECTION_PG_ADVISORY_LOCK_ID: 1
-  # Setting PROMETHEUS_TIMEOUT just above prometheus scrape interval
-  PROMSCALE_LEADER_ELECTION_PG_ADVISORY_LOCK_PROMETHEUS_TIMEOUT: 16s
   PROMSCALE_DB_CONNECTIONS_MAX: 900
   PROMSCALE_SERIES_CACHE_INITIAL_SIZE: 30000000
