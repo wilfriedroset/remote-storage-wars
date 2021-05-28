@@ -1,0 +1,11 @@
+[m3coordinator:children]
+meta-subrole_m3coordinator
+
+[m3dbnode:children]
+meta-subrole_m3dbnode
+
+[m3query:children]
+meta-subrole_m3query
+
+[m3aggregator:children]
+meta-subrole_m3aggregator

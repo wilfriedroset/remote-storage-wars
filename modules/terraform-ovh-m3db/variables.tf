@@ -10,6 +10,24 @@ variable "coordinator_security_groups" {
   default     = []
 }
 
+variable "query_security_groups" {
+  description = "List of security group's name for query servers"
+  type        = list(string)
+  default     = []
+}
+
+variable "aggregator_security_groups" {
+  description = "List of security group's name for aggregator servers"
+  type        = list(string)
+  default     = []
+}
+
+variable "lb_security_groups" {
+  description = "List of security group's name for lb servers"
+  type        = list(string)
+  default     = []
+}
+
 variable "dbnode_count" {
   description = "Number of node in the cluster"
   type        = number
@@ -18,6 +36,24 @@ variable "dbnode_count" {
 
 variable "coordinator_count" {
   description = "Number of coordinator in the cluster"
+  type        = number
+  default     = 1
+}
+
+variable "query_count" {
+  description = "Number of query in the cluster"
+  type        = number
+  default     = 1
+}
+
+variable "aggregator_count" {
+  description = "Number of aggregator in the cluster"
+  type        = number
+  default     = 1
+}
+
+variable "lb_count" {
+  description = "Number of lb in the cluster"
   type        = number
   default     = 1
 }
@@ -36,6 +72,24 @@ variable "dbnode_instance_flavor" {
 
 variable "coordinator_instance_flavor" {
   description = "The name of the instance to use coordinator."
+  type        = string
+  default     = "s1-2"
+}
+
+variable "query_instance_flavor" {
+  description = "The name of the instance to use for the m3_query servers."
+  type        = string
+  default     = "s1-2"
+}
+
+variable "aggregator_instance_flavor" {
+  description = "The name of the instance to use for the m3_aggregator servers."
+  type        = string
+  default     = "s1-2"
+}
+
+variable "lb_instance_flavor" {
+  description = "The name of the instance to use for the m3_lb servers."
   type        = string
   default     = "s1-2"
 }
@@ -69,6 +123,24 @@ variable "coordinator_instance_name_template" {
   description = "Prefix to use for naming the instance."
   type        = string
   default     = "m3-coordinator-%d"
+}
+
+variable "query_instance_name_template" {
+  description = "Prefix to use for naming the instance."
+  type        = string
+  default     = "m3-query-%d"
+}
+
+variable "aggregator_instance_name_template" {
+  description = "Prefix to use for naming the instance."
+  type        = string
+  default     = "m3-aggregator-%d"
+}
+
+variable "lb_instance_name_template" {
+  description = "Prefix to use for naming the instance."
+  type        = string
+  default     = "m3-lb-%d"
 }
 
 variable "public_network" {
