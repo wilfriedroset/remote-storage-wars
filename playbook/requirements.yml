@@ -29,6 +29,9 @@ roles:
     version: f74de4a
   - name: andrewrothstein.etcd-cluster
     version: v2.0.0
+  - name: arnoways.ansible_m3db
+    src: https://github.com/Arnoways/ansible-m3db
+    version: master
 
 collections:
   - name: devsec.hardening
