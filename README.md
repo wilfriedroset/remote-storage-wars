@@ -204,10 +204,10 @@ The default user/password is in [ansible group_vars](playbook/group_vars/meta-su
 
 
 ## TODO
-[] Compare result with and without Prometheus in front of our TSDB
-  [] [vmagent from VictoriaMetrics](https://docs.victoriametrics.com/vmagent.html)
-  [] [benchtool from Grafana](https://github.com/grafana/cortex-tools/blob/main/docs/benchtool.md)
-[] Compare remote read performance
+- [] Compare result with and without Prometheus in front of our TSDB
+  - [] [vmagent from VictoriaMetrics](https://docs.victoriametrics.com/vmagent.html)
+  - [] [benchtool from Grafana](https://github.com/grafana/cortex-tools/blob/main/docs/benchtool.md)
+- [] Compare remote read performance
 
 ## Contributors
 
