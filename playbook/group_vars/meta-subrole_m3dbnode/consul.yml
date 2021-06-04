@@ -1,0 +1,16 @@
+---
+consul_services:
+  - name: "node-exporter"
+    id: "node-exporter"
+    address: "{{ private_ip }}"
+    port: 9100
+    checks:
+      - tcp: "{{ private_ip }}:9100"
+        interval: "10s"
+  - name: "m3dbnode"
+    id: "m3dbnode"
+    address: "{{ private_ip }}"
+    port: 7203
+    checks:
+      - tcp: "{{ private_ip }}:7203"
+        interval: "10s"

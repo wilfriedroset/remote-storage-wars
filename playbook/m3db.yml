@@ -1,0 +1,8 @@
+---
+- name: Bootstrap m3db
+  hosts: meta-role_m3db
+  any_errors_fatal: true
+  become: true
+  become_user: root
+  roles:
+    - arnoways.ansible_m3db
