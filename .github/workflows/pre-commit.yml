@@ -1,0 +1,38 @@
+---
+name: pre-commit
+
+on:
+  pull_request:
+  push:
+
+jobs:
+  pre-commit:
+    runs-on: ubuntu-latest
+    steps:
+      # See: https://pre-commit.com/#github-actions-example
+      - name: set PY
+        run: echo "PY=$(python -VV | sha256sum | cut -d' ' -f1)" >> $GITHUB_ENV
+      - uses: actions/cache@v2
+        with:
+          path: |
+            ~/.cache/pre-commit
+          key: pre-commit|${{ env.PY }}|${{ hashFiles('.pre-commit-config.yaml') }}
+
+      - name: Get terra-clis
+        id: get-terra-clis
+        run: |
+          brew install terragrunt terraform
+      - uses: actions/checkout@v2
+
+
+      # Only there so that terragrunt will generate common.tf files
+      # This relies on fake variable stored in .github/workflows/gh-actions.tfvars
+      # They will be injected as override.tfvars
+      - name: Run terragrunt
+        id: run-terragrunt
+        run: |
+          cp .github/workflows/gh-actions.tfvars override.tfvars
+          terragrunt run-all validate
+
+      - uses: actions/setup-python@v2
+      - uses: pre-commit/action@v2.0.2
