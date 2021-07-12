@@ -1,4 +1,4 @@
 ---
 # defaults file for consul-template
-consul_template_version: "0.25.2"
+consul_template_version: "0.26.0"
 consul_template_use_systemd: true

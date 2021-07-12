@@ -3,17 +3,17 @@ roles:
   - name: brianshumate.consul
     version: v2.5.4
   - name: geerlingguy.postgresql
-    version: 3.1.0
+    version: 3.1.1
   - name: andrewrothstein.go
-    version: v2.1.48
+    version: v2.1.51
   - name: cloudalchemy.grafana
     version: 0.18.0
   - name: cloudalchemy.prometheus
-    version: 3.0.0
+    version: 4.0.0
   - name: cloudalchemy.node_exporter
     version: 2.0.0
   - name: kostiantyn-nemchenko.patroni
-    version: v1.0.1
+    version: v1.1.0
   - name: slapper.ansible_victoriametrics_cluster_role
     version: 291a9b6
     src: https://github.com/Slapper/ansible-victoriametrics-cluster-role.git
@@ -22,7 +22,7 @@ roles:
   - name: bdellegrazie.haproxy_exporter
     version: v1.4.0
   - name: griggheo.consul-template
-    version: ff5bcde
+    version: d7bdbc7
     src: https://github.com/griggheo/ansible-consul-template.git
   - name: diogenxs.loki
     src: https://github.com/diogenxs/ansible-role-loki.git
@@ -35,4 +35,4 @@ roles:
 
 collections:
   - name: devsec.hardening
-    version: 7.5.0
+    version: 7.8.0
