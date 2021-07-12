@@ -1,0 +1,3 @@
+---
+zfs_mountpoint: /var/lib/postgresql
+zfs_dataset_name: postgresql
