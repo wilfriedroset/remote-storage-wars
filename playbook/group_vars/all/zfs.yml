@@ -1,0 +1,27 @@
+---
+zfs_pre_requisites_packages:
+  - "linux-headers-{{ ansible_kernel }}"
+  - dpkg-dev
+  - linux-image-amd64
+
+zfs_packages:
+  - zfs-dkms
+  - zfsutils-linux
+
+zfs_pool_name: data
+
+zfs_extra_properties:
+  atime: "on"
+  compression: "on"
+  logbias: latency
+  recordsize: 128K
+  relatime: "off"
+
+# This will create a list of all *nvme* devices available on the host.
+# regex_replace is used here to preprend */dev/* in order to have usable devices
+# path. This will come handy when using iops instances such as i1-180
+zfs_devices: "{{ ansible_devices.keys()|
+  select('match', 'nvme.*')|
+  map('regex_replace', '(^.*)', '/dev/\\1')|
+  list|
+  sort }}"

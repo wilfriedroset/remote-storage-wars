@@ -1,0 +1,62 @@
+---
+- name: Install, configure and mount zfs
+  hosts: all
+  become_user: root
+  become: true
+  tasks:
+    - name: Install, configure and mount zfs scoped on zfs_devices
+      block:
+        - name: Add specified repository into sources list using specified filename
+          lineinfile:
+            # Already present in /etc/apt/sources.list just need to add contrib
+            path: /etc/apt/sources.list
+            regex: 'deb http://deb.debian.org/debian buster-backports main'
+            line: 'deb http://deb.debian.org/debian buster-backports main contrib'
+          register: backport_repo
+
+        - name: Add specified src repository into sources list using specified filename
+          lineinfile:
+            # Already present in /etc/apt/sources.list just need to add contrib
+            path: /etc/apt/sources.list
+            regex: 'deb-src http://deb.debian.org/debian buster-backports main'
+            line: 'deb-src http://deb.debian.org/debian buster-backports main contrib'
+          register: backport_repo_src
+
+        - name: Only run "update_cache=yes" if repository configuration has changed
+          apt:
+            update_cache: true
+          when: backport_repo.changed or backport_repo_src.changed
+
+        - name: Install pre-requisites packages
+          apt:
+            name: "{{ zfs_pre_requisites_packages|mandatory }}"
+
+        - name: Install zfs packages
+          apt:
+            name: "{{ zfs_packages|mandatory }}"
+
+        - name: Fetch zpool existence
+          zpool_facts:
+            pool: "{{ zfs_pool_name|mandatory }}"
+          register: zpool_exists
+          ignore_errors: true
+          changed_when: false
+
+        - name: "Create zpool {{ zfs_pool_name|mandatory }}"
+          when: zpool_exists is failed
+          # -f to avoid /dev/nvme0n1 contains a filesystem of type 'xxx'
+          command: "zpool create -f {{ zfs_pool_name|mandatory }} {{ zfs_devices|mandatory|join(' ') }}"
+
+        - name: "Configure zpool {{ zfs_pool_name|mandatory }}"
+          zfs:
+            name: "{{ zfs_pool_name|mandatory }}"
+            state: present
+            extra_zfs_properties: "{{ zfs_extra_properties|mandatory }}"
+
+        - name: "Create dataset {{ zfs_pool_name|mandatory }}/{{ zfs_dataset_name|mandatory }}"
+          zfs:
+            name: "{{ zfs_pool_name|mandatory }}/{{ zfs_dataset_name|mandatory }}"
+            state: present
+            extra_zfs_properties:
+              mountpoint: "{{ zfs_mountpoint|mandatory }}"
+      when: zfs_devices
