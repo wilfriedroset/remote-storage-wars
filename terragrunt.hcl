@@ -17,6 +17,7 @@ terraform {
 }
 
 remote_state {
+  disable_init = tobool(get_env("CI", "false"))
   backend = "swift"
   config = {
     container         = "remote-storage-wars"
