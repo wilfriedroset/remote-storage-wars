@@ -25,4 +25,6 @@ module "victoriametrics" {
   vmstorage_instance_flavor      = var.vmstorage_instance_flavor
   vmstorage_node_count           = var.node_vmstorage
   vmstorage_node_security_groups = ["ssh_security_group"]
+
+  lb_instance_flavor = var.lb_instance_flavor
 }

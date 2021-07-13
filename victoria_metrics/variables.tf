@@ -33,3 +33,9 @@ variable "node_vmselect" {
   type        = number
   default     = 3
 }
+
+variable "lb_instance_flavor" {
+  description = "The name of the instance to use lb."
+  type        = string
+  default     = "s1-2"
+}
