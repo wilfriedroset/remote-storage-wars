@@ -31,7 +31,7 @@ roles:
     version: v2.0.0
   - name: arnoways.ansible_m3db
     src: https://github.com/Arnoways/ansible-m3db
-    version: master
+    version: main
 
 collections:
   - name: devsec.hardening
