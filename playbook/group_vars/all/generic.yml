@@ -21,6 +21,7 @@ common_packages:
 ansible_ssh_user: debian
 
 sysctl_config:
+  vm.swappiness: 10
   net.core.somaxconn: 16384
   net.ipv4.tcp_max_syn_backlog: 30000
   net.ipv4.tcp_max_tw_buckets: 2000000
