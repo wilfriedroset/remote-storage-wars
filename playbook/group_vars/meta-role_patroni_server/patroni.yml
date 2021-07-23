@@ -100,7 +100,7 @@ patroni_postgresql_parameters:
   # yamllint disable-line rule:line-length
   - {option: "ssl_ciphers", value: "ECDHE-ECDSA-AES256-GCM-SHA384:ECDHE-RSA-AES256-GCM-SHA384:ECDHE-ECDSA-CHACHA20-POLY1305:ECDHE-RSA-CHACHA20-POLY1305:ECDHE-ECDSA-AES128-GCM-SHA256:ECDHE-RSA-AES128-GCM-SHA256:ECDHE-ECDSA-AES256-SHA384:ECDHE-RSA-AES256-SHA384:ECDHE-ECDSA-AES128-SHA256:ECDHE-RSA-AES128-SHA256:DHE-RSA-AES256-SHA"}
   # Logging
-  - {option: "log_autovacuum_min_duration", value: 0}
+  - {option: "log_autovacuum_min_duration", value: 10000}
   - {option: "log_checkpoints", value: "on"}
   - {option: "log_connections", value: "on"}
   - {option: "log_destination", value: "stderr"}
@@ -108,7 +108,7 @@ patroni_postgresql_parameters:
   - {option: "log_filename", value: "postgresql.log"}
   # single quoting inside double quoting intended
   - {option: "log_line_prefix", value: "'%m db=%d,user=%u,app=%a,client=%h '"}
-  - {option: "log_min_duration_statement", value: 10000}
+  - {option: "log_min_duration_statement", value: 20000}
   - {option: "log_statement", value: "ddl"}
   - {option: "log_timezone", value: "UTC"}
   - {option: "logging_collector", value: "on"}
