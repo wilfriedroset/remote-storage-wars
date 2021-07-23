@@ -32,8 +32,8 @@ patroni_postgresql_packages:
 
 patroni_bootstrap_dcs_postgresql_parameters:
   - {option: "max_connections", value: "1000"}
-  - {option: "max_locks_per_transaction", value: "64"}
-  - {option: "max_worker_processes", value: "8"}
+  - {option: "max_locks_per_transaction", value: "512"}
+  - {option: "max_worker_processes", value: "43"}
   # It is recommended that max_prepared_transactions >= max_connections
   - {option: "max_prepared_transactions", value: "1000"}
   - {option: "wal_level", value: "replica"}
@@ -42,6 +42,25 @@ patroni_bootstrap_dcs_postgresql_parameters:
   - {option: "max_wal_senders", value: "10"}
   - {option: "max_replication_slots", value: "10"}
   - {option: "wal_keep_segments", value: "8"}
+  # From timescaledb-tune for i1-180
+  # FIXME: Don't be lazy and automatically generate the setting based on the
+  # instance specs instead of copying the result of timescaledb-tune
+  - {option: "autovacuum_max_workers", value: "10"}
+  - {option: "autovacuum_naptime", value: "10"}
+  - {option: "checkpoint_completion_target", value: "0.9"}
+  - {option: "default_statistics_target", value: "500"}
+  - {option: "effective_cache_size", value: "132822MB"}
+  - {option: "effective_io_concurrency", value: "200"}
+  - {option: "maintenance_work_mem", value: "2047MB"}
+  - {option: "max_parallel_workers", value: "32"}
+  - {option: "max_parallel_workers_per_gather", value: "16"}
+  - {option: "max_wal_size", value: "1GB"}
+  - {option: "min_wal_size", value: "512MB"}
+  - {option: "random_page_cost", value: "1.1"}
+  - {option: "shared_buffers", value: "44274MB"}
+  - {option: "timescaledb.max_background_workers", value: "8"}
+  - {option: "wal_buffers", value: "16MB"}
+  - {option: "work_mem", value: "14167kB"}
 
 patroni_bootstrap_initdb:
   - {option: "username", value: "postgres"}
