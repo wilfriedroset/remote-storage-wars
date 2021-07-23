@@ -3,6 +3,9 @@ prometheus_version: 2.28.1
 prometheus_web_external_url: "http://{{ ansible_host }}:9090"
 prometheus_storage_retention: 1d
 prometheus_storage_retention_size: 250GB
+prometheus_external_labels:
+  __replica__: "{{ ansible_hostname }}"
+  cluster: "{{ cluster_id | default('default')}}"
 prometheus_remote_write:
   - url: http://node.promscale.service.dc1.consul:9201/write
     name: timescaledb
