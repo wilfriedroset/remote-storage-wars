@@ -12,6 +12,7 @@ module "prometheus" {
   instance_metadata = {
     role    = "client"
     subrole = "prometheus"
+    cluster = var.cluster_name
   }
 
   private_network = var.private_network.name

@@ -11,8 +11,8 @@ zfs_packages:
 zfs_pool_name: data
 
 zfs_extra_properties:
-  atime: "on"
-  compression: "on"
+  atime: "off"
+  compression: "off"
   logbias: latency
   recordsize: 128K
   relatime: "off"

@@ -9,3 +9,9 @@ variable "prometheus_count" {
   type        = number
   default     = 1
 }
+
+variable "cluster_name" {
+  description = "The name of the Prometheus deployment, which should be common across the Prometheus replica instances."
+  type        = string
+  default     = "default"
+}
