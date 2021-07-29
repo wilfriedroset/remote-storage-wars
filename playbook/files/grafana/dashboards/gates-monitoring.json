@@ -198,7 +198,7 @@
       "pluginVersion": "7.5.7",
       "targets": [
         {
-          "expr": "rate(prometheus_tsdb_head_samples_appended_total{job=~\"$job\",instance=~\"$instance\"}[1m])",
+          "expr": "rate(prometheus_tsdb_head_samples_appended_total{job=~\"$job\",instance=~\"$instance\"}[5m])",
           "interval": "",
           "legendFormat": "",
           "refId": "A"
@@ -275,7 +275,7 @@
       "pluginVersion": "7.5.7",
       "targets": [
         {
-          "expr": "rate(prometheus_tsdb_head_samples_appended_total{job=~\"$job\",instance=~\"$instance\"}[1m])",
+          "expr": "rate(prometheus_tsdb_head_samples_appended_total{job=~\"$job\",instance=~\"$instance\"}[5m])",
           "interval": "",
           "legendFormat": "",
           "refId": "A"
@@ -511,7 +511,7 @@
       "steppedLine": false,
       "targets": [
         {
-          "expr": "rate(prometheus_tsdb_head_samples_appended_total{job=~\"$job\",instance=~\"$instance\"}[1m])",
+          "expr": "rate(prometheus_tsdb_head_samples_appended_total{job=~\"$job\",instance=~\"$instance\"}[5m])",
           "format": "time_series",
           "hide": false,
           "interval": "",

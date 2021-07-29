@@ -78,7 +78,7 @@
       "steppedLine": false,
       "targets": [
         {
-          "expr": "rate(prometheus_tsdb_head_samples_appended_total[1m])",
+          "expr": "rate(prometheus_tsdb_head_samples_appended_total[5m])",
           "interval": "",
           "intervalFactor": 1,
           "legendFormat": "{{instance}}",
@@ -175,7 +175,7 @@
       "steppedLine": false,
       "targets": [
         {
-          "expr": "sum(rate(prometheus_remote_storage_samples_retried_total[1m])) by (remote_name)",
+          "expr": "sum(rate(prometheus_remote_storage_samples_retried_total[5m])) by (remote_name)",
           "interval": "",
           "legendFormat": "{{remote_name}}",
           "refId": "A"
@@ -366,7 +366,7 @@
       "steppedLine": false,
       "targets": [
         {
-          "expr": "sum(\n\nrate(prometheus_remote_storage_samples_total[1m])\n\n) by (remote_name)",
+          "expr": "sum(\n\nrate(prometheus_remote_storage_samples_total[5m])\n\n) by (remote_name)",
           "interval": "",
           "legendFormat": "{{remote_name}}",
           "refId": "A"
@@ -571,13 +571,13 @@
       "steppedLine": false,
       "targets": [
         {
-          "expr": "rate(promscale_sent_samples_total[1m])",
+          "expr": "rate(promscale_sent_samples_total[5m])",
           "interval": "",
           "legendFormat": "{{instance}} sent",
           "refId": "A"
         },
         {
-          "expr": "rate(promscale_received_samples_total[1m])",
+          "expr": "rate(promscale_received_samples_total[5m])",
           "interval": "",
           "legendFormat": "{{instance}} received",
           "refId": "B"
@@ -901,7 +901,7 @@
       "targets": [
         {
           "exemplar": true,
-          "expr": "rate(pg_stat_database_tup_inserted{datname=\"timescale\"}[1m])",
+          "expr": "rate(pg_stat_database_tup_inserted{datname=\"timescale\"}[5m])",
           "interval": "",
           "legendFormat": "{{instance}}",
           "refId": "A"
