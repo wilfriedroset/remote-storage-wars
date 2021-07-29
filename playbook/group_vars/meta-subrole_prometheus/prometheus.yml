@@ -9,7 +9,7 @@ prometheus_external_labels:
 prometheus_remote_write:
   - url: http://node.promscale.service.dc1.consul:9201/write
     name: timescaledb
-    remote_timeout: 30s
+    remote_timeout: 60s
     # https://github.com/timescale/promscale/blob/master/docs/configuring_prometheus.md
     queue_config:
       capacity: 10000
