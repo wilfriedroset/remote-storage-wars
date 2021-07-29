@@ -54,12 +54,12 @@ patroni_bootstrap_dcs_postgresql_parameters:
   - {option: "maintenance_work_mem", value: "2047MB"}
   - {option: "max_parallel_workers", value: "32"}
   - {option: "max_parallel_workers_per_gather", value: "16"}
-  - {option: "max_wal_size", value: "1GB"}
+  - {option: "max_wal_size", value: "32GB"}
   - {option: "min_wal_size", value: "512MB"}
   - {option: "random_page_cost", value: "1.1"}
   - {option: "shared_buffers", value: "44274MB"}
   - {option: "timescaledb.max_background_workers", value: "8"}
-  - {option: "wal_buffers", value: "16MB"}
+  - {option: "wal_buffers", value: "128MB"}
   - {option: "work_mem", value: "14167kB"}
 
 patroni_bootstrap_initdb:
@@ -117,7 +117,7 @@ patroni_postgresql_parameters:
   - {option: "wal_compression", value: "on"}
   # Checkpoint tuning
   - {option: "checkpoint_timeout", value: "15min"}
-  - {option: "max_wal_size", value: "15GB"}
+  - {option: "max_wal_size", value: "32GB"}
   # Setting up TimescaleDB 2.0 Multi-node
   - {option: "enable_partitionwise_aggregate", value: "'on'"}
   - {option: "jit", value: "'off'"}
