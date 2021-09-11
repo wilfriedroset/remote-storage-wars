@@ -1,6 +1,5 @@
 listen vminsert
     bind                            {{ private_ip }}:{{ vminsert_frontend_port|default(8480) }}
-    mode                            http
 
 {% include 'haproxy-http-listen-options.j2' %}
 

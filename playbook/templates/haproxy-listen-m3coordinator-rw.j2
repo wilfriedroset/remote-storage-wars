@@ -1,6 +1,5 @@
 listen m3coordinator
     bind                            {{ private_ip }}:{{ m3coordinator_topology_port|default(7201)}}
-    mode                            http
 
 {% include 'haproxy-http-listen-options.j2' %}
 
