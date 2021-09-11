@@ -109,6 +109,7 @@ prometheus_scrape_configs:
     consul_sd_configs:
       - server: 'localhost:8500'
         services: [promscale]
+        tags: ['node']
   - job_name: promtail
     metrics_path: /metrics
     relabel_configs:
