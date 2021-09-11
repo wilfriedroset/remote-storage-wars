@@ -18,3 +18,4 @@
         # yamllint disable-line rule:line-length
         fake_ips: "{{ groups['meta-subrole_tsbs'] | map('extract', hostvars, ['openstack', 'addresses'])|list|json_query('[].*[][][].addr')| ipaddr('10.0.0.0/8') }}"
       notify: reload prometheus
+      when: groups.get('meta-subrole_tsbs')
