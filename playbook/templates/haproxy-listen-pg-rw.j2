@@ -1,11 +1,9 @@
 listen pg_ro
     bind    {{ private_ip }}:{{ pg_ro_frontend_port|default(4000) }}
-    mode    tcp
 
-    option  tcplog
+{% include 'haproxy-tcp-listen-options.j2' %}
 
     option  httpchk GET /read-only
-
 {{ '{{' }}range service "cluster{{ cluster_id }}|any" {{ '}}' }}
 {% raw -%}
     server {{ .Node }} {{ .Address }}:{{ .Port }} check port 8008{{ end }}
