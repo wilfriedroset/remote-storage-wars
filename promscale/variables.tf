@@ -9,3 +9,9 @@ variable "promscale_node_count" {
   type        = number
   default     = 1
 }
+
+variable "promscale_lb_count" {
+  description = "The number of promscale lb."
+  type        = number
+  default     = 1
+}
