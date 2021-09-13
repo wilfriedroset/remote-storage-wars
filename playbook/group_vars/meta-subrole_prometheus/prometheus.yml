@@ -7,7 +7,7 @@ prometheus_external_labels:
   __replica__: "{{ ansible_hostname }}"
   cluster: "{{ cluster_id | default('default')}}"
 prometheus_remote_write:
-  - url: http://node.promscale.service.dc1.consul:9201/write
+  - url: http://rw.promscale.service.dc1.consul:9201/write
     name: timescaledb
     remote_timeout: 60s
     # https://github.com/timescale/promscale/blob/master/docs/configuring_prometheus.md
@@ -109,6 +109,7 @@ prometheus_scrape_configs:
     consul_sd_configs:
       - server: 'localhost:8500'
         services: [promscale]
+        tags: ['node']
   - job_name: promtail
     metrics_path: /metrics
     relabel_configs:

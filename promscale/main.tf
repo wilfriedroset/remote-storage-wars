@@ -1,8 +1,8 @@
 module "promscale" {
   source = "../modules/terraform-ovh-linux_host"
 
-  count           = var.promscale_count
-  instance_name   = format("promscale-%d", count.index + 1)
+  count           = var.promscale_node_count
+  instance_name   = format("promscale-node-%d", count.index + 1)
   instance_image  = var.instance_image
   instance_flavor = var.promscale_instance_flavor
   ssh             = var.ssh

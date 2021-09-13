@@ -5,9 +5,12 @@
   become: true
   become_user: root
   tasks:
-    - name: Install haproxy
+    - name: Install haproxy & co.
       apt:
-        name: haproxy
+        name:
+          - haproxy
+          - haproxyctl
+          - hatop
         state: present
   roles:
     - griggheo.consul-template

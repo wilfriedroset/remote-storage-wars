@@ -4,8 +4,14 @@ variable "promscale_instance_flavor" {
   default     = "s1-2"
 }
 
-variable "promscale_count" {
+variable "promscale_node_count" {
   description = "The number of promscale instance."
+  type        = number
+  default     = 1
+}
+
+variable "promscale_lb_count" {
+  description = "The number of promscale lb."
   type        = number
   default     = 1
 }

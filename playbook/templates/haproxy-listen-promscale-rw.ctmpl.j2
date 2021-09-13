@@ -1,6 +1,7 @@
+#jinja2: trim_blocks:False
+{% include 'haproxy-base.j2' %}
 listen promscale
     bind                            {{ private_ip }}:{{ promscale_frontend_port|default(9201)}}
-    mode                            http
 
 {% include 'haproxy-http-listen-options.j2' %}
 

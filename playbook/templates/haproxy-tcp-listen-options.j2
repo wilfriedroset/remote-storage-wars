@@ -1,0 +1,5 @@
+    mode        tcp
+    option      tcplog
+    log-format "%ci:%cp [%t] %ft %b/%s %Tw/%Tc/%Tt %B %ts %ac/%fc/%bc/%sc/%rc %sq/%bq"
+
+    default-server fall 5 inter 1000 rise 5 downinter 1000 on-marked-down shutdown-sessions weight 10 maxconn 2000
