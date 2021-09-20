@@ -68,3 +68,14 @@ variable "domain_name" {
   type        = string
   default     = null
 }
+
+variable "block_storages" {
+  description = "Block storages to create and attach to the host"
+  # type        = FIXME
+  default = {}
+}
+
+# Example
+# block_storages = {
+# "data": {"size": 1000, "volume_type":  "high-speed-gen2"},
+# }
