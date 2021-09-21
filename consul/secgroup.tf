@@ -1,6 +1,7 @@
 resource "openstack_networking_secgroup_v2" "consul_ui_security_group" {
   name        = "consul_ui_security_group"
   description = "consul UI security group"
+  tags        = []
 }
 
 resource "openstack_networking_secgroup_rule_v2" "consul" {

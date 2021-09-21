@@ -1,6 +1,7 @@
 resource "openstack_networking_secgroup_v2" "pprof_ui_security_group" {
   name        = "pprof_ui_security_group"
   description = "pprof UI security group"
+  tags        = []
 }
 
 resource "openstack_networking_secgroup_rule_v2" "pprof" {

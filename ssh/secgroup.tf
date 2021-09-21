@@ -1,6 +1,7 @@
 resource "openstack_networking_secgroup_v2" "ssh_security_group" {
   name        = "ssh_security_group"
   description = "ssh security group"
+  tags        = []
 }
 
 resource "openstack_networking_secgroup_rule_v2" "ssh" {

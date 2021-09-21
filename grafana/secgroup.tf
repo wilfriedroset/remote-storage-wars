@@ -1,6 +1,7 @@
 resource "openstack_networking_secgroup_v2" "grafana_ui_security_group" {
   name        = "grafana_ui_security_group"
   description = "grafana UI security group"
+  tags        = []
 }
 
 resource "openstack_networking_secgroup_rule_v2" "grafana" {

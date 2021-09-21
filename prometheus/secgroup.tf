@@ -1,6 +1,7 @@
 resource "openstack_networking_secgroup_v2" "prometheus_ui_security_group" {
   name        = "prometheus_ui_security_group"
   description = "prometheus UI security group"
+  tags        = []
 }
 
 resource "openstack_networking_secgroup_rule_v2" "prometheus" {
