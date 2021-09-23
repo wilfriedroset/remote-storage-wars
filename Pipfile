@@ -7,7 +7,7 @@ name = "pypi"
 openstacksdk = "*"
 python-openstackclient = "*"
 python-swiftclient = "*"
-ansible = ">=2.9.10,<2.10"
+ansible = ">=2.9.10,<4.3"
 
 [dev-packages]
 
