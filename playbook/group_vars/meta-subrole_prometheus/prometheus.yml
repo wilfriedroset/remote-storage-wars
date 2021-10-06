@@ -24,7 +24,7 @@ prometheus_remote_write:
   - url: http://rw.m3coordinator-lb.service.dc1.consul:7201/api/v1/prom/remote/write
     name: m3db
 prometheus_remote_read:
-  - url: http://node.promscale.service.dc1.consul:9201/read
+  - url: http://ro.promscale.service.dc1.consul:9201/read
     name: timescaledb
   - url: http://ro.victoriametrics.service.dc1.consul:8481/select/0/prometheus
     name: victoriametrics

@@ -19,7 +19,7 @@ grafana_datasources:
   - name: "promscale"
     type: "prometheus"
     access: "proxy"
-    url: "http://rw.promscale:9201"
+    url: "http://ro.promscale:9201"
 
   - name: "timescaledb"
     type: "postgres"

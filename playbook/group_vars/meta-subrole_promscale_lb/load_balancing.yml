@@ -28,6 +28,7 @@ consul_services:
     port: 9201
     tags:
       - rw
+      - ro
   - name: "promtail"
     id: "promtail"
     address: "{{ private_ip }}"
