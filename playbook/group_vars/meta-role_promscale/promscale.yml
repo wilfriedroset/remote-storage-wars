@@ -10,6 +10,6 @@ promscale_cfg:
   PROMSCALE_DB_URI: 'postgres://timescale:timescale@{%- raw -%}{{range $index, $service := service "clustertimescaledb-access-node" }}{{if ne $index 0}},{{end}}{{$service.Address}}:{{$service.Port}}{{end}}{%- endraw -%}/timescale?sslmode=require&target_session_attrs=read-write'
   PROMSCALE_WEB_ENABLE_ADMIN_API: 1
   PROMSCALE_LOG_LEVEL: warn
-  PROMSCALE_DB_CONNECTIONS_MAX: 900
+  PROMSCALE_DB_CONNECTIONS_MAX: 200
   PROMSCALE_SERIES_CACHE_INITIAL_SIZE: 30000000
   PROMSCALE_DB_WRITER_CONNECTION_CONCURRENCY: 8
