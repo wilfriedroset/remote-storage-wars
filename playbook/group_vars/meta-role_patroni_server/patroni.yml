@@ -103,7 +103,11 @@ patroni_postgresql_parameters:
   - {option: "log_autovacuum_min_duration", value: 10000}
   - {option: "log_checkpoints", value: "on"}
   - {option: "log_connections", value: "on"}
-  - {option: "log_destination", value: "stderr"}
+  - {option: "log_disconnections", value: "on"}
+  - {option: "log_lock_waits", value: "on"}
+  - {option: "log_temp_files", value: "on"}
+  - {option: "log_error_verbosity", value: "on"}
+  - {option: "log_destination", value: "csvlog"}
   - {option: "log_directory", value: "/var/log/postgresql/"}
   - {option: "log_filename", value: "postgresql.log"}
   # single quoting inside double quoting intended
