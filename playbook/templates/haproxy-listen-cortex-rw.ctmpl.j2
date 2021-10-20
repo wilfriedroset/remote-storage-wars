@@ -1,0 +1,8 @@
+#jinja2: trim_blocks:False
+{% include 'haproxy-base.j2' %}
+{% if listen_distributor|default(false) %}
+{% include 'haproxy-listen-cortex-distributor.j2' %}
+{% endif %}
+{% if listen_query_frontend|default(false) %}
+{% include 'haproxy-listen-cortex-query_frontend.j2' %}
+{% endif %}
