@@ -1,0 +1,10 @@
+---
+- name: reload cortex
+  service:
+    name: cortex
+    state: reloaded
+
+- name: restart cortex
+  service:
+    name: cortex
+    state: restarted

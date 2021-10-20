@@ -1,0 +1,42 @@
+---
+- name: Fetch package from github release
+  get_url:
+    url: "{{ cortex_url }}"
+    dest: "{{ cortex_package_cache }}"
+    checksum: "{{ cortex_checksum }}"
+
+- name: Install cortex package
+  apt:
+    deb: "{{ cortex_package_cache }}/{{ cortex_package_filename }}"
+    state: present
+
+- name: Create directories
+  file:
+    path: "{{ item }}"
+    owner: cortex
+    group: cortex
+    state: directory
+    mode: '0750'
+  loop:
+    - "{{ cortex_root_directory }}"
+    - "{{ cortex_wal_directory }}"
+    - "{{ cortex_boltdb_directory }}"
+    - "{{ cortex_chunk_directory }}"
+    - "{{ cortex_rules_directory }}"
+    - "{{ cortex_data_directory }}"
+    - "{{ cortex_tsdb_directory }}"
+    - "{{ cortex_active_query_tracker_directory }}"
+    - "{{ cortex_tsdb_sync_directory }}"
+
+# Using file would not have been idempotent. It is recommended to use copy
+# instead with force=false to **not** overwrite the file if it already exists
+- name: Create files
+  copy:
+    content: ""
+    dest: "{{ item }}"
+    owner: cortex
+    group: cortex
+    mode: '0640'
+    force: false
+  loop:
+    - "{{ cortex_tokens_file_path }}"
