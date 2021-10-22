@@ -14,5 +14,4 @@ cortex_query_range:
     cache:
       enable_fifocache: true
       fifocache:
-        size: 1024
-        validity: 24h
+        max_size_bytes: "{{ ansible_memtotal_mb * 0.7 }}MB"
