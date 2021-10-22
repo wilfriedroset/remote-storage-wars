@@ -19,6 +19,9 @@ cortex_blocks_storage:
   tsdb:
     flush_blocks_on_shutdown: true
     wal_compression_enabled: true
+  bucket_store:
+    bucket_index:
+      enabled: true
 
 cortex_storage:
   engine: "{{ cortex_storage_engine }}"
