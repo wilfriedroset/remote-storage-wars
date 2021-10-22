@@ -18,6 +18,18 @@
   no_log: true  # this might expose credentials
   notify: reload cortex
 
+- name: Deploy override
+  template:
+    src: system-override.j2
+    dest: "{{ cortex_systemd_override_directory }}/tuning.conf"
+    owner: root
+    group: root
+    mode: 0444
+  no_log: true  # this might expose credentials
+  notify:
+    - daemon-reload
+    - restart cortex
+
 - name: Remove default configuration file from package
   file:
     path: /etc/cortex/single-process-config.yaml

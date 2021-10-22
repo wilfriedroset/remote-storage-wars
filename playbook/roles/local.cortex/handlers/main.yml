@@ -1,4 +1,9 @@
 ---
+# /!\ Definition order matter
+- name: daemon-reload
+  systemd:
+    daemon_reload: true
+
 - name: reload cortex
   service:
     name: cortex

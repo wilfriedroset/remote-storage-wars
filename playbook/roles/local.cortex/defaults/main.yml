@@ -9,6 +9,11 @@ cortex_url: "{{ cortex_base_url }}/releases/download/v{{ cortex_version }}/{{ co
 cortex_checksum_algorithm: sha256
 cortex_checksum: "{{ cortex_checksum_algorithm }}:b089d64c0bb9afdb9e7ca904b5e6614cd18b61da9297cbc774c7becf3f45f722"
 
+cortex_systemd_override_directory: /etc/systemd/system/cortex.service.d/
+cortex_systemd_override:
+  Service:
+    LimitNOFILE: 1048576
+
 # See cortex -modules
 cortex_target: all
 cortex_auth_enabled: false
