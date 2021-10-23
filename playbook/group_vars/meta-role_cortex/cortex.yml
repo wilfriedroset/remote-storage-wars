@@ -2,9 +2,6 @@
 cortex_log_level: warn
 cortex_target: all
 
-cortex_grpc_listen_address: "{{ private_ip }}"
-cortex_http_listen_address: "{{ private_ip }}"
-
 cortex_consul_kv_global_prefix: "cortex/"
 cortex_storage_type: swift
 cortex_storage_engine: blocks
