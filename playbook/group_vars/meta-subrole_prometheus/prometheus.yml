@@ -25,6 +25,8 @@ prometheus_remote_write:
     name: m3db
   - url: http://rw.cortex:9009/api/v1/push
     name: cortex
+    queue_config:
+      max_samples_per_send: 1000
 prometheus_remote_read:
   - url: http://ro.promscale.service.dc1.consul:9201/read
     name: timescaledb
