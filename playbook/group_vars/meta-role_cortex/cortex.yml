@@ -47,7 +47,7 @@ cortex_alertmanager_storage:
   s3: "{{ cortex_storage_s3 }}"
 
 cortex_querier:
-  store_gateway_addresses: "store-gateway.cortex:9095"
+  store_gateway_addresses: "dns+store-gateway.cortex.service.dc1.consul:9095"
 
 cortex_store_gateway:
   sharding_ring:
