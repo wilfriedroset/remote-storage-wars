@@ -3,7 +3,7 @@ cortex_log_level: warn
 cortex_target: all
 
 cortex_consul_kv_global_prefix: "cortex/"
-cortex_storage_type: swift
+cortex_storage_type: s3
 cortex_storage_engine: blocks
 
 # Better be explicite to avoid having the public ip registered in kvstore
@@ -12,7 +12,7 @@ cortex_instance_interface_names:
 
 cortex_blocks_storage:
   backend: "{{ cortex_storage_type }}"
-  swift: "{{ cortex_storage_swift }}"
+  s3: "{{ cortex_storage_s3 }}"
   tsdb:
     flush_blocks_on_shutdown: true
     wal_compression_enabled: true
@@ -22,23 +22,29 @@ cortex_blocks_storage:
 
 cortex_storage:
   engine: "{{ cortex_storage_engine }}"
-  swift: "{{ cortex_storage_swift }}"
-
-cortex_cortex_ruler:
-  storage:
-    swift: "{{ cortex_storage_swift }}"
+  aws:
+    bucketnames: "{{ cortex_storage_s3.bucket_name }}"
+    endpoint: "{{ cortex_storage_s3.endpoint }}"
+    region: "{{ cortex_storage_s3.region }}"
+    access_key_id: "{{ cortex_storage_s3.access_key_id }}"
+    secret_access_key: "{{ cortex_storage_s3.secret_access_key }}"
 
 cortex_ruler:
   storage:
-    swift: "{{ cortex_storage_swift }}"
+    s3:
+      bucketnames: "{{ cortex_storage_s3.bucket_name }}"
+      endpoint: "{{ cortex_storage_s3.endpoint }}"
+      region: "{{ cortex_storage_s3.region }}"
+      access_key_id: "{{ cortex_storage_s3.access_key_id }}"
+      secret_access_key: "{{ cortex_storage_s3.secret_access_key }}"
 
 cortex_ruler_storage:
   backend: "{{ cortex_storage_type }}"
-  swift: "{{ cortex_storage_swift }}"
+  s3: "{{ cortex_storage_s3 }}"
 
 cortex_alertmanager_storage:
   backend: "{{ cortex_storage_type }}"
-  swift: "{{ cortex_storage_swift }}"
+  s3: "{{ cortex_storage_s3 }}"
 
 cortex_querier:
   store_gateway_addresses: "store-gateway.cortex:9095"
