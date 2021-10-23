@@ -81,6 +81,18 @@ prometheus_scrape_configs:
     consul_sd_configs:
       - server: 'localhost:8500'
         services: [postgresql-exporter]
+  - job_name: grafana
+    metrics_path: /metrics
+    relabel_configs:
+      - source_labels: [__meta_consul_node]
+        target_label: hostname
+      - source_labels: [__meta_consul_node]
+        target_label: instance
+      - source_labels: [__meta_consul_dc]
+        target_label: dc
+    consul_sd_configs:
+      - server: 'localhost:8500'
+        services: [grafana]
   - job_name: haproxy
     metrics_path: /metrics
     relabel_configs:
