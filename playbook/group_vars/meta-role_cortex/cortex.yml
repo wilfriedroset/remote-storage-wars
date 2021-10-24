@@ -1,5 +1,5 @@
 ---
-cortex_log_level: warn
+cortex_log_level: info
 cortex_target: all
 
 cortex_consul_kv_global_prefix: "cortex/"
