@@ -7,7 +7,7 @@ module "loki" {
   instance_flavor = var.loki_instance_flavor
   ssh             = var.ssh
   userdata_path   = "../userdata.yml"
-  security_groups = ["ssh_security_group"]
+  security_groups = ["ssh_security_group", "loki_security_group"]
 
   instance_metadata = {
     role = "loki"
