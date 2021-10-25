@@ -23,6 +23,12 @@ prometheus_remote_write:
     name: victoriametrics
   - url: http://rw.m3coordinator-lb.service.dc1.consul:7201/api/v1/prom/remote/write
     name: m3db
+  - url: http://rw.cortex:9009/api/v1/push
+    name: cortex
+    send_exemplars: true
+    queue_config:
+      max_samples_per_send: 1000
+      retry_on_http_429: true
 prometheus_remote_read:
   - url: http://ro.promscale.service.dc1.consul:9201/read
     name: timescaledb
@@ -30,6 +36,10 @@ prometheus_remote_read:
     name: victoriametrics
   - url: http://ro.m3query.service.dc1.consul:7201/api/v1/prom/remote/read
     name: m3db
+  # TODO: use loadbalancer in front of query-frontend instance instead of dns
+  # load balancing
+  - url: http://query-frontend.cortex:9009/prometheus/api/v1/read
+    name: cortex
 prometheus_scrape_configs:
   - job_name: node-exporter
     metrics_path: /metrics
@@ -73,6 +83,18 @@ prometheus_scrape_configs:
     consul_sd_configs:
       - server: 'localhost:8500'
         services: [postgresql-exporter]
+  - job_name: grafana
+    metrics_path: /metrics
+    relabel_configs:
+      - source_labels: [__meta_consul_node]
+        target_label: hostname
+      - source_labels: [__meta_consul_node]
+        target_label: instance
+      - source_labels: [__meta_consul_dc]
+        target_label: dc
+    consul_sd_configs:
+      - server: 'localhost:8500'
+        services: [grafana]
   - job_name: haproxy
     metrics_path: /metrics
     relabel_configs:
@@ -158,3 +180,15 @@ prometheus_scrape_configs:
     consul_sd_configs:
       - server: 'localhost:8500'
         services: [m3coordinator, m3dbnode, m3query, m3aggregator]
+  - job_name: cortex
+    metrics_path: /metrics
+    relabel_configs:
+      - source_labels: [__meta_consul_node]
+        target_label: hostname
+      - source_labels: [__meta_consul_node]
+        target_label: instance
+      - source_labels: [__meta_consul_dc]
+        target_label: dc
+    consul_sd_configs:
+      - server: 'localhost:8500'
+        services: [cortex]

@@ -21,6 +21,11 @@ grafana_datasources:
     access: "proxy"
     url: "http://ro.promscale:9201"
 
+  - name: "cortex"
+    type: "prometheus"
+    access: "proxy"
+    url: "http://query-frontend.cortex:9009/prometheus"
+
   - name: "timescaledb"
     type: "postgres"
     sslmode: "require"
@@ -75,3 +80,7 @@ grafana_dashboards:
     datasource: Prometheus
 
 grafana_dashboards_dir: files/grafana/dashboards/
+
+
+# See:
+# https://github.com/opstrace/opstrace/tree/be59d0eb45d55045bea1e06f494d0a00280af9cd/packages/controller/src/resources/monitoring/system/dashboards

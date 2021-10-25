@@ -1,0 +1,70 @@
+---
+cortex_log_level: info
+cortex_target: all
+
+cortex_consul_kv_global_prefix: "cortex/"
+cortex_storage_type: s3
+cortex_storage_engine: blocks
+
+# Better be explicite to avoid having the public ip registered in kvstore
+cortex_instance_interface_names:
+  - eth1
+
+cortex_blocks_storage:
+  backend: "{{ cortex_storage_type }}"
+  s3: "{{ cortex_storage_s3 }}"
+  tsdb:
+    flush_blocks_on_shutdown: true
+    wal_compression_enabled: true
+  bucket_store:
+    bucket_index:
+      enabled: true
+
+cortex_storage:
+  engine: "{{ cortex_storage_engine }}"
+  aws:
+    bucketnames: "{{ cortex_storage_s3.bucket_name }}"
+    endpoint: "{{ cortex_storage_s3.endpoint }}"
+    region: "{{ cortex_storage_s3.region }}"
+    access_key_id: "{{ cortex_storage_s3.access_key_id }}"
+    secret_access_key: "{{ cortex_storage_s3.secret_access_key }}"
+
+cortex_ruler:
+  storage:
+    s3:
+      bucketnames: "{{ cortex_storage_s3.bucket_name }}"
+      endpoint: "{{ cortex_storage_s3.endpoint }}"
+      region: "{{ cortex_storage_s3.region }}"
+      access_key_id: "{{ cortex_storage_s3.access_key_id }}"
+      secret_access_key: "{{ cortex_storage_s3.secret_access_key }}"
+
+cortex_ruler_storage:
+  backend: "{{ cortex_storage_type }}"
+  s3: "{{ cortex_storage_s3 }}"
+
+cortex_alertmanager_storage:
+  backend: "{{ cortex_storage_type }}"
+  s3: "{{ cortex_storage_s3 }}"
+
+cortex_querier:
+  store_gateway_addresses: "dns+store-gateway.cortex.service.dc1.consul:9095"
+
+cortex_store_gateway:
+  sharding_ring:
+    instance_addr: "{{ private_ip }}:9095"
+
+# Limits will require further tuning
+cortex_distributor:
+  instance_limits:
+    max_inflight_push_requests: 20e3
+
+cortex_ingester:
+  instance_limits:
+    max_inflight_push_requests: 20e3
+
+cortex_limits:
+  ingestion_rate: 1e+09
+  ingestion_burst_size: 200e+03
+  cardinality_limit: 1e+09
+  max_series_per_metric: 1e+09
+  max_series_per_user: 1e+09

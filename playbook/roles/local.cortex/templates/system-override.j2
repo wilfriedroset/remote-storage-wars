@@ -1,0 +1,6 @@
+{% for section, section_values in cortex_systemd_override.items() %}
+[{{ section }}]
+{% for key, value in section_values.items() %}
+{{ key }}={{ value }}
+{% endfor %}
+{% endfor %}

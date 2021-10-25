@@ -1,0 +1,39 @@
+---
+listen_distributor: true
+listen_query_frontend: false
+consul_template_template_templates:
+  - src: "templates/haproxy-listen-cortex-rw.ctmpl.j2"
+    dest: "haproxy.ctmpl"
+    cmd: "systemctl reload consul-template.service"
+    perms: "0600"
+    backup: "true"
+    wait: "2s"
+
+consul_services:
+  - name: "node-exporter"
+    id: "node-exporter"
+    address: "{{ private_ip }}"
+    port: 9100
+    checks:
+      - tcp: "{{ private_ip }}:9100"
+        interval: "10s"
+  - name: "haproxy"
+    id: "haproxy"
+    address: "{{ private_ip }}"
+    port: 9101
+    checks:
+      - http: "http://{{ private_ip }}:9101/health"
+        interval: "10s"
+  - name: "cortex"
+    id: "cortex"
+    address: "{{ private_ip }}"
+    port: 9009
+    tags:
+      - rw
+  - name: "promtail"
+    id: "promtail"
+    address: "{{ private_ip }}"
+    port: 9080
+    checks:
+      - tcp: "{{ private_ip }}:9080"
+        interval: "10s"

@@ -1,6 +1,9 @@
 # Local .terraform directories
 **/.terraform/*
 
+# packer vars
+*.pkrvars.hcl
+
 # .tfstate files
 *.tfstate
 *.tfstate.*

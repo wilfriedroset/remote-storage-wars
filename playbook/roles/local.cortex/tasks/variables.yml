@@ -1,0 +1,140 @@
+---
+# This will allow user to avoid redefining the hash completely
+- name: Define cortex_api
+  set_fact:
+    cortex_api: "{{ __cortex_api | combine(cortex_api|default({}), recursive=True) }}"
+
+- name: Define cortex_tenant_federation
+  set_fact:
+    # yamllint disable-line rule:line-length
+    cortex_tenant_federation: "{{ __cortex_tenant_federation | combine(cortex_tenant_federation|default({}), recursive=True) }}"
+
+- name: Define cortex_grpc_client_config
+  set_fact:
+    # yamllint disable-line rule:line-length
+    cortex_grpc_client_config: "{{ __cortex_grpc_client_config | combine(cortex_grpc_client_config|default({}), recursive=True) }}"
+
+- name: Define cortex_kv_store_consul_config
+  set_fact:
+    # yamllint disable-line rule:line-length
+    cortex_kv_store_consul_config: "{{ __cortex_kv_store_consul_config | combine(cortex_kv_store_consul_config|default({}), recursive=True) }}"
+
+- name: Define cortex_kv_store_etcd
+  set_fact:
+    cortex_kv_store_etcd: "{{ __cortex_kv_store_etcd | combine(cortex_kv_store_etcd|default({}), recursive=True) }}"
+
+- name: Define cortex_kv_store_multi
+  set_fact:
+    cortex_kv_store_multi: "{{ __cortex_kv_store_multi | combine(cortex_kv_store_multi|default({}), recursive=True) }}"
+
+- name: Define cortex_schema
+  set_fact:
+    # yamllint disable-line rule:line-length
+    cortex_schema: "{{ __cortex_schema | combine(cortex_schema|default({}), recursive=True) }}"
+
+- name: Define cortex_ingester_client
+  set_fact:
+    # yamllint disable-line rule:line-length
+    cortex_ingester_client: "{{ __cortex_ingester_client | combine(cortex_ingester_client|default({}), recursive=True) }}"
+
+- name: Define cortex_alertmanager
+  set_fact:
+    # yamllint disable-line rule:line-length
+    cortex_alertmanager: "{{ __cortex_alertmanager | combine(cortex_alertmanager|default({}), recursive=True) }}"
+
+- name: Define cortex_alertmanager_storage
+  set_fact:
+    # yamllint disable-line rule:line-length
+    cortex_alertmanager_storage: "{{ __cortex_alertmanager_storage | combine(cortex_alertmanager_storage|default({}), recursive=True) }}"
+
+- name: Define cortex_blocks_storage
+  set_fact:
+    cortex_blocks_storage: "{{ __cortex_blocks_storage | combine(cortex_blocks_storage|default({}), recursive=True) }}"
+
+- name: Define cortex_chunk_store
+  set_fact:
+    cortex_chunk_store: "{{ __cortex_chunk_store | combine(cortex_chunk_store|default({}), recursive=True) }}"
+
+- name: Define cortex_compactor
+  set_fact:
+    cortex_compactor: "{{ __cortex_compactor | combine(cortex_compactor|default({}), recursive=True) }}"
+
+- name: Define cortex_configs
+  set_fact:
+    cortex_configs: "{{ __cortex_configs | combine(cortex_configs|default({}), recursive=True) }}"
+
+- name: Define cortex_distributor
+  set_fact:
+    cortex_distributor: "{{ __cortex_distributor | combine(cortex_distributor|default({}), recursive=True) }}"
+
+- name: Define cortex_flusher
+  set_fact:
+    cortex_flusher: "{{ __cortex_flusher | combine(cortex_flusher|default({}), recursive=True) }}"
+
+- name: Define cortex_frontend
+  set_fact:
+    # yamllint disable-line rule:line-length
+    cortex_frontend: "{{ __cortex_frontend | combine(cortex_frontend|default({}), recursive=True) }}"
+
+- name: Define cortex_frontend_worker
+  set_fact:
+    # yamllint disable-line rule:line-length
+    cortex_frontend_worker: "{{ __cortex_frontend_worker | combine(cortex_frontend_worker|default({}), recursive=True) }}"
+
+- name: Define cortex_ingester
+  set_fact:
+    cortex_ingester: "{{ __cortex_ingester | combine(cortex_ingester|default({}), recursive=True) }}"
+
+- name: Define cortex_limits
+  set_fact:
+    cortex_limits: "{{ __cortex_limits | combine(cortex_limits|default({}), recursive=True) }}"
+
+- name: Define cortex_memberlist
+  set_fact:
+    cortex_memberlist: "{{ __cortex_memberlist | combine(cortex_memberlist|default({}), recursive=True) }}"
+
+- name: Define cortex_purger
+  set_fact:
+    cortex_purger: "{{ __cortex_purger | combine(cortex_purger|default({}), recursive=True) }}"
+
+- name: Define cortex_querier
+  set_fact:
+    cortex_querier: "{{ __cortex_querier | combine(cortex_querier|default({}), recursive=True) }}"
+
+- name: Define cortex_query_range
+  set_fact:
+    # yamllint disable-line rule:line-length
+    cortex_query_range: "{{ __cortex_query_range | combine(cortex_query_range|default({}), recursive=True) }}"
+
+- name: Define cortex_query_scheduler
+  set_fact:
+    # yamllint disable-line rule:line-length
+    cortex_query_scheduler: "{{ __cortex_query_scheduler | combine(cortex_query_scheduler|default({}), recursive=True) }}"
+
+- name: Define cortex_ruler
+  set_fact:
+    cortex_ruler: "{{ __cortex_ruler | combine(cortex_ruler|default({}), recursive=True) }}"
+
+- name: Define cortex_ruler_storage
+  set_fact:
+    cortex_ruler_storage: "{{ __cortex_ruler_storage | combine(cortex_ruler_storage|default({}), recursive=True) }}"
+
+- name: Define cortex_server
+  set_fact:
+    cortex_server: "{{ __cortex_server | combine(cortex_server|default({}), recursive=True) }}"
+
+- name: Define cortex_storage
+  set_fact:
+    cortex_storage: "{{ __cortex_storage | combine(cortex_storage|default({}), recursive=True) }}"
+
+- name: Define cortex_store_gateway
+  set_fact:
+    cortex_store_gateway: "{{ __cortex_store_gateway | combine(cortex_store_gateway|default({}), recursive=True) }}"
+
+- name: Define cortex_table_manager
+  set_fact:
+    cortex_table_manager: "{{ __cortex_table_manager | combine(cortex_table_manager|default({}), recursive=True) }}"
+
+- name: Define cortex_runtime_config
+  set_fact:
+    cortex_runtime_config: "{{ __cortex_runtime_config | combine(cortex_runtime_config|default({}), recursive=True) }}"

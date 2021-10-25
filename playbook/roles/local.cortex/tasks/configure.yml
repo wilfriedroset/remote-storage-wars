@@ -1,0 +1,43 @@
+---
+- name: Deploy systemd default file for cortex service
+  template:
+    src: default.j2
+    dest: /etc/default/cortex
+    owner: root
+    group: root
+    mode: 0664
+  notify: restart cortex
+
+- name: Deploy configuration
+  template:
+    src: config.yaml.j2
+    dest: "{{ cortex_configuration_file }}"
+    owner: root
+    group: cortex
+    mode: 0640
+  no_log: true  # this might expose credentials
+  notify: reload cortex
+
+- name: Deploy override
+  template:
+    src: system-override.j2
+    dest: "{{ cortex_systemd_override_directory }}/tuning.conf"
+    owner: root
+    group: root
+    mode: 0444
+  no_log: true  # this might expose credentials
+  notify:
+    - daemon-reload
+    - restart cortex
+
+- name: Remove default configuration file from package
+  file:
+    path: /etc/cortex/single-process-config.yaml
+    state: absent
+
+- name: Enable and start Cortex systemd unit
+  systemd:
+    name: cortex
+    enabled: true
+    state: started
+    daemon_reload: true

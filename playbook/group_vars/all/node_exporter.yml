@@ -11,6 +11,5 @@ node_exporter_enabled_collectors:
   - ntp
   - processes
   - qdisc
-  - runit
   - systemd
   - tcpstat

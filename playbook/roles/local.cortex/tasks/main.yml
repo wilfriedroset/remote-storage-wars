@@ -1,0 +1,4 @@
+---
+- include: variables.yml
+- include: install.yml
+- include: configure.yml

@@ -1,0 +1,32 @@
+---
+consul_services:
+  - name: "node-exporter"
+    id: "node-exporter"
+    address: "{{ private_ip }}"
+    port: 9100
+    checks:
+      - tcp: "{{ private_ip }}:9100"
+        interval: "10s"
+  - name: "cortex"
+    id: "cortex"
+    address: "{{ private_ip }}"
+    port: 9009
+    checks:
+      - http: "http://{{ private_ip }}:9009/ready"
+        interval: "10s"
+    tags:
+      - distributor
+      - ingester
+      - purger
+      - querier
+      - query-frontend
+      - ruler
+      - store-gateway
+      - table-manager
+  - name: "promtail"
+    id: "promtail"
+    address: "{{ private_ip }}"
+    port: 9080
+    checks:
+      - tcp: "{{ private_ip }}:9080"
+        interval: "10s"

@@ -1,0 +1,1387 @@
+---
+cortex_version: 1.10.0
+cortex_arch: amd64
+
+cortex_package_cache: "/var/lib/apt/lists/"
+cortex_package_filename: "cortex-{{ cortex_version }}_{{ cortex_arch }}.deb"
+cortex_base_url: "https://github.com/cortexproject/cortex"
+cortex_url: "{{ cortex_base_url }}/releases/download/v{{ cortex_version }}/{{ cortex_package_filename }}"
+cortex_checksum_algorithm: sha256
+cortex_checksum: "{{ cortex_checksum_algorithm }}:b089d64c0bb9afdb9e7ca904b5e6614cd18b61da9297cbc774c7becf3f45f722"
+
+cortex_systemd_override_directory: /etc/systemd/system/cortex.service.d/
+cortex_systemd_override:
+  Service:
+    LimitNOFILE: 1048576
+
+# See cortex -modules
+cortex_target: all
+cortex_auth_enabled: false
+cortex_http_prefix: /api/prom
+
+cortex_http_listen_port: 9009
+cortex_http_listen_address: 0.0.0.0
+cortex_grpc_listen_port: 9095
+cortex_grpc_listen_address: 0.0.0.0
+
+
+# Valid levels: [debug, info, warn, error]
+cortex_log_level: info
+cortex_configuration_file: /etc/cortex/config.yml
+cortex_custom_args: ""
+cortex_restart_on_upgrade: true
+
+cortex_root_directory: "/var/lib/cortex"
+cortex_wal_directory: "{{ cortex_root_directory }}/wal"
+cortex_boltdb_directory: "{{ cortex_root_directory }}/index"
+cortex_chunk_directory: "{{ cortex_root_directory }}/chunks"
+cortex_rules_directory: "{{ cortex_root_directory }}/rules"
+cortex_data_directory: "{{ cortex_root_directory }}/data"
+cortex_tsdb_directory: "{{ cortex_root_directory }}/tsdb"
+cortex_active_query_tracker_directory: "{{ cortex_root_directory }}/active-query-tracker"
+cortex_tsdb_sync_directory: "{{ cortex_root_directory }}/tsdb-sync"
+
+cortex_tokens_file_path: "{{ cortex_root_directory }}/tokens"
+
+# Must end with /
+cortex_consul_kv_global_prefix: ""
+
+__cortex_api:
+  response_compression_enabled: false
+  alertmanager_http_prefix: /alertmanager
+  prometheus_http_prefix: /prometheus
+
+__cortex_tenant_federation:
+  enabled: false
+
+__cortex_grpc_client_config:
+  max_recv_msg_size: 104857600
+  max_send_msg_size: 104857600
+  grpc_compression: gzip
+  rate_limit: 0
+  rate_limit_burst: 0
+  backoff_on_ratelimits: false
+  backoff_config:
+    min_period: 100ms
+    max_period: 10s
+    max_retries: 10
+  tls_enabled: false
+  tls_cert_path: ""
+  tls_key_path: ""
+  tls_ca_path: ""
+  tls_server_name: ""
+  tls_insecure_skip_verify: false
+
+cortex_instance_interface_names:
+  - eth0
+  - en0
+
+cortex_kv_store: consul
+__cortex_kv_store_consul_config:
+  host: localhost:8500
+  acl_token: ""
+  http_client_timeout: 20s
+  consistent_reads: false
+  watch_rate_limit: 1
+  watch_burst_size: 1
+
+__cortex_kv_store_etcd:
+  endpoints: []
+  dial_timeout: 10s
+  max_retries: 10
+  tls_enabled: false
+  tls_cert_path: ""
+  tls_key_path: ""
+  tls_ca_path: ""
+  tls_server_name: ""
+  tls_insecure_skip_verify: false
+  username: ""
+  password: ""
+
+__cortex_kv_store_multi:
+  primary: ""
+  secondary: ""
+  mirror_enabled: false
+  mirror_timeout: 2s
+
+__cortex_schema:
+  configs:
+    - from: "2019-07-29"
+      store: boltdb
+      object_store: filesystem
+      schema: v10
+      index:
+        prefix: index_
+        period: 1w
+        tags: {}
+      chunks:
+        prefix: ""
+        period: 0s
+        tags: {}
+      row_shards: 16
+
+cortex_storage_type: configdb
+__cortex_ingester_client:
+  grpc_client_config: "{{ cortex_grpc_client_config }}"
+
+__cortex_alertmanager:
+  data_dir: "{{ cortex_data_directory }}"
+  retention: 120h0m0s
+  external_url: ""
+  poll_interval: 15s
+  max_recv_msg_size: 16777216
+  sharding_enabled: false
+  sharding_ring:
+    kvstore:
+      store: "{{ cortex_kv_store }}"
+      prefix: "{{ cortex_consul_kv_global_prefix }}alertmanagers/"
+      consul: "{{ cortex_kv_store_consul_config }}"
+      etcd: "{{ cortex_kv_store_etcd }}"
+      multi: "{{ cortex_kv_store_multi }}"
+    heartbeat_period: 15s
+    heartbeat_timeout: 1m0s
+    replication_factor: 3
+    zone_awareness_enabled: false
+    instance_id: ""
+    instance_interface_names: "{{ cortex_instance_interface_names }}"
+    instance_port: 0
+    instance_addr: ""
+    instance_availability_zone: ""
+  fallback_config_file: ""
+  auto_webhook_root: ""
+  storage:
+    type: "{{ cortex_storage_type }}"
+    configdb:
+      configs_api_url: ""
+      client_timeout: 5s
+      tls_cert_path: ""
+      tls_key_path: ""
+      tls_ca_path: ""
+      tls_server_name: ""
+      tls_insecure_skip_verify: false
+    azure:
+      environment: AzureGlobal
+      container_name: cortex
+      account_name: ""
+      account_key: ""
+      download_buffer_size: 512000
+      upload_buffer_size: 256000
+      upload_buffer_count: 1
+      request_timeout: 30s
+      max_retries: 5
+      min_retry_delay: 10ms
+      max_retry_delay: 500ms
+    gcs:
+      bucket_name: ""
+      chunk_buffer_size: 0
+      request_timeout: 0s
+      enable_opencensus: true
+    s3:
+      s3: ""
+      s3forcepathstyle: false
+      bucketnames: ""
+      endpoint: ""
+      region: ""
+      access_key_id: ""
+      secret_access_key: ""
+      insecure: false
+      sse_encryption: false
+      http_config:
+        idle_conn_timeout: 1m30s
+        response_header_timeout: 0s
+        insecure_skip_verify: false
+      signature_version: v4
+      sse:
+        type: ""
+        kms_key_id: ""
+        kms_encryption_context: ""
+    local:
+      path: ""
+  cluster:
+    listen_address: 0.0.0.0:9094
+    advertise_address: ""
+    peers: ""
+    peer_timeout: 15s
+    gossip_interval: 200ms
+    push_pull_interval: 1m0s
+  enable_api: false
+  alertmanager_client:
+    remote_timeout: 2s
+    tls_enabled: false
+    tls_cert_path: ""
+    tls_key_path: ""
+    tls_ca_path: ""
+    tls_server_name: ""
+    tls_insecure_skip_verify: false
+  persist_interval: 15m0s
+
+__cortex_alertmanager_storage:
+  backend: s3
+  s3:
+    endpoint: ""
+    region: ""
+    bucket_name: ""
+    secret_access_key: ""
+    access_key_id: ""
+    insecure: false
+    signature_version: v4
+    sse:
+      type: ""
+      kms_key_id: ""
+      kms_encryption_context: ""
+    http:
+      idle_conn_timeout: 1m30s
+      response_header_timeout: 2m0s
+      insecure_skip_verify: false
+      tls_handshake_timeout: 10s
+      expect_continue_timeout: 1s
+      max_idle_connections: 100
+      max_idle_connections_per_host: 100
+      max_connections_per_host: 0
+  gcs:
+    bucket_name: ""
+    service_account: ""
+  azure:
+    account_name: ""
+    account_key: ""
+    container_name: ""
+    endpoint_suffix: ""
+    max_retries: 20
+  swift:
+    auth_version: 0
+    auth_url: ""
+    username: ""
+    user_domain_name: ""
+    user_domain_id: ""
+    user_id: ""
+    password: ""
+    domain_id: ""
+    domain_name: ""
+    project_id: ""
+    project_name: ""
+    project_domain_id: ""
+    project_domain_name: ""
+    region_name: ""
+    container_name: ""
+    max_retries: 3
+    connect_timeout: 10s
+    request_timeout: 5s
+  filesystem:
+    dir: ""
+  configdb:
+    configs_api_url: ""
+    client_timeout: 5s
+    tls_cert_path: ""
+    tls_key_path: ""
+    tls_ca_path: ""
+    tls_server_name: ""
+    tls_insecure_skip_verify: false
+  local:
+    path: ""
+
+__cortex_blocks_storage:
+  backend: s3
+  s3:
+    endpoint: ""
+    region: ""
+    bucket_name: ""
+    secret_access_key: ""
+    access_key_id: ""
+    insecure: false
+    signature_version: v4
+    sse:
+      type: ""
+      kms_key_id: ""
+      kms_encryption_context: ""
+    http:
+      idle_conn_timeout: 1m30s
+      response_header_timeout: 2m0s
+      insecure_skip_verify: false
+      tls_handshake_timeout: 10s
+      expect_continue_timeout: 1s
+      max_idle_connections: 100
+      max_idle_connections_per_host: 100
+      max_connections_per_host: 0
+  gcs:
+    bucket_name: ""
+    service_account: ""
+  azure:
+    account_name: ""
+    account_key: ""
+    container_name: ""
+    endpoint_suffix: ""
+    max_retries: 20
+  swift:
+    auth_version: 0
+    auth_url: ""
+    username: ""
+    user_domain_name: ""
+    user_domain_id: ""
+    user_id: ""
+    password: ""
+    domain_id: ""
+    domain_name: ""
+    project_id: ""
+    project_name: ""
+    project_domain_id: ""
+    project_domain_name: ""
+    region_name: ""
+    container_name: ""
+    max_retries: 3
+    connect_timeout: 10s
+    request_timeout: 5s
+  filesystem:
+    dir: ""
+  bucket_store:
+    sync_dir: "{{ cortex_tsdb_sync_directory }}"
+    sync_interval: 15m0s
+    max_concurrent: 100
+    tenant_sync_concurrency: 10
+    block_sync_concurrency: 20
+    meta_sync_concurrency: 20
+    consistency_delay: 0s
+    index_cache:
+      backend: inmemory
+      inmemory:
+        max_size_bytes: 1073741824
+      memcached:
+        addresses: ""
+        timeout: 100ms
+        max_idle_connections: 16
+        max_async_concurrency: 50
+        max_async_buffer_size: 10000
+        max_get_multi_concurrency: 100
+        max_get_multi_batch_size: 0
+        max_item_size: 1048576
+    chunks_cache:
+      backend: ""
+      memcached:
+        addresses: ""
+        timeout: 100ms
+        max_idle_connections: 16
+        max_async_concurrency: 50
+        max_async_buffer_size: 10000
+        max_get_multi_concurrency: 100
+        max_get_multi_batch_size: 0
+        max_item_size: 1048576
+      subrange_size: 16000
+      max_get_range_requests: 3
+      attributes_ttl: 168h0m0s
+      subrange_ttl: 24h0m0s
+    metadata_cache:
+      backend: ""
+      memcached:
+        addresses: ""
+        timeout: 100ms
+        max_idle_connections: 16
+        max_async_concurrency: 50
+        max_async_buffer_size: 10000
+        max_get_multi_concurrency: 100
+        max_get_multi_batch_size: 0
+        max_item_size: 1048576
+      tenants_list_ttl: 15m0s
+      tenant_blocks_list_ttl: 5m0s
+      chunks_list_ttl: 24h0m0s
+      metafile_exists_ttl: 2h0m0s
+      metafile_doesnt_exist_ttl: 5m0s
+      metafile_content_ttl: 24h0m0s
+      metafile_max_size_bytes: 1048576
+      metafile_attributes_ttl: 168h0m0s
+      block_index_attributes_ttl: 168h0m0s
+      bucket_index_content_ttl: 5m0s
+      bucket_index_max_size_bytes: 1048576
+    ignore_deletion_mark_delay: 6h0m0s
+    bucket_index:
+      enabled: false
+      update_on_error_interval: 1m0s
+      idle_timeout: 1h0m0s
+      max_stale_period: 1h0m0s
+    max_chunk_pool_bytes: 2147483648
+    chunk_pool_min_bucket_size_bytes: 16000
+    chunk_pool_max_bucket_size_bytes: 50000000
+    index_header_lazy_loading_enabled: false
+    index_header_lazy_loading_idle_timeout: 20m0s
+    partitioner_max_gap_bytes: 524288
+    postings_offsets_in_mem_sampling: 32
+  tsdb:
+    dir: "{{ cortex_tsdb_directory }}"
+    block_ranges_period:
+      - 2h0m0s
+    retention_period: 6h0m0s
+    ship_interval: 1m0s
+    ship_concurrency: 10
+    head_compaction_interval: 1m0s
+    head_compaction_concurrency: 5
+    head_compaction_idle_timeout: 1h0m0s
+    head_chunks_write_buffer_size_bytes: 4194304
+    stripe_size: 16384
+    wal_compression_enabled: false
+    wal_segment_size_bytes: 134217728
+    flush_blocks_on_shutdown: false
+    close_idle_tsdb_timeout: 0s
+    max_tsdb_opening_concurrency_on_startup: 10
+    max_exemplars: 0
+
+__cortex_chunk_store:
+  chunk_cache_config:
+    enable_fifocache: false
+    default_validity: 0s
+    background:
+      writeback_goroutines: 10
+      writeback_buffer: 10000
+    memcached:
+      expiration: 0s
+      batch_size: 1024
+      parallelism: 100
+    memcached_client:
+      host: ""
+      service: memcached
+      addresses: ""
+      timeout: 100ms
+      max_idle_conns: 16
+      max_item_size: 0
+      update_interval: 1m0s
+      consistent_hash: true
+      circuit_breaker_consecutive_failures: 10
+      circuit_breaker_timeout: 10s
+      circuit_breaker_interval: 10s
+    redis:
+      endpoint: ""
+      master_name: ""
+      timeout: 500ms
+      expiration: 0s
+      db: 0
+      pool_size: 0
+      password: ""
+      tls_enabled: false
+      tls_insecure_skip_verify: false
+      idle_timeout: 0s
+      max_connection_age: 0s
+    fifocache:
+      max_size_bytes: ""
+      max_size_items: 0
+      validity: 0s
+      size: 0
+    prefix: store.chunks-cache.
+  write_dedupe_cache_config:
+    enable_fifocache: false
+    default_validity: 0s
+    background:
+      writeback_goroutines: 10
+      writeback_buffer: 10000
+    memcached:
+      expiration: 0s
+      batch_size: 1024
+      parallelism: 100
+    memcached_client:
+      host: ""
+      service: memcached
+      addresses: ""
+      timeout: 100ms
+      max_idle_conns: 16
+      max_item_size: 0
+      update_interval: 1m0s
+      consistent_hash: true
+      circuit_breaker_consecutive_failures: 10
+      circuit_breaker_timeout: 10s
+      circuit_breaker_interval: 10s
+    redis:
+      endpoint: ""
+      master_name: ""
+      timeout: 500ms
+      expiration: 0s
+      db: 0
+      pool_size: 0
+      password: ""
+      tls_enabled: false
+      tls_insecure_skip_verify: false
+      idle_timeout: 0s
+      max_connection_age: 0s
+    fifocache:
+      max_size_bytes: ""
+      max_size_items: 0
+      validity: 0s
+      size: 0
+    prefix: store.index-cache-write.
+  cache_lookups_older_than: 0s
+
+__cortex_compactor:
+  block_ranges:
+    - 2h0m0s
+    - 12h0m0s
+    - 24h0m0s
+  block_sync_concurrency: 20
+  meta_sync_concurrency: 20
+  consistency_delay: 0s
+  data_dir: "{{ cortex_data_directory }}"
+  compaction_interval: 1h0m0s
+  compaction_retries: 3
+  compaction_concurrency: 1
+  cleanup_interval: 15m0s
+  cleanup_concurrency: 20
+  deletion_delay: 12h0m0s
+  tenant_cleanup_delay: 6h0m0s
+  block_deletion_marks_migration_enabled: true
+  enabled_tenants: ""
+  disabled_tenants: ""
+  sharding_enabled: false
+  sharding_ring:
+    kvstore:
+      store: "{{ cortex_kv_store }}"
+      prefix: "{{ cortex_consul_kv_global_prefix }}collectors/"
+      consul: "{{ cortex_kv_store_consul_config }}"
+      etcd: "{{ cortex_kv_store_etcd }}"
+      multi: "{{ cortex_kv_store_multi }}"
+    heartbeat_period: 5s
+    heartbeat_timeout: 1m0s
+    wait_stability_min_duration: 1m0s
+    wait_stability_max_duration: 5m0s
+    # instance_id: "{{ ansible_hostname }}"
+    instance_interface_names: "{{ cortex_instance_interface_names }}"
+    instance_port: 0
+    instance_addr: ""
+
+__cortex_configs:
+  database:
+    uri: postgres://postgres@configs-db.weave.local/configs?sslmode=disable
+    migrations_dir: ""
+    password_file: ""
+  api:
+    notifications:
+      disable_email: false
+      disable_webhook: false
+
+__cortex_distributor:
+  pool:
+    client_cleanup_period: 15s
+    health_check_ingesters: true
+  ha_tracker:
+    enable_ha_tracker: true
+    ha_tracker_update_timeout: 15s
+    ha_tracker_update_timeout_jitter_max: 5s
+    ha_tracker_failover_timeout: 30s
+    kvstore:
+      store: "{{ cortex_kv_store }}"
+      prefix: "{{ cortex_consul_kv_global_prefix }}ha-tracker/"
+      consul: "{{ cortex_kv_store_consul_config }}"
+      etcd: "{{ cortex_kv_store_etcd }}"
+      multi: "{{ cortex_kv_store_multi }}"
+  max_recv_msg_size: 104857600
+  remote_timeout: 2s
+  extra_queue_delay: 0s
+  sharding_strategy: default
+  shard_by_all_labels: true
+  extend_writes: true
+  ring:
+    kvstore:
+      store: "{{ cortex_kv_store }}"
+      prefix: "{{ cortex_consul_kv_global_prefix }}collectors/"
+      consul: "{{ cortex_kv_store_consul_config }}"
+      etcd: "{{ cortex_kv_store_etcd }}"
+      multi: "{{ cortex_kv_store_multi }}"
+    heartbeat_period: 5s
+    heartbeat_timeout: 1m0s
+    instance_id: ""
+    instance_interface_names: "{{ cortex_instance_interface_names }}"
+    instance_port: 0
+    instance_addr: ""
+  instance_limits:
+    max_ingestion_rate: 0
+    max_inflight_push_requests: 0
+
+__cortex_flusher:
+  wal_dir: "{{ cortex_wal_directory }}"
+  concurrent_flushes: 50
+  flush_op_timeout: 2m0s
+  exit_after_flush: true
+
+__cortex_frontend:
+  log_queries_longer_than: 0s
+  max_body_size: 10485760
+  query_stats_enabled: false
+  max_outstanding_per_tenant: 100
+  querier_forget_delay: 0s
+  scheduler_address: ""
+  scheduler_dns_lookup_period: 10s
+  scheduler_worker_concurrency: 5
+  grpc_client_config: "{{ cortex_grpc_client_config }}"
+  instance_interface_names: "{{ cortex_instance_interface_names }}"
+  address: ""
+  port: 0
+  downstream_url: ""
+
+__cortex_frontend_worker:
+  frontend_address: ""
+  scheduler_address: ""
+  dns_lookup_duration: 10s
+  parallelism: 10
+  match_max_concurrent: true
+  id: ""
+  grpc_client_config: "{{ cortex_grpc_client_config }}"
+
+__cortex_ingester:
+  walconfig:
+    wal_enabled: true
+    checkpoint_enabled: true
+    recover_from_wal: true
+    wal_dir: "{{ cortex_wal_directory }}"
+    checkpoint_duration: 30m0s
+    flush_on_shutdown_with_wal_enabled: false
+  lifecycler:
+    ring:
+      kvstore:
+        store: "{{ cortex_kv_store }}"
+        prefix: "{{ cortex_consul_kv_global_prefix }}collectors/"
+        consul: "{{ cortex_kv_store_consul_config }}"
+        etcd: "{{ cortex_kv_store_etcd }}"
+        multi: "{{ cortex_kv_store_multi }}"
+      heartbeat_timeout: 1m0s
+      replication_factor: 3
+      zone_awareness_enabled: false
+    num_tokens: 512
+    heartbeat_period: 5s
+    observe_period: 0s
+    join_after: 0s
+    min_ready_duration: 0s
+    interface_names: "{{ cortex_instance_interface_names }}"
+    final_sleep: 0s
+    tokens_file_path: "{{ cortex_tokens_file_path }}"
+    availability_zone: ""
+    unregister_on_shutdown: true
+    address: ""
+    port: 0
+    id: "{{ ansible_hostname }}"
+  max_transfer_retries: 10
+  flush_period: 1m0s
+  retain_period: 5m0s
+  max_chunk_idle_time: 5m0s
+  max_stale_chunk_idle_time: 2m0s
+  flush_op_timeout: 1m0s
+  max_chunk_age: 12h0m0s
+  chunk_age_jitter: 0s
+  concurrent_flushes: 50
+  spread_flushes: true
+  metadata_retain_period: 10m0s
+  rate_update_period: 15s
+  active_series_metrics_enabled: true
+  active_series_metrics_update_period: 1m0s
+  active_series_metrics_idle_timeout: 10m0s
+  instance_limits:
+    max_ingestion_rate: 0
+    max_tenants: 0
+    max_series: 0
+    max_inflight_push_requests: 0
+  ignore_series_limit_for_metric_names: ""
+
+__cortex_limits:
+  ingestion_rate: 25000
+  ingestion_rate_strategy: local
+  ingestion_burst_size: 50000
+  accept_ha_samples: true
+  ha_cluster_label: cluster
+  ha_replica_label: __replica__
+  ha_max_clusters: 0
+  drop_labels: []
+  max_label_name_length: 1024
+  max_label_value_length: 2048
+  max_label_names_per_series: 30
+  max_metadata_length: 1024
+  reject_old_samples: false
+  reject_old_samples_max_age: 2w
+  creation_grace_period: 10m
+  enforce_metadata_metric_name: true
+  enforce_metric_name: true
+  ingestion_tenant_shard_size: 0
+  max_series_per_query: 100000
+  max_samples_per_query: 1000000
+  max_series_per_user: 5000000
+  max_series_per_metric: 50000
+  max_global_series_per_user: 0
+  max_global_series_per_metric: 0
+  min_chunk_length: 0
+  max_metadata_per_user: 8000
+  max_metadata_per_metric: 10
+  max_global_metadata_per_user: 0
+  max_global_metadata_per_metric: 0
+  max_chunks_per_query: 2000000
+  max_fetched_chunks_per_query: 0
+  max_fetched_series_per_query: 0
+  max_fetched_chunk_bytes_per_query: 0
+  max_query_lookback: 0s
+  max_query_length: 0s
+  max_query_parallelism: 14
+  cardinality_limit: 100000
+  max_cache_freshness: 1m
+  max_queriers_per_tenant: 0
+  ruler_evaluation_delay_duration: 0s
+  ruler_tenant_shard_size: 0
+  ruler_max_rules_per_rule_group: 0
+  ruler_max_rule_groups_per_tenant: 0
+  store_gateway_tenant_shard_size: 0
+  compactor_blocks_retention_period: 0s
+  s3_sse_type: ""
+  s3_sse_kms_key_id: ""
+  s3_sse_kms_encryption_context: ""
+  alertmanager_receivers_firewall_block_cidr_networks: ""
+  alertmanager_receivers_firewall_block_private_addresses: false
+  alertmanager_notification_rate_limit: 0
+  alertmanager_notification_rate_limit_per_integration: {}
+  alertmanager_max_config_size_bytes: 0
+  alertmanager_max_templates_count: 0
+  alertmanager_max_template_size_bytes: 0
+  alertmanager_max_dispatcher_aggregation_groups: 0
+  alertmanager_max_alerts_count: 0
+  alertmanager_max_alerts_size_bytes: 0
+
+__cortex_memberlist:
+  node_name: ""
+  randomize_node_name: true
+  stream_timeout: 0s
+  retransmit_factor: 0
+  pull_push_interval: 0s
+  gossip_interval: 0s
+  gossip_nodes: 0
+  gossip_to_dead_nodes_time: 0s
+  dead_node_reclaim_time: 0s
+  join_members: []
+  min_join_backoff: 1s
+  max_join_backoff: 1m0s
+  max_join_retries: 10
+  abort_if_cluster_join_fails: true
+  rejoin_interval: 0s
+  left_ingesters_timeout: 5m0s
+  leave_timeout: 5s
+  message_history_buffer_bytes: 0
+  bind_addr: []
+  bind_port: 7946
+  packet_dial_timeout: 5s
+  packet_write_timeout: 5s
+  tls_enabled: false
+  tls_cert_path: ""
+  tls_key_path: ""
+  tls_ca_path: ""
+  tls_server_name: ""
+  tls_insecure_skip_verify: false
+
+__cortex_purger:
+  enable: false
+  num_workers: 2
+  object_store_type: filesystem
+  delete_request_cancel_period: 24h0m0s
+
+__cortex_querier:
+  max_concurrent: 20
+  timeout: 2m0s
+  iterators: false
+  batch_iterators: true
+  ingester_streaming: true
+  max_samples: 50000000
+  query_ingesters_within: 0s
+  query_store_for_labels_enabled: false
+  at_modifier_enabled: false
+  query_store_after: 0s
+  max_query_into_future: 10m0s
+  default_evaluation_interval: 1m0s
+  active_query_tracker_dir: "{{ cortex_active_query_tracker_directory }}"
+  lookback_delta: 5m0s
+  store_gateway_addresses: ""
+  store_gateway_client:
+    tls_enabled: false
+    tls_cert_path: ""
+    tls_key_path: ""
+    tls_ca_path: ""
+    tls_server_name: ""
+    tls_insecure_skip_verify: false
+  second_store_engine: ""
+  use_second_store_before_time: "0"
+  shuffle_sharding_ingesters_lookback_period: 0s
+
+__cortex_query_range:
+  split_queries_by_interval: 0s
+  align_queries_with_step: false
+  results_cache:
+    cache:
+      enable_fifocache: false
+      default_validity: 0s
+      background:
+        writeback_goroutines: 10
+        writeback_buffer: 10000
+      memcached:
+        expiration: 0s
+        batch_size: 1024
+        parallelism: 100
+      memcached_client:
+        host: ""
+        service: memcached
+        addresses: ""
+        timeout: 100ms
+        max_idle_conns: 16
+        max_item_size: 0
+        update_interval: 1m0s
+        consistent_hash: true
+        circuit_breaker_consecutive_failures: 10
+        circuit_breaker_timeout: 10s
+        circuit_breaker_interval: 10s
+      redis:
+        endpoint: ""
+        master_name: ""
+        timeout: 500ms
+        expiration: 0s
+        db: 0
+        pool_size: 0
+        password: ""
+        tls_enabled: false
+        tls_insecure_skip_verify: false
+        idle_timeout: 0s
+        max_connection_age: 0s
+      fifocache:
+        max_size_bytes: ""
+        max_size_items: 0
+        validity: 0s
+        size: 0
+      prefix: frontend.
+    compression: ""
+  cache_results: false
+  max_retries: 5
+  parallelise_shardable_queries: false
+
+__cortex_query_scheduler:
+  max_outstanding_requests_per_tenant: 100
+  querier_forget_delay: 0s
+  grpc_client_config: "{{ cortex_grpc_client_config }}"
+
+__cortex_ruler:
+  external_url: ""
+  ruler_client:
+    max_recv_msg_size: 104857600
+    max_send_msg_size: 16777216
+    grpc_compression: ""
+    rate_limit: 0
+    rate_limit_burst: 0
+    backoff_on_ratelimits: false
+    backoff_config:
+      min_period: 100ms
+      max_period: 10s
+      max_retries: 10
+    tls_enabled: false
+    tls_cert_path: ""
+    tls_key_path: ""
+    tls_ca_path: ""
+    tls_server_name: ""
+    tls_insecure_skip_verify: false
+  evaluation_interval: 1m0s
+  poll_interval: 1m0s
+  storage:
+    type: "{{ cortex_storage_type }}"
+    configdb:
+      configs_api_url: ""
+      client_timeout: 5s
+      tls_cert_path: ""
+      tls_key_path: ""
+      tls_ca_path: ""
+      tls_server_name: ""
+      tls_insecure_skip_verify: false
+    azure:
+      environment: AzureGlobal
+      container_name: cortex
+      account_name: ""
+      account_key: ""
+      download_buffer_size: 512000
+      upload_buffer_size: 256000
+      upload_buffer_count: 1
+      request_timeout: 30s
+      max_retries: 5
+      min_retry_delay: 10ms
+      max_retry_delay: 500ms
+    gcs:
+      bucket_name: ""
+      chunk_buffer_size: 0
+      request_timeout: 0s
+      enable_opencensus: true
+    s3:
+      s3: ""
+      s3forcepathstyle: false
+      bucketnames: ""
+      endpoint: ""
+      region: ""
+      access_key_id: ""
+      secret_access_key: ""
+      insecure: false
+      sse_encryption: false
+      http_config:
+        idle_conn_timeout: 1m30s
+        response_header_timeout: 0s
+        insecure_skip_verify: false
+      signature_version: v4
+      sse:
+        type: ""
+        kms_key_id: ""
+        kms_encryption_context: ""
+    swift:
+      auth_version: 0
+      auth_url: ""
+      username: ""
+      user_domain_name: ""
+      user_domain_id: ""
+      user_id: ""
+      password: ""
+      domain_id: ""
+      domain_name: ""
+      project_id: ""
+      project_name: ""
+      project_domain_id: ""
+      project_domain_name: ""
+      region_name: ""
+      container_name: ""
+      max_retries: 3
+      connect_timeout: 10s
+      request_timeout: 5s
+    local:
+      directory: ""
+  rule_path: "{{ cortex_rules_directory }}"
+  alertmanager_url: ""
+  enable_alertmanager_discovery: false
+  alertmanager_refresh_interval: 1m0s
+  enable_alertmanager_v2: false
+  notification_queue_capacity: 10000
+  notification_timeout: 10s
+  alertmanager_client:
+    tls_cert_path: ""
+    tls_key_path: ""
+    tls_ca_path: ""
+    tls_server_name: ""
+    tls_insecure_skip_verify: false
+    basic_auth_username: ""
+    basic_auth_password: ""
+  for_outage_tolerance: 1h0m0s
+  for_grace_period: 10m0s
+  resend_delay: 1m0s
+  enable_sharding: true
+  sharding_strategy: default
+  search_pending_for: 5m0s
+  ring:
+    kvstore:
+      store: "{{ cortex_kv_store }}"
+      prefix: "{{ cortex_consul_kv_global_prefix }}rulers/"
+      consul: "{{ cortex_kv_store_consul_config }}"
+      etcd: "{{ cortex_kv_store_etcd }}"
+      multi: "{{ cortex_kv_store_multi }}"
+    heartbeat_period: 5s
+    heartbeat_timeout: 1m0s
+    instance_id: ""
+    instance_interface_names: "{{ cortex_instance_interface_names }}"
+    instance_port: 0
+    instance_addr: ""
+    num_tokens: 128
+  flush_period: 1m0s
+  enable_api: true
+  enabled_tenants: ""
+  disabled_tenants: ""
+
+__cortex_ruler_storage:
+  backend: local
+  s3:
+    endpoint: ""
+    region: ""
+    bucket_name: ""
+    secret_access_key: ""
+    access_key_id: ""
+    insecure: false
+    signature_version: v4
+    sse:
+      type: ""
+      kms_key_id: ""
+      kms_encryption_context: ""
+    http:
+      idle_conn_timeout: 1m30s
+      response_header_timeout: 2m0s
+      insecure_skip_verify: false
+      tls_handshake_timeout: 10s
+      expect_continue_timeout: 1s
+      max_idle_connections: 100
+      max_idle_connections_per_host: 100
+      max_connections_per_host: 0
+  gcs:
+    bucket_name: ""
+    service_account: ""
+  azure:
+    account_name: ""
+    account_key: ""
+    container_name: ""
+    endpoint_suffix: ""
+    max_retries: 20
+  swift:
+    auth_version: 0
+    auth_url: ""
+    username: ""
+    user_domain_name: ""
+    user_domain_id: ""
+    user_id: ""
+    password: ""
+    domain_id: ""
+    domain_name: ""
+    project_id: ""
+    project_name: ""
+    project_domain_id: ""
+    project_domain_name: ""
+    region_name: ""
+    container_name: ""
+    max_retries: 3
+    connect_timeout: 10s
+    request_timeout: 5s
+  filesystem:
+    dir: ""
+  configdb:
+    configs_api_url: ""
+    client_timeout: 5s
+    tls_cert_path: ""
+    tls_key_path: ""
+    tls_ca_path: ""
+    tls_server_name: ""
+    tls_insecure_skip_verify: false
+  local:
+    directory: "{{ cortex_rules_directory }}"
+
+__cortex_server:
+  http_listen_address: "{{ cortex_http_listen_address }}"
+  http_listen_port: 9009
+  http_listen_conn_limit: 0
+  grpc_listen_address: "{{ cortex_grpc_listen_address }}"
+  grpc_listen_port: 9095
+  grpc_listen_conn_limit: 0
+  http_tls_config:
+    cert_file: ""
+    key_file: ""
+    client_auth_type: ""
+    client_ca_file: ""
+  grpc_tls_config:
+    cert_file: ""
+    key_file: ""
+    client_auth_type: ""
+    client_ca_file: ""
+  register_instrumentation: true
+  graceful_shutdown_timeout: 30s
+  http_server_read_timeout: 30s
+  http_server_write_timeout: 30s
+  http_server_idle_timeout: 2m0s
+  grpc_server_max_recv_msg_size: 104857600
+  grpc_server_max_send_msg_size: 104857600
+  grpc_server_max_concurrent_streams: 1000
+  grpc_server_max_connection_idle: 2562047h47m16.854775807s
+  grpc_server_max_connection_age: 2562047h47m16.854775807s
+  grpc_server_max_connection_age_grace: 2562047h47m16.854775807s
+  grpc_server_keepalive_time: 2h0m0s
+  grpc_server_keepalive_timeout: 20s
+  grpc_server_min_time_between_pings: 10s
+  grpc_server_ping_without_stream_allowed: true
+  log_format: logfmt
+  log_level: info
+  log_source_ips_enabled: false
+  log_source_ips_header: ""
+  log_source_ips_regex: ""
+  http_path_prefix: ""
+
+__cortex_storage:
+  engine: chunks
+  aws:
+    dynamodb:
+      dynamodb_url: ""
+      api_limit: 2
+      throttle_limit: 10
+      metrics:
+        url: ""
+        target_queue_length: 100000
+        scale_up_factor: 1.3
+        ignore_throttle_below: 1
+        queue_length_query: sum(avg_over_time(cortex_ingester_flush_queue_length{job="cortex/ingester"}[2m]))
+        write_throttle_query: sum(rate(cortex_dynamo_throttled_total{operation="DynamoDB.BatchWriteItem"}[1m]))
+          by (table) > 0
+        write_usage_query: sum(rate(cortex_dynamo_consumed_capacity_total{operation="DynamoDB.BatchWriteItem"}[15m]))
+          by (table) > 0
+        read_usage_query: sum(rate(cortex_dynamo_consumed_capacity_total{operation="DynamoDB.QueryPages"}[1h]))
+          by (table) > 0
+        # yamllint disable-line rule:line-length
+        read_error_query: sum(increase(cortex_dynamo_failures_total{operation="DynamoDB.QueryPages",error="ProvisionedThroughputExceededException"}[1m]))
+          by (table) > 0
+      chunk_gang_size: 10
+      chunk_get_max_parallelism: 32
+      backoff_config:
+        min_period: 100ms
+        max_period: 50s
+        max_retries: 20
+    s3: ""
+    s3forcepathstyle: false
+    bucketnames: ""
+    endpoint: ""
+    region: ""
+    access_key_id: ""
+    secret_access_key: ""
+    insecure: false
+    sse_encryption: false
+    http_config:
+      idle_conn_timeout: 1m30s
+      response_header_timeout: 0s
+      insecure_skip_verify: false
+    signature_version: v4
+    sse:
+      type: ""
+      kms_key_id: ""
+      kms_encryption_context: ""
+  azure:
+    environment: AzureGlobal
+    container_name: cortex
+    account_name: ""
+    account_key: ""
+    download_buffer_size: 512000
+    upload_buffer_size: 256000
+    upload_buffer_count: 1
+    request_timeout: 30s
+    max_retries: 5
+    min_retry_delay: 10ms
+    max_retry_delay: 500ms
+  bigtable:
+    project: ""
+    instance: ""
+    grpc_client_config: "{{ cortex_grpc_client_config }}"
+    table_cache_enabled: true
+    table_cache_expiration: 30m0s
+  gcs:
+    bucket_name: ""
+    chunk_buffer_size: 0
+    request_timeout: 0s
+    enable_opencensus: true
+  cassandra:
+    addresses: ""
+    port: 9042
+    keyspace: ""
+    consistency: QUORUM
+    replication_factor: 3
+    disable_initial_host_lookup: false
+    SSL: false
+    host_verification: true
+    host_selection_policy: round-robin
+    CA_path: ""
+    tls_cert_path: ""
+    tls_key_path: ""
+    auth: false
+    username: ""
+    password: ""
+    password_file: ""
+    custom_authenticators: []
+    timeout: 2s
+    connect_timeout: 5s
+    reconnect_interval: 1s
+    max_retries: 0
+    retry_max_backoff: 10s
+    retry_min_backoff: 100ms
+    query_concurrency: 0
+    num_connections: 2
+    convict_hosts_on_failure: true
+    table_options: ""
+  boltdb:
+    directory: "{{ cortex_boltdb_directory }}"
+  filesystem:
+    directory: "{{ cortex_chunk_directory }}"
+  swift:
+    auth_version: 0
+    auth_url: ""
+    username: ""
+    user_domain_name: ""
+    user_domain_id: ""
+    user_id: ""
+    password: ""
+    domain_id: ""
+    domain_name: ""
+    project_id: ""
+    project_name: ""
+    project_domain_id: ""
+    project_domain_name: ""
+    region_name: ""
+    container_name: ""
+    max_retries: 3
+    connect_timeout: 10s
+    request_timeout: 5s
+  index_cache_validity: 5m0s
+  index_queries_cache_config:
+    enable_fifocache: false
+    default_validity: 0s
+    background:
+      writeback_goroutines: 10
+      writeback_buffer: 10000
+    memcached:
+      expiration: 0s
+      batch_size: 1024
+      parallelism: 100
+    memcached_client:
+      host: ""
+      service: memcached
+      addresses: ""
+      timeout: 100ms
+      max_idle_conns: 16
+      max_item_size: 0
+      update_interval: 1m0s
+      consistent_hash: true
+      circuit_breaker_consecutive_failures: 10
+      circuit_breaker_timeout: 10s
+      circuit_breaker_interval: 10s
+    redis:
+      endpoint: ""
+      master_name: ""
+      timeout: 500ms
+      expiration: 0s
+      db: 0
+      pool_size: 0
+      password: ""
+      tls_enabled: false
+      tls_insecure_skip_verify: false
+      idle_timeout: 0s
+      max_connection_age: 0s
+    fifocache:
+      max_size_bytes: ""
+      max_size_items: 0
+      validity: 0s
+      size: 0
+    prefix: store.index-cache-read.
+  delete_store:
+    store: boltdb
+    requests_table_name: delete_requests
+    table_provisioning:
+      enable_ondemand_throughput_mode: false
+      provisioned_write_throughput: 1
+      provisioned_read_throughput: 300
+      write_scale:
+        enabled: false
+        role_arn: ""
+        min_capacity: 3000
+        max_capacity: 6000
+        out_cooldown: 1800
+        in_cooldown: 1800
+        target: 80
+      read_scale:
+        enabled: false
+        role_arn: ""
+        min_capacity: 3000
+        max_capacity: 6000
+        out_cooldown: 1800
+        in_cooldown: 1800
+        target: 80
+      tags: {}
+  grpc_store: {}
+
+__cortex_store_gateway:
+  sharding_enabled: false
+  sharding_ring:
+    kvstore:
+      store: "{{ cortex_kv_store }}"
+      prefix: "{{ cortex_consul_kv_global_prefix }}collectors/"
+      consul: "{{ cortex_kv_store_consul_config }}"
+      etcd: "{{ cortex_kv_store_etcd }}"
+      multi: "{{ cortex_kv_store_multi }}"
+    heartbeat_period: 15s
+    heartbeat_timeout: 1m0s
+    replication_factor: 3
+    tokens_file_path: ""
+    zone_awareness_enabled: false
+    wait_stability_min_duration: 1m0s
+    wait_stability_max_duration: 5m0s
+    # instance_id: "{{ ansible_hostname }}"
+    instance_interface_names: "{{ cortex_instance_interface_names }}"
+    instance_port: 0
+    instance_addr: ""
+    instance_availability_zone: ""
+  sharding_strategy: default
+
+__cortex_table_manager:
+  throughput_updates_disabled: false
+  retention_deletes_enabled: false
+  retention_period: 0s
+  poll_interval: 2m0s
+  creation_grace_period: 10m0s
+  index_tables_provisioning:
+    enable_ondemand_throughput_mode: false
+    provisioned_write_throughput: 1000
+    provisioned_read_throughput: 300
+    write_scale:
+      enabled: false
+      role_arn: ""
+      min_capacity: 3000
+      max_capacity: 6000
+      out_cooldown: 1800
+      in_cooldown: 1800
+      target: 80
+    read_scale:
+      enabled: false
+      role_arn: ""
+      min_capacity: 3000
+      max_capacity: 6000
+      out_cooldown: 1800
+      in_cooldown: 1800
+      target: 80
+    enable_inactive_throughput_on_demand_mode: false
+    inactive_write_throughput: 1
+    inactive_read_throughput: 300
+    inactive_write_scale:
+      enabled: false
+      role_arn: ""
+      min_capacity: 3000
+      max_capacity: 6000
+      out_cooldown: 1800
+      in_cooldown: 1800
+      target: 80
+    inactive_read_scale:
+      enabled: false
+      role_arn: ""
+      min_capacity: 3000
+      max_capacity: 6000
+      out_cooldown: 1800
+      in_cooldown: 1800
+      target: 80
+    inactive_write_scale_lastn: 4
+    inactive_read_scale_lastn: 4
+  chunk_tables_provisioning:
+    enable_ondemand_throughput_mode: false
+    provisioned_write_throughput: 1000
+    provisioned_read_throughput: 300
+    write_scale:
+      enabled: false
+      role_arn: ""
+      min_capacity: 3000
+      max_capacity: 6000
+      out_cooldown: 1800
+      in_cooldown: 1800
+      target: 80
+    read_scale:
+      enabled: false
+      role_arn: ""
+      min_capacity: 3000
+      max_capacity: 6000
+      out_cooldown: 1800
+      in_cooldown: 1800
+      target: 80
+    enable_inactive_throughput_on_demand_mode: false
+    inactive_write_throughput: 1
+    inactive_read_throughput: 300
+    inactive_write_scale:
+      enabled: false
+      role_arn: ""
+      min_capacity: 3000
+      max_capacity: 6000
+      out_cooldown: 1800
+      in_cooldown: 1800
+      target: 80
+    inactive_read_scale:
+      enabled: false
+      role_arn: ""
+      min_capacity: 3000
+      max_capacity: 6000
+      out_cooldown: 1800
+      in_cooldown: 1800
+      target: 80
+    inactive_write_scale_lastn: 4
+    inactive_read_scale_lastn: 4
+
+__cortex_runtime_config:
+  period: 10s
+  file: ""
+
+cortex_prealloc: {}

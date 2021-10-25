@@ -1,0 +1,8 @@
+---
+- name: Configure Cortex
+  hosts: meta-role_cortex
+  any_errors_fatal: true
+  become: true
+  become_user: root
+  roles:
+    - local.cortex
