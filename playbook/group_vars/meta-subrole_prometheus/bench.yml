@@ -8,3 +8,11 @@
 # x-bench-overwrite.yml without comminting the change.
 fake_targets_count: 50
 fake_dc_count: 2
+
+# In the same fashion, this project is capable of spawning several remote
+# storage but we don't want to write to all of them at once. They are all
+# define in prometheus.yml as prometheus_remote_<storage_name>.
+# They can be overwritten in x-bench-overwrite.yml without comminting the
+# change as well.
+prometheus_remote_write: []
+prometheus_remote_read: []

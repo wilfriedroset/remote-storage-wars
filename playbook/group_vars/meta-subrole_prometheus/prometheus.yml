@@ -6,8 +6,10 @@ prometheus_storage_retention_size: 250GB
 prometheus_external_labels:
   __replica__: "{{ ansible_hostname }}"
   cluster: "{{ cluster_id | default('default')}}"
-prometheus_remote_write:
-  - url: http://rw.promscale.service.dc1.consul:9201/write
+
+prometheus_remote_promscale:
+  write:
+    url: http://rw.promscale.service.dc1.consul:9201/write
     name: timescaledb
     remote_timeout: 60s
     # https://github.com/timescale/promscale/blob/master/docs/configuring_prometheus.md
@@ -19,27 +21,40 @@ prometheus_remote_write:
       batch_send_deadline: 30s
       min_backoff: 100ms
       max_backoff: 10s
-  - url: http://rw.victoriametrics.service.dc1.consul:8480/insert/0/prometheus
+  read:
+    url: http://ro.promscale.service.dc1.consul:9201/read
+    name: timescaledb
+
+prometheus_remote_victoriametrics:
+  write:
+    url: http://rw.victoriametrics.service.dc1.consul:8480/insert/0/prometheus
     name: victoriametrics
-  - url: http://rw.m3coordinator-lb.service.dc1.consul:7201/api/v1/prom/remote/write
+  read:
+    url: http://ro.victoriametrics.service.dc1.consul:8481/select/0/prometheus
+    name: victoriametrics
+
+prometheus_remote_m3db:
+  write:
+    url: http://rw.m3coordinator-lb.service.dc1.consul:7201/api/v1/prom/remote/write
     name: m3db
-  - url: http://rw.cortex:9009/api/v1/push
+  read:
+    url: http://ro.m3query.service.dc1.consul:7201/api/v1/prom/remote/read
+    name: m3db
+
+prometheus_remote_cortex:
+  write:
+    url: http://rw.cortex:9009/api/v1/push
     name: cortex
     send_exemplars: true
     queue_config:
       max_samples_per_send: 1000
       retry_on_http_429: true
-prometheus_remote_read:
-  - url: http://ro.promscale.service.dc1.consul:9201/read
-    name: timescaledb
-  - url: http://ro.victoriametrics.service.dc1.consul:8481/select/0/prometheus
-    name: victoriametrics
-  - url: http://ro.m3query.service.dc1.consul:7201/api/v1/prom/remote/read
-    name: m3db
-  # TODO: use loadbalancer in front of query-frontend instance instead of dns
-  # load balancing
-  - url: http://query-frontend.cortex:9009/prometheus/api/v1/read
+  read:
+    # TODO: use loadbalancer in front of query-frontend instance instead of dns
+    # load balancing
+    url: http://query-frontend.cortex:9009/prometheus/api/v1/read
     name: cortex
+
 prometheus_scrape_configs:
   - job_name: node-exporter
     metrics_path: /metrics
