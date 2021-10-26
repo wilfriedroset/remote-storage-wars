@@ -1,13 +1,7 @@
 ---
-- name: Fetch package from github release
-  get_url:
-    url: "{{ cortex_url }}"
-    dest: "{{ cortex_package_cache }}"
-    checksum: "{{ cortex_checksum }}"
-
 - name: Install cortex package
   apt:
-    deb: "{{ cortex_package_cache }}/{{ cortex_package_filename }}"
+    deb: "{{ cortex_url }}"
     state: present
 
 - name: Create systemd override directory
