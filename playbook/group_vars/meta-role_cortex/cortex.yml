@@ -10,24 +10,115 @@ cortex_storage_engine: blocks
 cortex_instance_interface_names:
   - eth1
 
+cortex_api:
+  response_compression_enabled: false
+  alertmanager_http_prefix: /alertmanager
+  prometheus_http_prefix: /prometheus
+
+cortex_tenant_federation:
+  enabled: false
+
+cortex_grpc_client_config:
+  grpc_compression: gzip
+  max_recv_msg_size: 104857600
+  max_send_msg_size: 104857600
+
+cortex_ingester_client:
+  grpc_client_config: "{{ cortex_grpc_client_config }}"
+
+cortex_alertmanager:
+  data_dir: "{{ cortex_data_directory }}"
+  sharding_ring:
+    kvstore:
+      prefix: "{{ cortex_consul_kv_global_prefix }}alertmanagers/"
+    instance_interface_names: "{{ cortex_instance_interface_names }}"
+  storage:
+    type: "{{ cortex_storage_type }}"
+    s3:
+      bucketnames: "{{ cortex_storage_s3.bucket_name }}"
+      endpoint: "{{ cortex_storage_s3.endpoint }}"
+      region: "{{ cortex_storage_s3.region }}"
+      access_key_id: "{{ cortex_storage_s3.access_key_id }}"
+      secret_access_key: "{{ cortex_storage_s3.secret_access_key }}"
+
+cortex_alertmanager_storage:
+  backend: "{{ cortex_storage_type }}"
+  s3: "{{ cortex_storage_s3 }}"
+
 cortex_blocks_storage:
   backend: "{{ cortex_storage_type }}"
   s3: "{{ cortex_storage_s3 }}"
-  tsdb:
-    flush_blocks_on_shutdown: true
-    wal_compression_enabled: true
   bucket_store:
+    sync_dir: "{{ cortex_tsdb_sync_directory }}"
     bucket_index:
       enabled: true
+  tsdb:
+    dir: "{{ cortex_tsdb_directory }}"
+    flush_blocks_on_shutdown: true
+    wal_compression_enabled: true
 
-cortex_storage:
-  engine: "{{ cortex_storage_engine }}"
-  aws:
-    bucketnames: "{{ cortex_storage_s3.bucket_name }}"
-    endpoint: "{{ cortex_storage_s3.endpoint }}"
-    region: "{{ cortex_storage_s3.region }}"
-    access_key_id: "{{ cortex_storage_s3.access_key_id }}"
-    secret_access_key: "{{ cortex_storage_s3.secret_access_key }}"
+cortex_compactor:
+  data_dir: "{{ cortex_data_directory }}"
+  sharding_enabled: false
+  sharding_ring:
+    kvstore:
+      prefix: "{{ cortex_consul_kv_global_prefix }}collectors/"
+    instance_interface_names: "{{ cortex_instance_interface_names }}"
+
+cortex_distributor:
+  shard_by_all_labels: true
+  ha_tracker:
+    enable_ha_tracker: true
+    kvstore:
+      prefix: "{{ cortex_consul_kv_global_prefix }}ha-tracker/"
+  ring:
+    kvstore:
+      prefix: "{{ cortex_consul_kv_global_prefix }}collectors/"
+    instance_interface_names: "{{ cortex_instance_interface_names }}"
+  instance_limits:
+    max_inflight_push_requests: 20e3
+
+cortex_flusher:
+  wal_dir: "{{ cortex_wal_directory }}"
+
+cortex_frontend:
+  grpc_client_config: "{{ cortex_grpc_client_config }}"
+  instance_interface_names: "{{ cortex_instance_interface_names }}"
+  downstream_url: ""  # FIXME
+
+cortex_frontend_worker:
+  match_max_concurrent: true
+  grpc_client_config: "{{ cortex_grpc_client_config }}"
+
+cortex_ingester:
+  walconfig:
+    wal_enabled: true
+    checkpoint_enabled: true
+    recover_from_wal: true
+    wal_dir: "{{ cortex_wal_directory }}"
+    flush_on_shutdown_with_wal_enabled: true
+  lifecycler:
+    ring:
+      kvstore:
+        prefix: "{{ cortex_consul_kv_global_prefix }}collectors/"
+      replication_factor: 3
+    interface_names: "{{ cortex_instance_interface_names }}"
+    tokens_file_path: "{{ cortex_tokens_file_path }}"
+    unregister_on_shutdown: true
+  instance_limits:
+    max_inflight_push_requests: 20e3
+
+cortex_limits:
+  accept_ha_samples: true
+  cardinality_limit: 1e+09
+  ingestion_burst_size: 200e+03
+  ingestion_rate: 1e+09
+  max_series_per_metric: 1e+09
+  max_series_per_user: 1e+09
+
+cortex_querier:
+  active_query_tracker_dir: "{{ cortex_active_query_tracker_directory }}"
+  store_gateway_addresses: "dns+store-gateway.cortex.service.dc1.consul:9095"
 
 cortex_ruler:
   storage:
@@ -37,34 +128,51 @@ cortex_ruler:
       region: "{{ cortex_storage_s3.region }}"
       access_key_id: "{{ cortex_storage_s3.access_key_id }}"
       secret_access_key: "{{ cortex_storage_s3.secret_access_key }}"
+    type: "{{ cortex_storage_type }}"
+  rule_path: "{{ cortex_rules_directory }}"
+  ring:
+    kvstore:
+      prefix: "{{ cortex_consul_kv_global_prefix }}rulers/"
+  enable_api: true
 
 cortex_ruler_storage:
   backend: "{{ cortex_storage_type }}"
   s3: "{{ cortex_storage_s3 }}"
+  local:
+    directory: "{{ cortex_rules_directory }}"
 
-cortex_alertmanager_storage:
-  backend: "{{ cortex_storage_type }}"
-  s3: "{{ cortex_storage_s3 }}"
+cortex_server:
+  http_listen_address: "{{ cortex_http_listen_address }}"
+  http_listen_port: 9009
+  grpc_listen_address: "{{ cortex_grpc_listen_address }}"
+  grpc_listen_port: 9095
+  grpc_server_max_concurrent_streams: 1000
+  grpc_server_max_recv_msg_size: 104857600
+  grpc_server_max_send_msg_size: 104857600
+  log_format: logfmt
+  log_level: info
+  log_source_ips_enabled: true
 
-cortex_querier:
-  store_gateway_addresses: "dns+store-gateway.cortex.service.dc1.consul:9095"
+cortex_storage:
+  engine: "{{ cortex_storage_engine }}"
+  aws:
+    bucketnames: "{{ cortex_storage_s3.bucket_name }}"
+    endpoint: "{{ cortex_storage_s3.endpoint }}"
+    region: "{{ cortex_storage_s3.region }}"
+    access_key_id: "{{ cortex_storage_s3.access_key_id }}"
+    secret_access_key: "{{ cortex_storage_s3.secret_access_key }}"
+  boltdb:
+    directory: "{{ cortex_boltdb_directory }}"
+  filesystem:
+    directory: "{{ cortex_chunk_directory }}"
 
 cortex_store_gateway:
+  sharding_enabled: false
   sharding_ring:
-    instance_addr: "{{ private_ip }}:9095"
+    kvstore:
+      prefix: "{{ cortex_consul_kv_global_prefix }}collectors/"
+    replication_factor: 3
+    instance_interface_names: "{{ cortex_instance_interface_names }}"
 
-# Limits will require further tuning
-cortex_distributor:
-  instance_limits:
-    max_inflight_push_requests: 20e3
-
-cortex_ingester:
-  instance_limits:
-    max_inflight_push_requests: 20e3
-
-cortex_limits:
-  ingestion_rate: 1e+09
-  ingestion_burst_size: 200e+03
-  cardinality_limit: 1e+09
-  max_series_per_metric: 1e+09
-  max_series_per_user: 1e+09
+cortex_query_scheduler:
+  grpc_client_config: "{{ cortex_grpc_client_config }}"

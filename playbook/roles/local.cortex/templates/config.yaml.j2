@@ -6,61 +6,119 @@ target: {{ cortex_target }}
 auth_enabled: {{ cortex_auth_enabled }}
 http_prefix: {{ cortex_http_prefix }}
 
+{% if cortex_api != {} %}
 api:
   {{ cortex_api | to_nice_yaml(indent=2) | indent(2, False) }}
+{% endif %}
+{% if cortex_server != {} %}
 server:
   {{ cortex_server | to_nice_yaml(indent=2) | indent(2, False) }}
+{% endif %}
+{% if cortex_distributor != {} %}
 distributor:
   {{ cortex_distributor | to_nice_yaml(indent=2) | indent(2, False) }}
+{% endif %}
+{% if cortex_querier != {} %}
 querier:
   {{ cortex_querier | to_nice_yaml(indent=2) | indent(2, False) }}
+{% endif %}
+{% if cortex_ingester_client != {} %}
 ingester_client:
   {{ cortex_ingester_client | to_nice_yaml(indent=2) | indent(2, False) }}
+{% endif %}
+{% if cortex_ingester != {} %}
 ingester:
   {{ cortex_ingester | to_nice_yaml(indent=2) | indent(2, False) }}
+{% endif %}
+{% if cortex_flusher != {} %}
 flusher:
   {{ cortex_flusher | to_nice_yaml(indent=2) | indent(2, False) }}
+{% endif %}
+{% if cortex_storage != {} %}
 storage:
   {{ cortex_storage | to_nice_yaml(indent=2) | indent(2, False) }}
+{% endif %}
+{% if cortex_chunk_store != {} %}
 chunk_store:
   {{ cortex_chunk_store | to_nice_yaml(indent=2) | indent(2, False) }}
+{% endif %}
+{% if cortex_schema != {} %}
 schema:
   {{ cortex_schema | to_nice_yaml(indent=2) | indent(2, False) }}
+{% endif %}
+{% if cortex_limits != {} %}
 limits:
   {{ cortex_limits | to_nice_yaml(indent=2) | indent(2, False) }}
+{% endif %}
+{% if cortex_prealloc != {} %}
 prealloc:
   {{ cortex_prealloc | to_nice_yaml(indent=2) | indent(2, False) }}
+{% endif %}
+{% if cortex_frontend_worker != {} %}
 frontend_worker:
   {{ cortex_frontend_worker | to_nice_yaml(indent=2) | indent(2, False) }}
+{% endif %}
+{% if cortex_frontend != {} %}
 frontend:
   {{ cortex_frontend | to_nice_yaml(indent=2) | indent(2, False) }}
+{% endif %}
+{% if cortex_query_range != {} %}
 query_range:
   {{ cortex_query_range | to_nice_yaml(indent=2) | indent(2, False) }}
+{% endif %}
+{% if cortex_query_scheduler != {} %}
 query_scheduler:
   {{ cortex_query_scheduler | to_nice_yaml(indent=2) | indent(2, False) }}
+{% endif %}
+{% if cortex_table_manager != {} %}
 table_manager:
   {{ cortex_table_manager | to_nice_yaml(indent=2) | indent(2, False) }}
+{% endif %}
+{% if cortex_blocks_storage != {} %}
 blocks_storage:
   {{ cortex_blocks_storage | to_nice_yaml(indent=2) | indent(2, False) }}
+{% endif %}
+{% if cortex_compactor != {} %}
 compactor:
   {{ cortex_compactor | to_nice_yaml(indent=2) | indent(2, False) }}
+{% endif %}
+{% if cortex_store_gateway != {} %}
 store_gateway:
   {{ cortex_store_gateway | to_nice_yaml(indent=2) | indent(2, False) }}
+{% endif %}
+{% if cortex_purger != {} %}
 purger:
   {{ cortex_purger | to_nice_yaml(indent=2) | indent(2, False) }}
+{% endif %}
+{% if cortex_tenant_federation != {} %}
 tenant_federation:
   {{ cortex_tenant_federation | to_nice_yaml(indent=2) | indent(2, False) }}
+{% endif %}
+{% if cortex_ruler != {} %}
 ruler:
   {{ cortex_ruler | to_nice_yaml(indent=2) | indent(2, False) }}
+{% endif %}
+{% if cortex_ruler_storage != {} %}
 ruler_storage:
   {{ cortex_ruler_storage | to_nice_yaml(indent=2) | indent(2, False) }}
+{% endif %}
+{% if cortex_configs != {} %}
 configs:
   {{ cortex_configs | to_nice_yaml(indent=2) | indent(2, False) }}
+{% endif %}
+{% if cortex_alertmanager != {} %}
 alertmanager:
   {{ cortex_alertmanager | to_nice_yaml(indent=2) | indent(2, False) }}
+{% endif %}
+{% if cortex_alertmanager_storage != {} %}
 alertmanager_storage:
   {{ cortex_alertmanager_storage | to_nice_yaml(indent=2) | indent(2, False) }}
+{% endif %}
+{% if cortex_runtime_config != {} %}
 runtime_config:
   {{ cortex_runtime_config | to_nice_yaml(indent=2) | indent(2, False) }}
+{% endif %}
+{% if cortex_memberlist != {} %}
 memberlist:
   {{ cortex_memberlist | to_nice_yaml(indent=2) | indent(2, False) }}
+{% endif %}
