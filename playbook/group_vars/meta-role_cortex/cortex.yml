@@ -102,6 +102,8 @@ cortex_ingester:
       kvstore:
         prefix: "{{ cortex_consul_kv_global_prefix }}collectors/"
       replication_factor: 3
+    final_sleep: 0s
+    num_tokens: 512
     interface_names: "{{ cortex_instance_interface_names }}"
     tokens_file_path: "{{ cortex_tokens_file_path }}"
     unregister_on_shutdown: true
@@ -131,9 +133,11 @@ cortex_ruler:
     type: "{{ cortex_storage_type }}"
   rule_path: "{{ cortex_rules_directory }}"
   ring:
+    instance_interface_names: "{{ cortex_instance_interface_names }}"
     kvstore:
       prefix: "{{ cortex_consul_kv_global_prefix }}rulers/"
   enable_api: true
+  enable_sharding: true
 
 cortex_ruler_storage:
   backend: "{{ cortex_storage_type }}"
@@ -165,10 +169,13 @@ cortex_storage:
     directory: "{{ cortex_boltdb_directory }}"
   filesystem:
     directory: "{{ cortex_chunk_directory }}"
+  delete_store:
+    store: boltdb
 
 cortex_store_gateway:
   sharding_enabled: false
   sharding_ring:
+    instance_addr: "{{ private_ip }}:9095"
     kvstore:
       prefix: "{{ cortex_consul_kv_global_prefix }}collectors/"
     replication_factor: 3
