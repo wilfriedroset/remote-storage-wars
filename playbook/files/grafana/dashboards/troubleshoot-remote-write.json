@@ -22,18 +22,13 @@
   "fiscalYearStartMonth": 0,
   "gnetId": null,
   "graphTooltip": 1,
-  "id": 10,
-  "iteration": 1634895947173,
+  "iteration": 1635521929330,
   "links": [],
   "liveNow": false,
   "panels": [
     {
       "collapsed": false,
       "datasource": null,
-      "fieldConfig": {
-        "defaults": {},
-        "overrides": []
-      },
       "gridPos": {
         "h": 1,
         "w": 24,
@@ -46,12 +41,16 @@
       "type": "row"
     },
     {
-      "datasource": "${ds}",
+      "datasource": null,
       "description": "the WAL segment file that Prometheus is currently writing new data to.",
       "fieldConfig": {
         "defaults": {
           "color": {
             "mode": "thresholds"
+          },
+          "custom": {
+            "align": "auto",
+            "displayMode": "auto"
           },
           "mappings": [],
           "thresholds": {
@@ -60,6 +59,197 @@
               {
                 "color": "green",
                 "value": null
+              },
+              {
+                "color": "red",
+                "value": 80
+              }
+            ]
+          }
+        },
+        "overrides": [
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "hostname"
+            },
+            "properties": [
+              {
+                "id": "custom.width",
+                "value": 104
+              }
+            ]
+          }
+        ]
+      },
+      "gridPos": {
+        "h": 6,
+        "w": 4,
+        "x": 0,
+        "y": 1
+      },
+      "id": 24,
+      "options": {
+        "showHeader": true,
+        "sortBy": []
+      },
+      "pluginVersion": "8.2.2",
+      "targets": [
+        {
+          "exemplar": true,
+          "expr": "prometheus_tsdb_wal_segment_current{job=\"prometheus\", instance=~\"$instance\"}",
+          "format": "table",
+          "instant": true,
+          "interval": "",
+          "legendFormat": "",
+          "refId": "A"
+        }
+      ],
+      "title": "WAL",
+      "transformations": [
+        {
+          "id": "filterFieldsByName",
+          "options": {
+            "include": {
+              "names": [
+                "hostname",
+                "Value"
+              ],
+              "pattern": "value"
+            }
+          }
+        }
+      ],
+      "type": "table"
+    },
+    {
+      "datasource": "${ds}",
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "palette-classic"
+          },
+          "custom": {
+            "axisLabel": "",
+            "axisPlacement": "auto",
+            "barAlignment": 0,
+            "drawStyle": "line",
+            "fillOpacity": 0,
+            "gradientMode": "none",
+            "hideFrom": {
+              "legend": false,
+              "tooltip": false,
+              "viz": false
+            },
+            "lineInterpolation": "linear",
+            "lineWidth": 1,
+            "pointSize": 5,
+            "scaleDistribution": {
+              "type": "linear"
+            },
+            "showPoints": "auto",
+            "spanNulls": false,
+            "stacking": {
+              "group": "A",
+              "mode": "none"
+            },
+            "thresholdsStyle": {
+              "mode": "off"
+            }
+          },
+          "mappings": [],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": null
+              },
+              {
+                "color": "red",
+                "value": 80
+              }
+            ]
+          },
+          "unit": "s"
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 6,
+        "w": 6,
+        "x": 4,
+        "y": 1
+      },
+      "id": 22,
+      "options": {
+        "legend": {
+          "calcs": [],
+          "displayMode": "list",
+          "placement": "bottom"
+        },
+        "tooltip": {
+          "mode": "single"
+        }
+      },
+      "targets": [
+        {
+          "exemplar": true,
+          "expr": "prometheus_remote_storage_highest_timestamp_in_seconds{instance=~\"$instance\"} - on (job, instance) prometheus_remote_storage_queue_highest_sent_timestamp_seconds{instance=~\"$instance\"}",
+          "interval": "",
+          "legendFormat": "{{instance}}",
+          "refId": "A"
+        }
+      ],
+      "title": "Time diff between TSDB and Remote storage",
+      "type": "timeseries"
+    },
+    {
+      "datasource": "${ds}",
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "palette-classic"
+          },
+          "custom": {
+            "axisLabel": "",
+            "axisPlacement": "auto",
+            "barAlignment": 0,
+            "drawStyle": "line",
+            "fillOpacity": 0,
+            "gradientMode": "none",
+            "hideFrom": {
+              "legend": false,
+              "tooltip": false,
+              "viz": false
+            },
+            "lineInterpolation": "linear",
+            "lineWidth": 1,
+            "pointSize": 5,
+            "scaleDistribution": {
+              "type": "linear"
+            },
+            "showPoints": "auto",
+            "spanNulls": false,
+            "stacking": {
+              "group": "A",
+              "mode": "none"
+            },
+            "thresholdsStyle": {
+              "mode": "off"
+            }
+          },
+          "mappings": [],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": null
+              },
+              {
+                "color": "red",
+                "value": 80
               }
             ]
           }
@@ -67,50 +257,68 @@
         "overrides": []
       },
       "gridPos": {
-        "h": 3,
-        "w": 3,
-        "x": 0,
+        "h": 6,
+        "w": 7,
+        "x": 10,
         "y": 1
       },
-      "id": 3,
+      "id": 20,
       "options": {
-        "colorMode": "value",
-        "graphMode": "area",
-        "justifyMode": "auto",
-        "orientation": "auto",
-        "reduceOptions": {
-          "calcs": [
-            "lastNotNull"
-          ],
-          "fields": "",
-          "values": false
+        "legend": {
+          "calcs": [],
+          "displayMode": "list",
+          "placement": "bottom"
         },
-        "text": {},
-        "textMode": "auto"
+        "tooltip": {
+          "mode": "single"
+        }
       },
-      "pluginVersion": "8.2.1",
       "targets": [
         {
           "exemplar": true,
-          "expr": "prometheus_tsdb_wal_segment_current{job=\"prometheus\"}",
-          "instant": true,
+          "expr": "prometheus_remote_storage_shards_desired{instance=~\"$instance\"}",
           "interval": "",
           "legendFormat": "{{instance}}",
           "refId": "A"
         }
       ],
-      "timeFrom": null,
-      "timeShift": null,
-      "title": "WAL",
-      "type": "stat"
+      "title": "Number of desired shards",
+      "type": "timeseries"
     },
     {
       "datasource": "${ds}",
-      "description": "essentially shows the highest timestamp (i.e. newest in terms of chronology) that has been stored in the WAL for any sample",
       "fieldConfig": {
         "defaults": {
           "color": {
-            "mode": "thresholds"
+            "mode": "palette-classic"
+          },
+          "custom": {
+            "axisLabel": "",
+            "axisPlacement": "auto",
+            "barAlignment": 0,
+            "drawStyle": "line",
+            "fillOpacity": 0,
+            "gradientMode": "none",
+            "hideFrom": {
+              "legend": false,
+              "tooltip": false,
+              "viz": false
+            },
+            "lineInterpolation": "linear",
+            "lineWidth": 1,
+            "pointSize": 5,
+            "scaleDistribution": {
+              "type": "linear"
+            },
+            "showPoints": "auto",
+            "spanNulls": false,
+            "stacking": {
+              "group": "A",
+              "mode": "none"
+            },
+            "thresholdsStyle": {
+              "mode": "off"
+            }
           },
           "mappings": [],
           "thresholds": {
@@ -119,60 +327,134 @@
               {
                 "color": "green",
                 "value": null
+              },
+              {
+                "color": "red",
+                "value": 80
               }
             ]
-          },
-          "unit": "dateTimeAsIso"
+          }
         },
         "overrides": []
       },
       "gridPos": {
-        "h": 3,
-        "w": 5,
-        "x": 3,
+        "h": 6,
+        "w": 7,
+        "x": 17,
         "y": 1
       },
-      "id": 5,
+      "id": 26,
       "options": {
-        "colorMode": "value",
-        "graphMode": "none",
-        "justifyMode": "auto",
-        "orientation": "auto",
-        "reduceOptions": {
-          "calcs": [
-            "lastNotNull"
-          ],
-          "fields": "",
-          "values": false
+        "legend": {
+          "calcs": [],
+          "displayMode": "list",
+          "placement": "bottom"
         },
-        "text": {},
-        "textMode": "auto"
+        "tooltip": {
+          "mode": "single"
+        }
       },
-      "pluginVersion": "8.2.1",
       "targets": [
         {
           "exemplar": true,
-          "expr": "prometheus_remote_storage_highest_timestamp_in_seconds{job=\"prometheus\"} * 1000",
+          "expr": "prometheus_remote_storage_samples_pending{instance=~\"$instance\"}",
           "interval": "",
           "legendFormat": "{{instance}}",
           "refId": "A"
         }
       ],
-      "title": "newest sample written in WAL",
-      "type": "stat"
+      "title": "Pending samples",
+      "type": "timeseries"
+    },
+    {
+      "datasource": "${ds}",
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "palette-classic"
+          },
+          "custom": {
+            "axisLabel": "",
+            "axisPlacement": "auto",
+            "barAlignment": 0,
+            "drawStyle": "line",
+            "fillOpacity": 0,
+            "gradientMode": "none",
+            "hideFrom": {
+              "legend": false,
+              "tooltip": false,
+              "viz": false
+            },
+            "lineInterpolation": "linear",
+            "lineWidth": 1,
+            "pointSize": 5,
+            "scaleDistribution": {
+              "type": "linear"
+            },
+            "showPoints": "auto",
+            "spanNulls": false,
+            "stacking": {
+              "group": "A",
+              "mode": "none"
+            },
+            "thresholdsStyle": {
+              "mode": "off"
+            }
+          },
+          "mappings": [],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": null
+              },
+              {
+                "color": "red",
+                "value": 80
+              }
+            ]
+          }
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 6,
+        "w": 7,
+        "x": 17,
+        "y": 7
+      },
+      "id": 25,
+      "options": {
+        "legend": {
+          "calcs": [],
+          "displayMode": "list",
+          "placement": "bottom"
+        },
+        "tooltip": {
+          "mode": "single"
+        }
+      },
+      "targets": [
+        {
+          "exemplar": true,
+          "expr": "rate(prometheus_remote_storage_samples_retried_total{instance=~\"$instance\"}[1m])",
+          "interval": "",
+          "legendFormat": "{{instance}}",
+          "refId": "A"
+        }
+      ],
+      "title": "Retry samples",
+      "type": "timeseries"
     },
     {
       "collapsed": false,
       "datasource": null,
-      "fieldConfig": {
-        "defaults": {},
-        "overrides": []
-      },
       "gridPos": {
         "h": 1,
         "w": 24,
         "x": 0,
-        "y": 4
+        "y": 13
       },
       "id": 10,
       "panels": [],
@@ -188,6 +470,10 @@
           "color": {
             "mode": "thresholds"
           },
+          "custom": {
+            "align": "auto",
+            "displayMode": "auto"
+          },
           "mappings": [],
           "thresholds": {
             "mode": "absolute",
@@ -199,35 +485,38 @@
             ]
           }
         },
-        "overrides": []
+        "overrides": [
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "instance"
+            },
+            "properties": [
+              {
+                "id": "custom.width",
+                "value": 112
+              }
+            ]
+          }
+        ]
       },
       "gridPos": {
-        "h": 3,
-        "w": 2,
+        "h": 6,
+        "w": 4,
         "x": 0,
-        "y": 5
+        "y": 14
       },
       "id": 12,
       "options": {
-        "colorMode": "value",
-        "graphMode": "area",
-        "justifyMode": "auto",
-        "orientation": "auto",
-        "reduceOptions": {
-          "calcs": [
-            "lastNotNull"
-          ],
-          "fields": "",
-          "values": false
-        },
-        "text": {},
-        "textMode": "auto"
+        "showHeader": true,
+        "sortBy": []
       },
-      "pluginVersion": "8.2.1",
+      "pluginVersion": "8.2.2",
       "targets": [
         {
           "exemplar": true,
-          "expr": "prometheus_wal_watcher_current_segment{job=\"prometheus\", consumer=\"$remote_name\"}",
+          "expr": "prometheus_wal_watcher_current_segment{job=\"prometheus\", consumer=\"$remote_name\", instance=~\"$instance\"}",
+          "format": "table",
           "instant": true,
           "interval": "",
           "legendFormat": "{{instance}}",
@@ -235,327 +524,56 @@
         }
       ],
       "title": "WAL",
-      "type": "stat"
-    },
-    {
-      "datasource": "${ds}",
-      "description": "delay between wal writen in prometheus and remote storage",
-      "fieldConfig": {
-        "defaults": {
-          "color": {
-            "mode": "thresholds"
-          },
-          "mappings": [],
-          "thresholds": {
-            "mode": "absolute",
-            "steps": [
-              {
-                "color": "green",
-                "value": null
-              }
-            ]
-          },
-          "unit": "none"
-        },
-        "overrides": []
-      },
-      "gridPos": {
-        "h": 3,
-        "w": 3,
-        "x": 2,
-        "y": 5
-      },
-      "id": 18,
-      "options": {
-        "colorMode": "value",
-        "graphMode": "none",
-        "justifyMode": "auto",
-        "orientation": "auto",
-        "reduceOptions": {
-          "calcs": [
-            "lastNotNull"
-          ],
-          "fields": "",
-          "values": false
-        },
-        "text": {},
-        "textMode": "auto"
-      },
-      "pluginVersion": "8.2.1",
-      "targets": [
-        {
-          "exemplar": true,
-          "expr": "prometheus_wal_watcher_current_segment{job=\"prometheus\", consumer=\"$remote_name\"}",
-          "hide": false,
-          "interval": "",
-          "legendFormat": "",
-          "refId": "B"
-        },
-        {
-          "exemplar": true,
-          "expr": "prometheus_tsdb_wal_segment_current{job=\"prometheus\"}",
-          "interval": "",
-          "legendFormat": "",
-          "refId": "A"
-        }
-      ],
-      "title": "WAL Delay",
       "transformations": [
         {
-          "id": "calculateField",
+          "id": "filterFieldsByName",
           "options": {
-            "alias": "",
-            "mode": "reduceRow",
-            "reduce": {
-              "reducer": "diff"
-            },
-            "replaceFields": true
+            "include": {
+              "names": [
+                "instance",
+                "Value"
+              ]
+            }
           }
         }
       ],
-      "type": "stat"
+      "type": "table"
     },
     {
-      "aliasColors": {},
-      "bars": false,
-      "dashLength": 10,
-      "dashes": false,
       "datasource": "${ds}",
       "description": "current: how many shards are currently running\nmin/max: the min/max shards based on your current configuration\ndesired: show us how many shards the sharding calculation wants to run based on the throughput",
-      "fill": 1,
-      "fillGradient": 0,
-      "gridPos": {
-        "h": 6,
-        "w": 9,
-        "x": 5,
-        "y": 5
-      },
-      "hiddenSeries": false,
-      "id": 15,
-      "legend": {
-        "avg": false,
-        "current": false,
-        "max": false,
-        "min": false,
-        "show": true,
-        "total": false,
-        "values": false
-      },
-      "lines": true,
-      "linewidth": 1,
-      "nullPointMode": "null",
-      "options": {
-        "alertThreshold": true
-      },
-      "percentage": false,
-      "pluginVersion": "8.2.1",
-      "pointradius": 2,
-      "points": false,
-      "renderer": "flot",
-      "seriesOverrides": [],
-      "spaceLength": 10,
-      "stack": false,
-      "steppedLine": false,
-      "targets": [
-        {
-          "exemplar": true,
-          "expr": "prometheus_remote_storage_shards{job=\"prometheus\", remote_name=\"$remote_name\"}",
-          "interval": "",
-          "legendFormat": "current",
-          "refId": "A"
-        },
-        {
-          "exemplar": true,
-          "expr": "prometheus_remote_storage_shards_min{job=\"prometheus\", remote_name=\"$remote_name\"}",
-          "hide": false,
-          "interval": "",
-          "legendFormat": "min",
-          "refId": "B"
-        },
-        {
-          "exemplar": true,
-          "expr": "prometheus_remote_storage_shards_max{job=\"prometheus\", remote_name=\"$remote_name\"}",
-          "hide": false,
-          "interval": "",
-          "legendFormat": "max",
-          "refId": "C"
-        },
-        {
-          "exemplar": true,
-          "expr": "prometheus_remote_storage_shards_desired{job=\"prometheus\", remote_name=\"$remote_name\"}",
-          "hide": false,
-          "interval": "",
-          "legendFormat": "desired",
-          "refId": "D"
-        }
-      ],
-      "thresholds": [],
-      "timeFrom": null,
-      "timeRegions": [],
-      "timeShift": null,
-      "title": "shards",
-      "tooltip": {
-        "shared": true,
-        "sort": 0,
-        "value_type": "individual"
-      },
-      "type": "graph",
-      "xaxis": {
-        "buckets": null,
-        "mode": "time",
-        "name": null,
-        "show": true,
-        "values": []
-      },
-      "yaxes": [
-        {
-          "$$hashKey": "object:761",
-          "format": "short",
-          "label": null,
-          "logBase": 1,
-          "max": null,
-          "min": null,
-          "show": true
-        },
-        {
-          "$$hashKey": "object:762",
-          "format": "short",
-          "label": null,
-          "logBase": 1,
-          "max": null,
-          "min": null,
-          "show": true
-        }
-      ],
-      "yaxis": {
-        "align": false,
-        "alignLevel": null
-      }
-    },
-    {
-      "aliasColors": {},
-      "bars": false,
-      "dashLength": 10,
-      "dashes": false,
-      "datasource": "${ds}",
-      "description": "This is a histogram of latency for sending to the remote endpoint",
-      "fill": 1,
-      "fillGradient": 0,
-      "gridPos": {
-        "h": 6,
-        "w": 10,
-        "x": 14,
-        "y": 5
-      },
-      "hiddenSeries": false,
-      "id": 16,
-      "legend": {
-        "avg": false,
-        "current": false,
-        "max": false,
-        "min": false,
-        "show": true,
-        "total": false,
-        "values": false
-      },
-      "lines": true,
-      "linewidth": 1,
-      "nullPointMode": "null",
-      "options": {
-        "alertThreshold": true
-      },
-      "percentage": false,
-      "pluginVersion": "8.2.1",
-      "pointradius": 2,
-      "points": false,
-      "renderer": "flot",
-      "seriesOverrides": [],
-      "spaceLength": 10,
-      "stack": false,
-      "steppedLine": false,
-      "targets": [
-        {
-          "exemplar": true,
-          "expr": "histogram_quantile(0.99, sum(rate(prometheus_remote_storage_sent_batch_duration_seconds_bucket{job=\"prometheus\", remote_name=\"$remote_name\"}[5m])) by (le))",
-          "hide": false,
-          "interval": "",
-          "legendFormat": "p99",
-          "refId": "A"
-        },
-        {
-          "exemplar": true,
-          "expr": "histogram_quantile(0.95, sum(rate(prometheus_remote_storage_sent_batch_duration_seconds_bucket{job=\"prometheus\", remote_name=\"$remote_name\"}[5m])) by (le))",
-          "interval": "",
-          "legendFormat": "p95",
-          "refId": "B"
-        },
-        {
-          "exemplar": true,
-          "expr": "histogram_quantile(0.90, sum(rate(prometheus_remote_storage_sent_batch_duration_seconds_bucket{job=\"prometheus\", remote_name=\"$remote_name\"}[5m])) by (le))",
-          "hide": false,
-          "interval": "",
-          "legendFormat": "p90",
-          "refId": "C"
-        },
-        {
-          "exemplar": true,
-          "expr": "histogram_quantile(0.50, sum(rate(prometheus_remote_storage_sent_batch_duration_seconds_bucket{job=\"prometheus\", remote_name=\"$remote_name\"}[5m])) by (le))",
-          "hide": false,
-          "interval": "",
-          "legendFormat": "p50",
-          "refId": "D"
-        }
-      ],
-      "thresholds": [],
-      "timeFrom": null,
-      "timeRegions": [],
-      "timeShift": null,
-      "title": "batch send duration",
-      "tooltip": {
-        "shared": true,
-        "sort": 0,
-        "value_type": "individual"
-      },
-      "type": "graph",
-      "xaxis": {
-        "buckets": null,
-        "mode": "time",
-        "name": null,
-        "show": true,
-        "values": []
-      },
-      "yaxes": [
-        {
-          "$$hashKey": "object:536",
-          "format": "s",
-          "label": null,
-          "logBase": 1,
-          "max": null,
-          "min": null,
-          "show": true
-        },
-        {
-          "$$hashKey": "object:537",
-          "format": "short",
-          "label": null,
-          "logBase": 1,
-          "max": null,
-          "min": null,
-          "show": true
-        }
-      ],
-      "yaxis": {
-        "align": false,
-        "alignLevel": null
-      }
-    },
-    {
-      "datasource": "${ds}",
-      "description": "shows the highest timestamp successfully sent by remote write.",
       "fieldConfig": {
         "defaults": {
           "color": {
-            "mode": "thresholds"
+            "mode": "palette-classic"
+          },
+          "custom": {
+            "axisLabel": "",
+            "axisPlacement": "auto",
+            "barAlignment": 0,
+            "drawStyle": "line",
+            "fillOpacity": 10,
+            "gradientMode": "none",
+            "hideFrom": {
+              "legend": false,
+              "tooltip": false,
+              "viz": false
+            },
+            "lineInterpolation": "linear",
+            "lineWidth": 1,
+            "pointSize": 5,
+            "scaleDistribution": {
+              "type": "linear"
+            },
+            "showPoints": "never",
+            "spanNulls": true,
+            "stacking": {
+              "group": "A",
+              "mode": "none"
+            },
+            "thresholdsStyle": {
+              "mode": "off"
+            }
           },
           "mappings": [],
           "thresholds": {
@@ -564,55 +582,92 @@
               {
                 "color": "green",
                 "value": null
+              },
+              {
+                "color": "red",
+                "value": 80
               }
             ]
           },
-          "unit": "dateTimeAsIso"
+          "unit": "short"
         },
         "overrides": []
       },
       "gridPos": {
-        "h": 3,
-        "w": 3,
-        "x": 0,
-        "y": 8
+        "h": 6,
+        "w": 6,
+        "x": 4,
+        "y": 14
       },
-      "id": 13,
+      "id": 15,
       "options": {
-        "colorMode": "value",
-        "graphMode": "none",
-        "justifyMode": "auto",
-        "orientation": "auto",
-        "reduceOptions": {
-          "calcs": [
-            "lastNotNull"
-          ],
-          "fields": "",
-          "values": false
+        "legend": {
+          "calcs": [],
+          "displayMode": "list",
+          "placement": "bottom"
         },
-        "text": {},
-        "textMode": "auto"
+        "tooltip": {
+          "mode": "single"
+        }
       },
-      "pluginVersion": "8.2.1",
+      "pluginVersion": "8.2.2",
       "targets": [
         {
           "exemplar": true,
-          "expr": "prometheus_remote_storage_queue_highest_sent_timestamp_seconds{job=\"prometheus\", remote_name=\"$remote_name\"} * 1000",
+          "expr": "prometheus_remote_storage_shards{job=\"prometheus\", remote_name=\"$remote_name\", instance=~\"$instance\"}",
           "interval": "",
-          "legendFormat": "{{instance}}",
+          "legendFormat": "{{instance}} - current",
           "refId": "A"
+        },
+        {
+          "exemplar": true,
+          "expr": "prometheus_remote_storage_shards_desired{job=\"prometheus\", remote_name=\"$remote_name\", instance=~\"$instance\"}",
+          "hide": false,
+          "interval": "",
+          "legendFormat": "{{instance}} - desired",
+          "refId": "D"
         }
       ],
-      "title": "newest sample sent to remote",
-      "type": "stat"
+      "timeFrom": null,
+      "timeShift": null,
+      "title": "shards",
+      "type": "timeseries"
     },
     {
       "datasource": "${ds}",
-      "description": "delay between samples writen in prometheus and remote storage",
+      "description": "This is a histogram of latency for sending to the remote endpoint",
       "fieldConfig": {
         "defaults": {
           "color": {
-            "mode": "thresholds"
+            "mode": "palette-classic"
+          },
+          "custom": {
+            "axisLabel": "",
+            "axisPlacement": "auto",
+            "barAlignment": 0,
+            "drawStyle": "line",
+            "fillOpacity": 10,
+            "gradientMode": "none",
+            "hideFrom": {
+              "legend": false,
+              "tooltip": false,
+              "viz": false
+            },
+            "lineInterpolation": "linear",
+            "lineWidth": 1,
+            "pointSize": 5,
+            "scaleDistribution": {
+              "type": "linear"
+            },
+            "showPoints": "never",
+            "spanNulls": true,
+            "stacking": {
+              "group": "A",
+              "mode": "none"
+            },
+            "thresholdsStyle": {
+              "mode": "off"
+            }
           },
           "mappings": [],
           "thresholds": {
@@ -621,6 +676,10 @@
               {
                 "color": "green",
                 "value": null
+              },
+              {
+                "color": "red",
+                "value": 80
               }
             ]
           },
@@ -629,61 +688,60 @@
         "overrides": []
       },
       "gridPos": {
-        "h": 3,
-        "w": 2,
-        "x": 3,
-        "y": 8
+        "h": 6,
+        "w": 7,
+        "x": 10,
+        "y": 14
       },
-      "id": 17,
+      "id": 16,
       "options": {
-        "colorMode": "value",
-        "graphMode": "none",
-        "justifyMode": "auto",
-        "orientation": "auto",
-        "reduceOptions": {
-          "calcs": [
-            "lastNotNull"
-          ],
-          "fields": "",
-          "values": false
+        "legend": {
+          "calcs": [],
+          "displayMode": "list",
+          "placement": "bottom"
         },
-        "text": {},
-        "textMode": "auto"
+        "tooltip": {
+          "mode": "single"
+        }
       },
-      "pluginVersion": "8.2.1",
+      "pluginVersion": "8.2.2",
       "targets": [
         {
           "exemplar": true,
-          "expr": "prometheus_remote_storage_queue_highest_sent_timestamp_seconds{job=\"prometheus\", remote_name=\"$remote_name\"}",
+          "expr": "histogram_quantile(0.99, sum(rate(prometheus_remote_storage_sent_batch_duration_seconds_bucket{job=\"prometheus\", remote_name=\"$remote_name\", instance=~\"$instance\"}[5m])) by (le))",
+          "hide": false,
           "interval": "",
-          "legendFormat": "",
+          "legendFormat": "p99",
           "refId": "A"
         },
         {
           "exemplar": true,
-          "expr": "prometheus_remote_storage_highest_timestamp_in_seconds{job=\"prometheus\"}",
+          "expr": "histogram_quantile(0.95, sum(rate(prometheus_remote_storage_sent_batch_duration_seconds_bucket{job=\"prometheus\", remote_name=\"$remote_name\", instance=~\"$instance\"}[5m])) by (le))",
+          "interval": "",
+          "legendFormat": "p95",
+          "refId": "B"
+        },
+        {
+          "exemplar": true,
+          "expr": "histogram_quantile(0.90, sum(rate(prometheus_remote_storage_sent_batch_duration_seconds_bucket{job=\"prometheus\", remote_name=\"$remote_name\", instance=~\"$instance\"}[5m])) by (le))",
           "hide": false,
           "interval": "",
-          "legendFormat": "",
-          "refId": "B"
-        }
-      ],
-      "title": "Sample delay",
-      "transformations": [
+          "legendFormat": "p90",
+          "refId": "C"
+        },
         {
-          "id": "calculateField",
-          "options": {
-            "alias": "",
-            "mode": "reduceRow",
-            "reduce": {
-              "include": [],
-              "reducer": "diff"
-            },
-            "replaceFields": true
-          }
+          "exemplar": true,
+          "expr": "histogram_quantile(0.50, sum(rate(prometheus_remote_storage_sent_batch_duration_seconds_bucket{job=\"prometheus\", remote_name=\"$remote_name\", instance=~\"$instance\"}[5m])) by (le))",
+          "hide": false,
+          "interval": "",
+          "legendFormat": "p50",
+          "refId": "D"
         }
       ],
-      "type": "stat"
+      "timeFrom": null,
+      "timeShift": null,
+      "title": "batch send duration",
+      "type": "timeseries"
     }
   ],
   "refresh": "30s",
@@ -695,8 +753,8 @@
       {
         "current": {
           "selected": false,
-          "text": "default",
-          "value": "default"
+          "text": "cortex",
+          "value": "cortex"
         },
         "description": null,
         "error": null,
@@ -746,11 +804,42 @@
         "tagsQuery": "",
         "type": "query",
         "useTags": false
+      },
+      {
+        "allValue": null,
+        "current": {
+          "selected": true,
+          "text": [
+            "All"
+          ],
+          "value": [
+            "$__all"
+          ]
+        },
+        "datasource": "${ds}",
+        "definition": "label_values(prometheus_remote_storage_shards_max{remote_name=~\"$remote_name\"}, instance)",
+        "description": null,
+        "error": null,
+        "hide": 0,
+        "includeAll": true,
+        "label": null,
+        "multi": true,
+        "name": "instance",
+        "options": [],
+        "query": {
+          "query": "label_values(prometheus_remote_storage_shards_max{remote_name=~\"$remote_name\"}, instance)",
+          "refId": "StandardVariableQuery"
+        },
+        "refresh": 1,
+        "regex": "",
+        "skipUrlSync": false,
+        "sort": 1,
+        "type": "query"
       }
     ]
   },
   "time": {
-    "from": "now-3h",
+    "from": "now-2d",
     "to": "now"
   },
   "timepicker": {},
