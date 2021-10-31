@@ -43,7 +43,7 @@ prometheus_remote_m3db:
 
 prometheus_remote_cortex:
   write:
-    url: http://rw.cortex:9009/api/v1/push
+    url: http://rw.cortex.service.dc1.consul:9009/api/v1/push
     name: cortex
     send_exemplars: true
     queue_config:
@@ -52,7 +52,7 @@ prometheus_remote_cortex:
   read:
     # TODO: use loadbalancer in front of query-frontend instance instead of dns
     # load balancing
-    url: http://query-frontend.cortex:9009/prometheus/api/v1/read
+    url: http://query-frontend.cortex.service.dc1.consul:9009/prometheus/api/v1/read
     name: cortex
 
 prometheus_scrape_configs:
