@@ -22,7 +22,7 @@
   "fiscalYearStartMonth": 0,
   "gnetId": null,
   "graphTooltip": 1,
-  "iteration": 1635521929330,
+  "iteration": 1635710073971,
   "links": [],
   "liveNow": false,
   "panels": [
@@ -77,6 +77,18 @@
               {
                 "id": "custom.width",
                 "value": 104
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "Value"
+            },
+            "properties": [
+              {
+                "id": "custom.width",
+                "value": 107
               }
             ]
           }
@@ -276,7 +288,7 @@
       "targets": [
         {
           "exemplar": true,
-          "expr": "prometheus_remote_storage_shards_desired{instance=~\"$instance\"}",
+          "expr": "sum by (instance) (prometheus_remote_storage_shards_desired{instance=~\"$instance\"})",
           "interval": "",
           "legendFormat": "{{instance}}",
           "refId": "A"
@@ -357,7 +369,7 @@
       "targets": [
         {
           "exemplar": true,
-          "expr": "prometheus_remote_storage_samples_pending{instance=~\"$instance\"}",
+          "expr": "sum by (instance) (prometheus_remote_storage_samples_pending{instance=~\"$instance\"})",
           "interval": "",
           "legendFormat": "{{instance}}",
           "refId": "A"
@@ -438,7 +450,7 @@
       "targets": [
         {
           "exemplar": true,
-          "expr": "rate(prometheus_remote_storage_samples_retried_total{instance=~\"$instance\"}[1m])",
+          "expr": "sum by (instance) (rate(prometheus_remote_storage_samples_retried_total{instance=~\"$instance\"}[1m]))",
           "interval": "",
           "legendFormat": "{{instance}}",
           "refId": "A"
@@ -495,6 +507,18 @@
               {
                 "id": "custom.width",
                 "value": 112
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "Value"
+            },
+            "properties": [
+              {
+                "id": "custom.width",
+                "value": 104
               }
             ]
           }
@@ -614,14 +638,14 @@
       "targets": [
         {
           "exemplar": true,
-          "expr": "prometheus_remote_storage_shards{job=\"prometheus\", remote_name=\"$remote_name\", instance=~\"$instance\"}",
+          "expr": "sum by (instance) (prometheus_remote_storage_shards{job=\"prometheus\", remote_name=\"$remote_name\", instance=~\"$instance\"})",
           "interval": "",
           "legendFormat": "{{instance}} - current",
           "refId": "A"
         },
         {
           "exemplar": true,
-          "expr": "prometheus_remote_storage_shards_desired{job=\"prometheus\", remote_name=\"$remote_name\", instance=~\"$instance\"}",
+          "expr": "sum by (instance) (prometheus_remote_storage_shards_desired{job=\"prometheus\", remote_name=\"$remote_name\", instance=~\"$instance\"})",
           "hide": false,
           "interval": "",
           "legendFormat": "{{instance}} - desired",
@@ -753,8 +777,8 @@
       {
         "current": {
           "selected": false,
-          "text": "cortex",
-          "value": "cortex"
+          "text": "default",
+          "value": "default"
         },
         "description": null,
         "error": null,
@@ -774,7 +798,7 @@
       {
         "allValue": null,
         "current": {
-          "selected": true,
+          "selected": false,
           "text": [
             "All"
           ],
@@ -808,7 +832,7 @@
       {
         "allValue": null,
         "current": {
-          "selected": true,
+          "selected": false,
           "text": [
             "All"
           ],
@@ -846,5 +870,5 @@
   "timezone": "",
   "title": "troubleshoot remote write",
   "uid": "3WNmHGjMk",
-  "version": 1
+  "version": 4
 }
