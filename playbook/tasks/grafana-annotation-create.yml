@@ -1,0 +1,17 @@
+---
+- name: Create grafana annotation
+  uri:
+    url: "{{ grafana_url }}/api/annotations"
+    method: POST
+
+    force_basic_auth: true
+    user: "{{ grafana_admin_user }}"
+    password: "{{ grafana_admin_password }}"
+
+    body_format: json
+    # See: https://github.com/ansible/ansible/issues/9362#issuecomment-302432118
+    body: >
+      {"time": {{ ansible_date_time.epoch|int * 1000 }},
+      "type": "annotation",
+      "text": {{ annotation_text|mandatory|to_json }},
+      "tags": {{ annotation_tags | to_json }}}

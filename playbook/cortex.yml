@@ -6,3 +6,24 @@
   become_user: root
   roles:
     - local.cortex
+  tasks:
+    - include_tasks: tasks/grafana-annotation-create.yml
+      run_once: true
+      vars:
+        annotation_text: |
+          alertmanager_count: {{ groups.get('meta-subrole_alertmanager', [])|length }}
+          compactor_count: {{ groups.get('meta-subrole_compactor', [])|length }}
+          configs_count: {{ groups.get('meta-subrole_configs', [])|length }}
+          distributor_count: {{ groups.get('meta-subrole_distributor', [])|length }}
+          flusher_count: {{ groups.get('meta-subrole_flusher', [])|length }}
+          ingester_count: {{ groups.get('meta-subrole_ingester', [])|length }}
+          overrides_exporter_count: {{ groups.get('meta-subrole_overrides_exporter', [])|length }}
+          purger_count: {{ groups.get('meta-subrole_purger', [])|length }}
+          querier_count: {{ groups.get('meta-subrole_querier', [])|length }}
+          query_frontend_count: {{ groups.get('meta-subrole_query_frontend', [])|length }}
+          query_scheduler_count: {{ groups.get('meta-subrole_query_scheduler', [])|length }}
+          ruler_count: {{ groups.get('meta-subrole_ruler', [])|length }}
+          store_gateway_count: {{ groups.get('meta-subrole_store_gateway', [])|length }}
+          table_manager_count: {{ groups.get('meta-subrole_table_manager', [])|length }}
+        annotation_tags:
+          - cortex

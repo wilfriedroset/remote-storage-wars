@@ -1,8 +1,7 @@
 ---
 grafana_security:
-  admin_user: admin
-  # TODO: /!\ This is not secure do not use this in production at anytime
-  admin_password: enter_your_secure_password
+  admin_user: "{{ grafana_admin_user }}"
+  admin_password: "{{ grafana_admin_password }}"
 
 grafana_datasources:
   - name: "Prometheus"

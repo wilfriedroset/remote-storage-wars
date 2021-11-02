@@ -19,3 +19,13 @@
         fake_ips: "{{ groups['meta-subrole_tsbs'] | map('extract', hostvars, ['openstack', 'addresses'])|list|json_query('[].*[][][].addr')| ipaddr('10.0.0.0/8') }}"
       notify: reload prometheus
       when: groups.get('meta-subrole_tsbs')
+
+    - include_tasks: tasks/grafana-annotation-create.yml
+      run_once: true
+      vars:
+        annotation_text: |
+          prometheus_count: {{ groups.get('meta-subrole_prometheus', [])|length }}
+          fake_target: {{ fake_targets_count }}
+          prometheus_remote_write: {{ prometheus_remote_write | to_nice_yaml }}
+        annotation_tags:
+          - prometheus
