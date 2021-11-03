@@ -1,8 +1,8 @@
 ---
 prometheus_version: 2.30.2
 prometheus_web_external_url: "http://{{ ansible_host }}:9090"
-prometheus_storage_retention: 1d
-prometheus_storage_retention_size: 250GB
+prometheus_storage_retention: 2d
+prometheus_storage_retention_size: 350GB
 prometheus_external_labels:
   __replica__: "{{ ansible_hostname }}"
   cluster: "{{ cluster_id | default('default')}}"
