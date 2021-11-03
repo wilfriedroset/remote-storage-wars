@@ -1,6 +1,8 @@
 ---
 - import_playbook: zfs.yml
 - import_playbook: consul.yml
+- import_playbook: grafana.yml
+- import_playbook: loki.yml
 - import_playbook: etcd.yml
 - import_playbook: lb.yml
 - import_playbook: patroni_server.yml
@@ -10,6 +12,4 @@
 - import_playbook: promscale.yml
 - import_playbook: cortex.yml
 - import_playbook: prometheus.yml
-- import_playbook: loki.yml
-- import_playbook: grafana.yml
 - import_playbook: m3db.yml
