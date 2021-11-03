@@ -2,5 +2,6 @@
 grafana_admin_user: admin
 # TODO: /!\ This is not secure do not use this in production at anytime
 grafana_admin_password: enter_your_secure_password
+grafana_basic_auth: YWRtaW46ZW50ZXJfeW91cl9zZWN1cmVfcGFzc3dvcmQ=
 
 grafana_url: http://grafana.service.dc1.consul:3000
