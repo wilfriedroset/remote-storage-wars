@@ -1,0 +1,14 @@
+systemd_drop_ins:
+  - name: "node_exporter"
+    override_filename: "grafana_annotation.conf"
+    service_overrides:
+      Service:
+        ExecStartPre: "-/usr/local/bin/grafana-annotation.sh node_exporter starting"
+        ExecStopPost: "-/usr/local/bin/grafana-annotation.sh node_exporter stopping"
+
+  - name: "prometheus"
+    override_filename: "grafana_annotation.conf"
+    service_overrides:
+      Service:
+        ExecStartPre: "-/usr/local/bin/grafana-annotation.sh prometheus starting"
+        ExecStopPost: "-/usr/local/bin/grafana-annotation.sh prometheus stopping"

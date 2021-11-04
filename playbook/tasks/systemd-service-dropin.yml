@@ -1,0 +1,20 @@
+- name: Create systemd override directory
+  file:
+    path: "/etc/systemd/system/{{ service.name }}.service.d"
+    owner: root
+    group: root
+    state: directory
+    mode: '0755'
+
+- name: Deploy override
+  template:
+    src: system-override.j2
+    dest: "/etc/systemd/system/{{ service.name }}.service.d/{{ service.override_filename|default('tuning.conf') }}"
+    owner: root
+    group: root
+    mode: 0444
+  vars:
+    service_overrides: "{{ service.service_overrides }}"
+  no_log: true  # this might expose credentials
+  notify:
+    - daemon-reload

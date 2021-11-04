@@ -1,0 +1,6 @@
+{% for section, section_values in service_overrides.items() %}
+[{{ section }}]
+{% for key, value in section_values.items() %}
+{{ key }}={{ value }}
+{% endfor %}
+{% endfor %}

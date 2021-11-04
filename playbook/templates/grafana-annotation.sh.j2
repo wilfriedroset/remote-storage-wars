@@ -1,0 +1,13 @@
+#!/usr/bin/bash
+
+service="$1"
+action="$2"
+
+/usr/bin/curl -XPOST \
+        -H "Content-Type: application/json" \
+        -H 'Authorization: Basic {{ grafana_basic_auth }}' \
+        --data "{
+        \"time\": $(date +"%s")000,
+        \"tags\":[\"systemd-${action}\", \"${service}\"],
+        \"text\":\"{{ inventory_hostname }} - ${action} ${service}\"
+        }" {{ grafana_url }}/api/annotations
