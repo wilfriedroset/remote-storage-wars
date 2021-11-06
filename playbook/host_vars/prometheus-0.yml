@@ -1,0 +1,5 @@
+---
+cluster_id: 0
+prometheus_remote_write: []
+prometheus_remote_read: []
+fake_targets_count: 0
