@@ -2,7 +2,7 @@ module "prometheus" {
   source = "../modules/terraform-ovh-linux_host"
 
   count           = var.prometheus_count
-  instance_name   = format("prometheus-%d", count.index + 1)
+  instance_name   = format("prometheus-%d", count.index)
   instance_image  = var.instance_image
   instance_flavor = var.prometheus_instance_flavor
   ssh             = var.ssh
