@@ -6,8 +6,8 @@
 {% for n in range(fake_targets_count) %}
 - targets: ['{{ fake_ips|random(seed=n) }}:9100']
   labels:
-    hostname: node-{{ n }}
-    instance: node-{{ n }}
+    hostname: node-{{ cluster_id| default('default') }}-{{ n }}
+    instance: node-{{ cluster_id| default('default') }}-{{ n }}
     host_number: cfg_{{ n }}
     job: node-exporter
     dc: dc{{ fake_dc_count |random(seed=n) }}
