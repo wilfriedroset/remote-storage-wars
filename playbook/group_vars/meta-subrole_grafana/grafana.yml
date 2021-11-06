@@ -7,7 +7,7 @@ grafana_datasources:
   - name: "Prometheus"
     type: "prometheus"
     access: "proxy"
-    url: "http://prometheus.service.dc1.consul:9090"
+    url: "http://prometheus-0.node.consul:9090"
     isDefault: true
 
   - name: "VictoriaMetrics"
