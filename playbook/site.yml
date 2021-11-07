@@ -12,5 +12,6 @@
 - import_playbook: victoriametrics.yml
 - import_playbook: promscale.yml
 - import_playbook: cortex.yml
+- import_playbook: proxy_exporter.yml
 - import_playbook: prometheus.yml
 - import_playbook: m3db.yml

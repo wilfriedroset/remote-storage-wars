@@ -36,3 +36,5 @@ roles:
 collections:
   - name: devsec.hardening
     version: 7.8.0
+  - name: nginxinc.nginx_core
+    version: 0.3.0
