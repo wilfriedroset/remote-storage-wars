@@ -1,0 +1,23 @@
+---
+consul_services:
+  - name: "node-exporter"
+    id: "node-exporter"
+    address: "{{ private_ip }}"
+    port: 9100
+    checks:
+      - tcp: "{{ private_ip }}:9100"
+        interval: "10s"
+  - name: "promtail"
+    id: "promtail"
+    address: "{{ private_ip }}"
+    port: 9080
+    checks:
+      - tcp: "{{ private_ip }}:9080"
+        interval: "10s"
+  - name: "nginx-exporter"
+    id: "nginx"
+    address: "{{ private_ip }}"
+    port: 9113
+    checks:
+      - tcp: "{{ private_ip }}:9113"
+        interval: "10s"

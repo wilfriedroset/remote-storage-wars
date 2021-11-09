@@ -32,6 +32,8 @@ roles:
   - name: arnoways.ansible_m3db
     src: https://github.com/Arnoways/ansible-m3db
     version: main
+  - name: bdellegrazie.nginx_exporter
+    version: v3.2.0
 
 collections:
   - name: devsec.hardening

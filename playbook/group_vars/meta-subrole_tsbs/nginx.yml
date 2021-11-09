@@ -49,3 +49,8 @@ nginx_config_http_template:
                 header_host:
                   name: Host
                   value: $host
+
+
+# Enable status reporting so we can expose nginx metrics
+nginx_config_status_enable: true
+nginx_config_status_port: 127.0.0.1:8080

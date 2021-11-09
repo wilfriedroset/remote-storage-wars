@@ -8,3 +8,4 @@
   roles:
     - role: nginx
     - role: nginx_config
+    - role: bdellegrazie.nginx_exporter
