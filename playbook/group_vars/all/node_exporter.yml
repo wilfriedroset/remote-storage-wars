@@ -13,3 +13,4 @@ node_exporter_enabled_collectors:
   - qdisc
   - systemd
   - tcpstat
+node_exporter_web_max_requests: 0
