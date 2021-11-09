@@ -25,8 +25,8 @@ roles:
     version: d7bdbc7
     src: https://github.com/griggheo/ansible-consul-template.git
   - name: diogenxs.loki
-    src: https://github.com/diogenxs/ansible-role-loki.git
-    version: f74de4a
+    src: https://github.com/wilfriedroset/ansible-role-loki.git
+    version: 271031c
   - name: andrewrothstein.etcd-cluster
     version: v2.0.0
   - name: arnoways.ansible_m3db
