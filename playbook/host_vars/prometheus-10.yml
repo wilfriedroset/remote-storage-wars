@@ -1,8 +1,1 @@
----
-cluster_id: 5
-prometheus_scrape_configs:
-  - job_name: node-exporter-bench
-    metrics_path: /metrics
-    file_sd_configs:
-      - files:
-          - /etc/prometheus/file_sd/*.yml
+prometheus-9.yml
