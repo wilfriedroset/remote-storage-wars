@@ -9,3 +9,7 @@ listen query-frontend
 {{ range service "query-frontend.cortex|any" }}
     server {{ .Node }} {{ .Address }}:{{ .Port }} check{{ end }}
 {%- endraw -%}
+{%- raw -%}
+{{ range service "querier.cortex|any" }}
+    server {{ .Node }} {{ .Address }}:{{ .Port }} check backup{{ end }}
+{%- endraw -%}
