@@ -4,6 +4,7 @@ listen query-frontend
 {% include 'haproxy-http-listen-options.j2' %}
 
     option  httpchk GET /ready
+    option  allbackups
 
 {%- raw -%}
 {{ range service "query-frontend.cortex|any" }}
