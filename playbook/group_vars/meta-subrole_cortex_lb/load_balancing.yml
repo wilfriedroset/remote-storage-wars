@@ -1,6 +1,6 @@
 ---
 listen_distributor: true
-listen_query_frontend: false
+listen_query_frontend: true
 consul_template_template_templates:
   - src: "templates/haproxy-listen-cortex-rw.ctmpl.j2"
     dest: "haproxy.ctmpl"
@@ -30,6 +30,7 @@ consul_services:
     port: 9009
     tags:
       - rw
+      - ro
   - name: "promtail"
     id: "promtail"
     address: "{{ private_ip }}"
