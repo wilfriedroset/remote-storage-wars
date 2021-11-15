@@ -6,3 +6,6 @@
 {% if listen_query_frontend|default(false) %}
 {% include 'haproxy-listen-cortex-query_frontend.j2' %}
 {% endif %}
+{% if listen_query_frontend|default(false) %}
+{% include 'haproxy-listen-cortex-querier.j2' %}
+{% endif %}

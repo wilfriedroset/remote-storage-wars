@@ -1,0 +1,11 @@
+listen query-frontend
+    bind                            {{ private_ip }}:{{ cortex_querier_port|default(9091) }}
+
+{% include 'haproxy-http-listen-options.j2' %}
+
+    option  httpchk GET /ready
+
+{%- raw -%}
+{{ range service "querier.cortex|any" }}
+    server {{ .Node }} {{ .Address }}:{{ .Port }} check{{ end }}
+{%- endraw -%}
