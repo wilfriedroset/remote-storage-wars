@@ -20,8 +20,8 @@ cortex_tenant_federation:
 
 cortex_grpc_client_config:
   grpc_compression: gzip
-  max_recv_msg_size: 104857600
-  max_send_msg_size: 104857600
+  max_recv_msg_size: 209715200
+  max_send_msg_size: 209715200
 
 cortex_ingester_client:
   grpc_client_config: "{{ cortex_grpc_client_config }}"
@@ -151,8 +151,8 @@ cortex_server:
   grpc_listen_address: "{{ cortex_grpc_listen_address }}"
   grpc_listen_port: 9095
   grpc_server_max_concurrent_streams: 1000
-  grpc_server_max_recv_msg_size: 104857600
-  grpc_server_max_send_msg_size: 104857600
+  grpc_server_max_recv_msg_size: 209715200
+  grpc_server_max_send_msg_size: 209715200
   log_format: logfmt
   log_level: info
   log_source_ips_enabled: true
