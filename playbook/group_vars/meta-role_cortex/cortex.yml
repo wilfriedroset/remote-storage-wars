@@ -77,6 +77,7 @@ cortex_distributor:
     instance_interface_names: "{{ cortex_instance_interface_names }}"
   instance_limits:
     max_inflight_push_requests: 20e3
+  remote_timeout: 5s
 
 cortex_flusher:
   wal_dir: "{{ cortex_wal_directory }}"
