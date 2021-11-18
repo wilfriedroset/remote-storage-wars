@@ -122,6 +122,7 @@ cortex_limits:
 cortex_querier:
   active_query_tracker_dir: "{{ cortex_active_query_tracker_directory }}"
   store_gateway_addresses: "dns+store-gateway.cortex.service.dc1.consul:9095"
+  timeout: 5m
 
 cortex_ruler:
   storage:
