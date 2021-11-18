@@ -49,6 +49,8 @@ prometheus_remote_cortex:
     queue_config:
       max_samples_per_send: 1000
       retry_on_http_429: true
+      max_shards: 100
+      min_shards: 4
   read:
     # TODO: use loadbalancer in front of query-frontend instance instead of dns
     # load balancing
