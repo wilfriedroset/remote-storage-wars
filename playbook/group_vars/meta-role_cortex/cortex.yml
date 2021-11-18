@@ -175,7 +175,7 @@ cortex_storage:
 cortex_store_gateway:
   sharding_enabled: false
   sharding_ring:
-    instance_addr: "{{ private_ip }}:9095"
+    instance_addr: "{{ private_ip }}"
     kvstore:
       prefix: "{{ cortex_consul_kv_global_prefix }}collectors/"
     replication_factor: 3
