@@ -173,7 +173,7 @@ cortex_storage:
     store: boltdb
 
 cortex_store_gateway:
-  sharding_enabled: false
+  sharding_enabled: true
   sharding_ring:
     instance_addr: "{{ private_ip }}"
     kvstore:
