@@ -23,7 +23,7 @@ grafana_datasources:
   - name: "cortex"
     type: "prometheus"
     access: "proxy"
-    url: "http://ro.cortex.service.dc1.consul:9009/prometheus"
+    url: "http://ro.cortex.service.dc1.consul:9090/prometheus"
 
   - name: "timescaledb"
     type: "postgres"
