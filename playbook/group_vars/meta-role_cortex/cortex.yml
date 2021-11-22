@@ -123,6 +123,7 @@ cortex_querier:
   active_query_tracker_dir: "{{ cortex_active_query_tracker_directory }}"
   store_gateway_addresses: "dns+store-gateway.cortex.service.dc1.consul:9095"
   timeout: 5m
+  max_concurrent: 40
 
 cortex_ruler:
   storage:
@@ -185,3 +186,8 @@ cortex_store_gateway:
 
 cortex_query_scheduler:
   grpc_client_config: "{{ cortex_grpc_client_config }}"
+
+
+cortex_query_range:
+  align_queries_with_step: true
+  split_queries_by_interval: 24h
