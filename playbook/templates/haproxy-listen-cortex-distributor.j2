@@ -2,6 +2,8 @@ listen distributor
     bind                            {{ private_ip }}:{{ cortex_distributor_frontend_port|default(9009) }}
 
 {% include 'haproxy-http-listen-options.j2' %}
+    maxconn             40000
+    fullconn            40000
 
     option  httpchk GET /ready
 
