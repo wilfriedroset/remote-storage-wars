@@ -3,6 +3,7 @@ private_ip: "{{ ansible_all_ipv4_addresses | ipaddr('10.0.0.0/8') | first }}"
 common_packages:
   - apt-transport-https
   - ca-certificates
+  - conntrack
   - cron
   - curl
   - diffutils

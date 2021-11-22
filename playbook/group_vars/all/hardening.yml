@@ -7,6 +7,10 @@ sysctl_overwrite:
   net.ipv4.tcp_keepalive_intvl: 10
   net.ipv4.tcp_keepalive_probes: 6
   net.ipv4.tcp_keepalive_time: 60
+  net.ipv4.tcp_tw_reuse: 1
+  net.ipv4.ip_local_port_range: 10000 60999
+  net.netfilter.nf_conntrack_tcp_timeout_time_wait: 15
+  net.netfilter.nf_conntrack_max: 1048576
 
 ssh_permit_root_login: without-password
 ssh_kex:
