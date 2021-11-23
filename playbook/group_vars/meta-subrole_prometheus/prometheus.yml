@@ -43,7 +43,10 @@ prometheus_remote_m3db:
 
 prometheus_remote_cortex:
   write:
-    url: http://rw.cortex.service.dc1.consul:9009/api/v1/push
+    # TODO: use the loadbalancer in front of the distributor. As of now the
+    # configuration of the loadbalancer is not optimal and therefore bottleneck
+    # the prometheus.
+    url: http://distributor.cortex.service.consul:9009/api/v1/push
     name: cortex
     send_exemplars: true
     queue_config:
