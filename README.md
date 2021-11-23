@@ -62,6 +62,8 @@ To make it a bit more fun, we will walk on the [hachimon path](https://naruto.fa
 * Gate of Death:
   * Add as many targets as you can until the backend almost reach death
 
+Each Prometheus cluster will scrap many time the same node exporter under a different set of labels. Doing so will allow us to emulate an infrastructure bigger than it is. To increase the cardinality we can tweak node_exporter configuration to expose more or less series. By deploying one or more Prometheus clusters we can both stress the deduplication feature of the backend and workaround the hardware limitation of a given prometheus.
+
 ## Requirements
 
 * [Terraform >= 0.15.0](https://www.terraform.io/downloads.html)
