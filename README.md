@@ -12,6 +12,18 @@ You should expect to have breaking changes or partly working stuffs often as thi
 
 On top of learning a few thing about time-series and generally cloud technologies, we will try to challenge each backend to see how much we can rely on it. This is a vast topic, it imply cost, performance, scalability, reliability and so on.
 
+### Architecture
+
+Throughout this project we will be building an infrastructure around Prometheus' remote storage.
+The generic infrastructure contains:
+* A couple of node_exporter who only purpose is to expose data to be scraped
+* Several prometheus (clusterd or not) who will be responsible for scraping the node_exporter and performing remote_write to the remote storage
+* Grafana because we love dashboards
+* Consul for service discovery and k/v store.
+
+Here is what the infrastructure looks like:
+<img src="assets/generic-infrastructure.png" alt="Generic infrastructure" width="800"/>
+
 ### Hachimon
 
 To make it a bit more fun, we will walk on the [hachimon path](https://naruto.fandom.com/wiki/Eight_Gates):
