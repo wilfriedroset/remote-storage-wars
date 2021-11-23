@@ -24,6 +24,9 @@ The generic infrastructure contains:
 Here is what the infrastructure looks like:
 <img src="assets/generic-infrastructure.png" alt="Generic infrastructure" width="800"/>
 
+[Promscale](https://github.com/timescale/promscale) remote storage is similar to the following drawing:
+<img src="assets/promscale-remote-storage.png" alt="Promscale remote storage" width="800"/>
+
 ### Hachimon
 
 To make it a bit more fun, we will walk on the [hachimon path](https://naruto.fandom.com/wiki/Eight_Gates):
