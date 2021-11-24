@@ -30,6 +30,9 @@ Here is what the infrastructure looks like:
 [Cortex](https://github.com/cortexproject/cortex) remote storage is similar to the following drawing:
 <img src="assets/cortex-remote-storage.png" alt="Cortex remote storage" width="800"/>
 
+[VictoriaMetrics](https://github.com/VictoriaMetrics/VictoriaMetrics) remote storage is similar to the following drawing:
+<img src="assets/victoriametrics-remote-storage.png" alt="VictoriaMetrics remote storage" width="800"/>
+
 ### Hachimon
 
 To make it a bit more fun, we will walk on the [hachimon path](https://naruto.fandom.com/wiki/Eight_Gates):
