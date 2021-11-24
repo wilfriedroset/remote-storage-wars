@@ -27,6 +27,9 @@ Here is what the infrastructure looks like:
 [Promscale](https://github.com/timescale/promscale) remote storage is similar to the following drawing:
 <img src="assets/promscale-remote-storage.png" alt="Promscale remote storage" width="800"/>
 
+[Cortex](https://github.com/cortexproject/cortex) remote storage is similar to the following drawing:
+<img src="assets/cortex-remote-storage.png" alt="Cortex remote storage" width="800"/>
+
 ### Hachimon
 
 To make it a bit more fun, we will walk on the [hachimon path](https://naruto.fandom.com/wiki/Eight_Gates):
