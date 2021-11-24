@@ -44,11 +44,12 @@
   },
   "description": "",
   "editable": true,
+  "fiscalYearStartMonth": 0,
   "gnetId": 3662,
   "graphTooltip": 0,
-  "id": 7,
-  "iteration": 1631389262646,
+  "iteration": 1637761615827,
   "links": [],
+  "liveNow": false,
   "panels": [
     {
       "cacheTimeout": null,
@@ -59,7 +60,7 @@
           "color": {
             "mode": "thresholds"
           },
-          "decimals": 2,
+          "decimals": 0,
           "mappings": [
             {
               "options": {
@@ -72,15 +73,31 @@
             }
           ],
           "thresholds": {
-            "mode": "absolute",
+            "mode": "percentage",
             "steps": [
               {
-                "color": "green",
+                "color": "red",
                 "value": null
               },
               {
-                "color": "red",
-                "value": 80
+                "color": "orange",
+                "value": 0
+              },
+              {
+                "color": "#EAB839",
+                "value": 33
+              },
+              {
+                "color": "blue",
+                "value": 66
+              },
+              {
+                "color": "light-green",
+                "value": 90
+              },
+              {
+                "color": "green",
+                "value": 100
               }
             ]
           },
@@ -90,7 +107,7 @@
       },
       "gridPos": {
         "h": 4,
-        "w": 4,
+        "w": 7,
         "x": 0,
         "y": 0
       },
@@ -99,9 +116,6 @@
       "links": [],
       "maxDataPoints": 100,
       "options": {
-        "colorMode": "none",
-        "graphMode": "none",
-        "justifyMode": "auto",
         "orientation": "horizontal",
         "reduceOptions": {
           "calcs": [
@@ -110,10 +124,11 @@
           "fields": "",
           "values": false
         },
-        "text": {},
-        "textMode": "auto"
+        "showThresholdLabels": false,
+        "showThresholdMarkers": true,
+        "text": {}
       },
-      "pluginVersion": "8.1.3",
+      "pluginVersion": "8.2.4",
       "targets": [
         {
           "exemplar": true,
@@ -127,18 +142,18 @@
         }
       ],
       "title": "Total Series",
-      "type": "stat"
+      "type": "gauge"
     },
     {
       "datasource": "Prometheus",
-      "description": "Road to 800k/sec",
+      "description": "objective 4e6 samples/sec",
       "fieldConfig": {
         "defaults": {
           "color": {
             "mode": "thresholds"
           },
           "mappings": [],
-          "max": 800000,
+          "max": 4000000,
           "min": 0,
           "thresholds": {
             "mode": "percentage",
@@ -176,11 +191,12 @@
       "gridPos": {
         "h": 4,
         "w": 6,
-        "x": 4,
+        "x": 7,
         "y": 0
       },
       "id": 49,
       "options": {
+        "orientation": "auto",
         "reduceOptions": {
           "calcs": [
             "last"
@@ -192,10 +208,11 @@
         "showThresholdMarkers": true,
         "text": {}
       },
-      "pluginVersion": "8.1.3",
+      "pluginVersion": "8.2.4",
       "targets": [
         {
-          "expr": "rate(prometheus_tsdb_head_samples_appended_total{job=~\"$job\",instance=~\"$instance\"}[5m])",
+          "exemplar": true,
+          "expr": "sum(rate(prometheus_tsdb_head_samples_appended_total{job=~\"$job\",instance=~\"$instance\"}[$__rate_interval]))",
           "interval": "",
           "legendFormat": "",
           "refId": "A"
@@ -203,37 +220,36 @@
       ],
       "timeFrom": null,
       "timeShift": null,
-      "title": "SRE usecase",
+      "title": "samples/sec",
       "type": "gauge"
     },
     {
       "datasource": "Prometheus",
-      "description": "Road to 13k/sec",
       "fieldConfig": {
         "defaults": {
           "color": {
             "mode": "thresholds"
           },
           "mappings": [],
-          "max": 13333,
+          "max": 20000,
           "min": 0,
           "thresholds": {
             "mode": "percentage",
             "steps": [
               {
-                "color": "green",
+                "color": "super-light-green",
                 "value": null
               },
               {
-                "color": "semi-dark-orange",
+                "color": "#EF843C",
                 "value": 0
               },
               {
-                "color": "#EAB839",
+                "color": "yellow",
                 "value": 33
               },
               {
-                "color": "#6ED0E0",
+                "color": "#1F78C1",
                 "value": 66
               },
               {
@@ -241,79 +257,23 @@
                 "value": 90
               },
               {
-                "color": "semi-dark-green",
+                "color": "green",
                 "value": 100
               }
             ]
           },
-          "unit": "short"
+          "unit": "none"
         },
         "overrides": []
       },
       "gridPos": {
         "h": 4,
         "w": 5,
-        "x": 10,
-        "y": 0
-      },
-      "id": 52,
-      "options": {
-        "reduceOptions": {
-          "calcs": [
-            "last"
-          ],
-          "fields": "",
-          "values": false
-        },
-        "showThresholdLabels": false,
-        "showThresholdMarkers": true,
-        "text": {}
-      },
-      "pluginVersion": "8.1.3",
-      "targets": [
-        {
-          "expr": "rate(prometheus_tsdb_head_samples_appended_total{job=~\"$job\",instance=~\"$instance\"}[5m])",
-          "interval": "",
-          "legendFormat": "",
-          "refId": "A"
-        }
-      ],
-      "timeFrom": null,
-      "timeShift": null,
-      "title": "IOT usecase",
-      "type": "gauge"
-    },
-    {
-      "datasource": "Prometheus",
-      "fieldConfig": {
-        "defaults": {
-          "color": {
-            "mode": "thresholds"
-          },
-          "mappings": [],
-          "thresholds": {
-            "mode": "absolute",
-            "steps": [
-              {
-                "color": "super-light-green",
-                "value": null
-              }
-            ]
-          }
-        },
-        "overrides": []
-      },
-      "gridPos": {
-        "h": 4,
-        "w": 5,
-        "x": 15,
+        "x": 13,
         "y": 0
       },
       "id": 51,
       "options": {
-        "colorMode": "value",
-        "graphMode": "none",
-        "justifyMode": "center",
         "orientation": "auto",
         "reduceOptions": {
           "calcs": [
@@ -322,10 +282,11 @@
           "fields": "",
           "values": false
         },
-        "text": {},
-        "textMode": "value"
+        "showThresholdLabels": false,
+        "showThresholdMarkers": true,
+        "text": {}
       },
-      "pluginVersion": "8.1.3",
+      "pluginVersion": "8.2.4",
       "targets": [
         {
           "exemplar": true,
@@ -338,14 +299,14 @@
       "timeFrom": null,
       "timeShift": null,
       "title": "Hosts",
-      "type": "stat"
+      "type": "gauge"
     },
     {
       "datasource": null,
       "gridPos": {
         "h": 4,
-        "w": 4,
-        "x": 20,
+        "w": 6,
+        "x": 18,
         "y": 0
       },
       "id": 47,
@@ -353,7 +314,7 @@
         "content": "<img src=\"https://images2.alphacoders.com/962/962564.png\" width=\"100%\" height=\"100%\"/>",
         "mode": "html"
       },
-      "pluginVersion": "8.1.3",
+      "pluginVersion": "8.2.4",
       "timeFrom": null,
       "timeShift": null,
       "transparent": true,
@@ -392,7 +353,7 @@
         "alertThreshold": true
       },
       "percentage": false,
-      "pluginVersion": "8.1.3",
+      "pluginVersion": "8.2.4",
       "pointradius": 5,
       "points": false,
       "renderer": "flot",
@@ -487,7 +448,7 @@
         "alertThreshold": true
       },
       "percentage": false,
-      "pluginVersion": "8.1.3",
+      "pluginVersion": "8.2.4",
       "pointradius": 5,
       "points": false,
       "renderer": "flot",
@@ -583,7 +544,7 @@
         "alertThreshold": true
       },
       "percentage": false,
-      "pluginVersion": "8.1.3",
+      "pluginVersion": "8.2.4",
       "pointradius": 5,
       "points": false,
       "renderer": "flot",
@@ -689,7 +650,7 @@
         "alertThreshold": true
       },
       "percentage": false,
-      "pluginVersion": "8.1.3",
+      "pluginVersion": "8.2.4",
       "pointradius": 5,
       "points": false,
       "renderer": "flot",
@@ -783,7 +744,7 @@
         "alertThreshold": true
       },
       "percentage": false,
-      "pluginVersion": "8.1.3",
+      "pluginVersion": "8.2.4",
       "pointradius": 5,
       "points": false,
       "renderer": "flot",
@@ -845,10 +806,6 @@
     {
       "collapsed": false,
       "datasource": null,
-      "fieldConfig": {
-        "defaults": {},
-        "overrides": []
-      },
       "gridPos": {
         "h": 1,
         "w": 24,
@@ -894,7 +851,7 @@
         "alertThreshold": true
       },
       "percentage": false,
-      "pluginVersion": "8.1.3",
+      "pluginVersion": "8.2.4",
       "pointradius": 5,
       "points": false,
       "renderer": "flot",
@@ -987,7 +944,7 @@
         "alertThreshold": true
       },
       "percentage": false,
-      "pluginVersion": "8.1.3",
+      "pluginVersion": "8.2.4",
       "pointradius": 5,
       "points": false,
       "renderer": "flot",
@@ -1077,10 +1034,6 @@
     {
       "collapsed": false,
       "datasource": null,
-      "fieldConfig": {
-        "defaults": {},
-        "overrides": []
-      },
       "gridPos": {
         "h": 1,
         "w": 24,
@@ -1126,7 +1079,7 @@
         "alertThreshold": true
       },
       "percentage": false,
-      "pluginVersion": "8.1.3",
+      "pluginVersion": "8.2.4",
       "pointradius": 5,
       "points": false,
       "renderer": "flot",
@@ -1218,7 +1171,7 @@
         "alertThreshold": true
       },
       "percentage": false,
-      "pluginVersion": "8.1.3",
+      "pluginVersion": "8.2.4",
       "pointradius": 5,
       "points": false,
       "renderer": "flot",
@@ -1281,10 +1234,6 @@
     {
       "collapsed": false,
       "datasource": null,
-      "fieldConfig": {
-        "defaults": {},
-        "overrides": []
-      },
       "gridPos": {
         "h": 1,
         "w": 24,
@@ -1331,7 +1280,7 @@
         "alertThreshold": true
       },
       "percentage": false,
-      "pluginVersion": "8.1.3",
+      "pluginVersion": "8.2.4",
       "pointradius": 5,
       "points": false,
       "renderer": "flot",
@@ -1547,10 +1496,6 @@
     {
       "collapsed": false,
       "datasource": null,
-      "fieldConfig": {
-        "defaults": {},
-        "overrides": []
-      },
       "gridPos": {
         "h": 1,
         "w": 24,
@@ -1597,7 +1542,7 @@
         "alertThreshold": true
       },
       "percentage": false,
-      "pluginVersion": "8.1.3",
+      "pluginVersion": "8.2.4",
       "pointradius": 5,
       "points": false,
       "renderer": "flot",
@@ -1658,7 +1603,7 @@
     }
   ],
   "refresh": "30s",
-  "schemaVersion": 30,
+  "schemaVersion": 32,
   "style": "dark",
   "tags": [],
   "templating": {
@@ -1700,12 +1645,12 @@
       {
         "allValue": null,
         "current": {
-          "selected": false,
+          "selected": true,
           "text": [
-            "prometheus-1"
+            "All"
           ],
           "value": [
-            "prometheus-1"
+            "$__all"
           ]
         },
         "datasource": "Prometheus",
@@ -1835,5 +1780,5 @@
   "timezone": "",
   "title": "Gates monitoring",
   "uid": "HbIZvQLGk",
-  "version": 1
+  "version": 2
 }
