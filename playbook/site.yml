@@ -5,6 +5,7 @@
 - import_playbook: grafana_auto_annotations.yml
 - import_playbook: loki.yml
 - import_playbook: etcd.yml
+- import_playbook: memcached.yml
 - import_playbook: lb.yml
 - import_playbook: patroni_server.yml
 - import_playbook: distributed-timescaledb.yml

@@ -36,6 +36,10 @@ roles:
     version: main
   - name: bdellegrazie.nginx_exporter
     version: v3.2.0
+  - name: geerlingguy.memcached
+    version: 2.2.0
+  - name: cloudalchemy.memcached_exporter
+    version: cb89fa5
 
 collections:
   - name: devsec.hardening

@@ -1,0 +1,9 @@
+---
+- name: Install memcached
+  hosts: meta-role_memcached
+  any_errors_fatal: true
+  become: true
+  become_user: root
+  roles:
+    - geerlingguy.memcached
+    - cloudalchemy.memcached_exporter

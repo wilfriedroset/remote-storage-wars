@@ -1,0 +1,30 @@
+---
+consul_services:
+  - name: "node-exporter"
+    id: "node-exporter"
+    address: "{{ private_ip }}"
+    port: 9100
+    checks:
+      - tcp: "{{ private_ip }}:9100"
+        interval: "10s"
+  - name: "memcached"
+    id: "memcached"
+    address: "{{ private_ip }}"
+    port: 11211
+    checks:
+      - tcp: "{{ private_ip }}:11211"
+        interval: "10s"
+  - name: "memcached-exporter"
+    id: "memcached-exporter"
+    address: "{{ private_ip }}"
+    port: 9150
+    checks:
+      - tcp: "{{ private_ip }}:9150"
+        interval: "10s"
+  - name: "promtail"
+    id: "promtail"
+    address: "{{ private_ip }}"
+    port: 9080
+    checks:
+      - tcp: "{{ private_ip }}:9080"
+        interval: "10s"
