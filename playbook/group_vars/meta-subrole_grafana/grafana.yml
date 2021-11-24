@@ -77,6 +77,10 @@ grafana_dashboards:
   - dashboard_id: 3662
     revision_id: 2
     datasource: Prometheus
+  # Prometheus memcached
+  - dashboard_id: 37
+    revision_id: 1
+    datasource: Prometheus
 
 grafana_dashboards_dir: files/grafana/dashboards/
 
