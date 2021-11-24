@@ -46,7 +46,7 @@ prometheus_remote_cortex:
     # TODO: use the loadbalancer in front of the distributor. As of now the
     # configuration of the loadbalancer is not optimal and therefore bottleneck
     # the prometheus.
-    url: http://distributor.cortex.service.consul:9009/api/v1/push
+    url: "http://{{ private_ip }}:9009/api/v1/push"
     name: cortex
     send_exemplars: true
     queue_config:
