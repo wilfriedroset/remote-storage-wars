@@ -1,5 +1,5 @@
 ---
-promscale_bin_version: 0.6.0
+promscale_bin_version: 0.6.2
 promscale_limitnofile: 1048576
 # Do not let role manage the configuration file
 # We will leverage consul-template to generate it accordingly with the
