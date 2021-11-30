@@ -7,11 +7,11 @@ variable "promscale_instance_flavor" {
 variable "promscale_node_count" {
   description = "The number of promscale instance."
   type        = number
-  default     = 1
+  default     = 0
 }
 
 variable "promscale_lb_count" {
   description = "The number of promscale lb."
   type        = number
-  default     = 1
+  default     = 0
 }

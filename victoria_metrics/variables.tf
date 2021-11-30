@@ -19,13 +19,13 @@ variable "vmstorage_instance_flavor" {
 variable "node_vmstorage" {
   description = "The number of victoria metric's storage node."
   type        = number
-  default     = 6
+  default     = 0
 }
 
 variable "node_vminsert" {
   description = "The number of victoria metric's insert node."
   type        = number
-  default     = 3
+  default     = 0
 }
 
 variable "lb_vminsert" {
@@ -37,7 +37,7 @@ variable "lb_vminsert" {
 variable "node_vmselect" {
   description = "The number of victoria metric's select node."
   type        = number
-  default     = 3
+  default     = 0
 }
 
 variable "lb_vmselect" {

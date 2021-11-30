@@ -13,7 +13,7 @@ variable "lb_instance_flavor" {
 variable "node_per_patroni_cluster" {
   description = "The number of nodes in patroni cluster."
   type        = number
-  default     = 3
+  default     = 0
 }
 
 variable "lb_per_patroni_cluster" {

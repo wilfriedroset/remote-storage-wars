@@ -1,31 +1,31 @@
 variable "m3_dbnode_count" {
   description = "The number of m3 dbnode instance."
   type        = number
-  default     = 6
+  default     = 0
 }
 
 variable "m3_coordinator_count" {
   description = "The number of m3 coordinator instance."
   type        = number
-  default     = 3
+  default     = 0
 }
 
 variable "m3_query_count" {
   description = "The number of m3 query instance."
   type        = number
-  default     = 1
+  default     = 0
 }
 
 variable "m3_aggregator_count" {
   description = "The number of m3 aggregator instance."
   type        = number
-  default     = 3
+  default     = 0
 }
 
 variable "m3_lb_count" {
   description = "The number of m3 lb instance."
   type        = number
-  default     = 2
+  default     = 0
 }
 
 variable "m3_dbnode_instance_flavor" {
