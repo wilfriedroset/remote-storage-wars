@@ -15,3 +15,9 @@ variable "node_per_patroni_cluster" {
   type        = number
   default     = 3
 }
+
+variable "lb_per_patroni_cluster" {
+  description = "The number of lbs in patroni cluster."
+  type        = number
+  default     = 0
+}
