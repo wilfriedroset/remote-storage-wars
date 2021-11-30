@@ -1,7 +1,7 @@
 module "etcd" {
   source = "../modules/terraform-ovh-etcd/"
 
-  node_count      = 3
+  node_count      = var.etcd_count
   userdata_path   = "../userdata.yml"
   instance_image  = var.instance_image
   ssh             = var.ssh

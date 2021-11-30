@@ -3,3 +3,9 @@ variable "etcd_instance_flavor" {
   type        = string
   default     = "s1-2"
 }
+
+variable "etcd_count" {
+  description = "The number of etcd instance."
+  type        = number
+  default     = 0
+}
