@@ -52,6 +52,12 @@ variable "instance_metadata" {
   default     = {}
 }
 
+variable "instance_tags" {
+  description = "A set of string tags for the instance."
+  type        = list(string)
+  default     = []
+}
+
 variable "public_network" {
   description = "The name of the public network to use for servers."
   type        = string

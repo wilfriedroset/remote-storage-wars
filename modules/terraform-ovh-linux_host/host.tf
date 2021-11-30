@@ -5,6 +5,7 @@ resource "openstack_compute_instance_v2" "linuxhost" {
   key_pair        = var.ssh.public_key_name
   user_data       = file(var.userdata_path)
   security_groups = var.security_groups
+  tags            = var.instance_tags
 
   metadata = var.instance_metadata
 
