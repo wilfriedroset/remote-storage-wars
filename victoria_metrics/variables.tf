@@ -28,10 +28,22 @@ variable "node_vminsert" {
   default     = 3
 }
 
+variable "lb_vminsert" {
+  description = "The number of victoria metric's insert lb."
+  type        = number
+  default     = 0
+}
+
 variable "node_vmselect" {
   description = "The number of victoria metric's select node."
   type        = number
   default     = 3
+}
+
+variable "lb_vmselect" {
+  description = "The number of victoria metric's select lb."
+  type        = number
+  default     = 0
 }
 
 variable "lb_instance_flavor" {

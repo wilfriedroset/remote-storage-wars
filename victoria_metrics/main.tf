@@ -11,13 +11,13 @@ module "victoriametrics" {
   private_network = var.private_network.name
 
   vminsert_instance_flavor      = var.vminsert_instance_flavor
-  vminsert_lb_count             = 1
+  vminsert_lb_count             = var.lb_vminsert
   vminsert_lb_security_groups   = ["ssh_security_group"]
   vminsert_node_count           = var.node_vminsert
   vminsert_node_security_groups = ["ssh_security_group"]
 
   vmselect_instance_flavor      = var.vmselect_instance_flavor
-  vmselect_lb_count             = 1
+  vmselect_lb_count             = var.lb_vmselect
   vmselect_lb_security_groups   = ["ssh_security_group"]
   vmselect_node_count           = var.node_vmselect
   vmselect_node_security_groups = ["ssh_security_group"]
