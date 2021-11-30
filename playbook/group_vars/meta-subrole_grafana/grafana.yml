@@ -41,7 +41,7 @@ grafana_datasources:
   - name: "loki"
     type: "loki"
     access: "proxy"
-    url: "http://loki.service.service.dc1.consul:3100"
+    url: "http://loki.service.dc1.consul:3100"
 
 grafana_plugins:
   - grafana-worldmap-panel
