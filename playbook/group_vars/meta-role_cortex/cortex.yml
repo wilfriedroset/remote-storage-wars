@@ -52,6 +52,15 @@ cortex_blocks_storage:
     sync_dir: "{{ cortex_tsdb_sync_directory }}"
     bucket_index:
       enabled: true
+    index_cache:
+      backend: "memcached"
+      memcached: "{{ memcached_client }}"
+    chunks_cache:
+      backend: "memcached"
+      memcached: "{{ memcached_client }}"
+    metadata_cache:
+      backend: "memcached"
+      memcached: "{{ memcached_client }}"
   tsdb:
     dir: "{{ cortex_tsdb_directory }}"
     flush_blocks_on_shutdown: true
@@ -176,6 +185,8 @@ cortex_storage:
     directory: "{{ cortex_chunk_directory }}"
   delete_store:
     store: boltdb
+  index_queries_cache_config:
+    memcached_client: "{{ memcached_client }}"
 
 cortex_store_gateway:
   sharding_enabled: true
@@ -195,6 +206,13 @@ cortex_query_range:
   cache_results: true
   results_cache:
     cache:
-      enable_fifocache: true
-      fifocache:
-        max_size_bytes: "{{ ansible_memtotal_mb * 0.7 }}MB"
+      enable_fifocache: false
+      memcached: "{{ memcached_config }}"
+      memcached_client: "{{ memcached_client }}"
+
+memcached_config: {}
+
+memcached_client:
+  addresses: dns+memcached.service.consul:11211
+  timeout: "200ms"
+  max_item_size: 5242880  # 5 MiB
