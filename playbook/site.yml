@@ -3,6 +3,7 @@
 - import_playbook: consul.yml
 - import_playbook: grafana.yml
 - import_playbook: grafana_auto_annotations.yml
+- import_playbook: systemd_dropins.yml
 - import_playbook: loki.yml
 - import_playbook: etcd.yml
 - import_playbook: memcached.yml

@@ -1,0 +1,17 @@
+---
+- name: Deploy systemd drop-ins
+  hosts: all
+  any_errors_fatal: true
+  become: true
+  become_user: root
+  gather_facts: false
+  handlers:
+    - name: daemon-reload
+      systemd:
+        daemon_reload: true
+  tasks:
+    - name: Deploying drop-ins
+      include_tasks: tasks/systemd-service-dropin.yml
+      loop: "{{ systemd_drop_ins|default([]) }}"
+      loop_control:
+        loop_var: service
