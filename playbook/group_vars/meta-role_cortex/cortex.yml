@@ -131,6 +131,10 @@ cortex_limits:
   ingestion_rate: 1e+09
   max_series_per_metric: 1e+09
   max_series_per_user: 1e+09
+  # set this to the number of queriers * the parallelism
+  # We could do something like "{{ ansible_processor_nproc * 4| int  }}" but
+  # ansible renders it as an string when cortex expect an int
+  max_query_parallelism: 64
 
 cortex_querier:
   active_query_tracker_dir: "{{ cortex_active_query_tracker_directory }}"
