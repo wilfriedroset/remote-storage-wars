@@ -1,2 +1,5 @@
 ---
 memcached_listen_ip: "{{ private_ip }}"
+memcached_connections: 16384
+memcached_memory_limit: "{{ (ansible_memtotal_mb * 0.85)|int }}"
+memcached_threads: "{{ ansible_processor_nproc }}"
