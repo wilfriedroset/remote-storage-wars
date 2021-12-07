@@ -82,10 +82,12 @@ cortex_distributor:
 cortex_flusher:
   wal_dir: "{{ cortex_wal_directory }}"
 
+# See https://cortexmetrics.io/docs/configuration/prometheus-frontend/
 cortex_frontend:
   grpc_client_config: "{{ cortex_grpc_client_config }}"
   instance_interface_names: "{{ cortex_instance_interface_names }}"
-  downstream_url: ""  # FIXME
+  # This will be load balanced thanks to consul
+  downstream_url: 'http://querier.cortex.service.dc1.consul:9009'
 
 cortex_frontend_worker:
   match_max_concurrent: true
@@ -187,7 +189,12 @@ cortex_store_gateway:
 cortex_query_scheduler:
   grpc_client_config: "{{ cortex_grpc_client_config }}"
 
-
 cortex_query_range:
   align_queries_with_step: true
   split_queries_by_interval: 24h
+  cache_results: true
+  results_cache:
+    cache:
+      enable_fifocache: true
+      fifocache:
+        max_size_bytes: "{{ ansible_memtotal_mb * 0.7 }}MB"

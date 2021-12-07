@@ -1,17 +1,3 @@
 ---
-# See https://cortexmetrics.io/docs/configuration/prometheus-frontend/
 cortex_target: query-frontend
 cortex_http_prefix: ""
-cortex_frontend:
-  # This will be load balanced thanks to consul
-  downstream_url: 'http://querier.cortex.service.dc1.consul:9009'
-
-cortex_query_range:
-  split_queries_by_interval: 24h
-  align_queries_with_step: true
-  cache_results: true
-  results_cache:
-    cache:
-      enable_fifocache: true
-      fifocache:
-        max_size_bytes: "{{ ansible_memtotal_mb * 0.7 }}MB"
