@@ -93,6 +93,7 @@ cortex_flusher:
 
 # See https://cortexmetrics.io/docs/configuration/prometheus-frontend/
 cortex_frontend:
+  query_stats_enabled: true
   log_queries_longer_than: 1s
   grpc_client_config: "{{ cortex_grpc_client_config }}"
   instance_interface_names: "{{ cortex_instance_interface_names }}"
