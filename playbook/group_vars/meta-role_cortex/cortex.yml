@@ -69,6 +69,7 @@ cortex_blocks_storage:
 cortex_compactor:
   data_dir: "{{ cortex_data_directory }}"
   sharding_enabled: false
+  block_deletion_marks_migration_enabled: false
   sharding_ring:
     kvstore:
       prefix: "{{ cortex_consul_kv_global_prefix }}collectors/"
