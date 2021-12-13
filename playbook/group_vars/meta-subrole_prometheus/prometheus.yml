@@ -6,6 +6,10 @@ prometheus_external_labels:
   __replica__: "{{ ansible_hostname }}"
   cluster: "{{ cluster_id | default('default')}}"
 
+prometheus_config_flags_extra:
+  enable-feature:
+    - exemplar-storage
+
 prometheus_remote_promscale:
   write:
     url: http://rw.promscale.service.dc1.consul:9201/write
