@@ -1,5 +1,4 @@
 ---
-- import_playbook: zfs.yml
 - import_playbook: consul.yml
 - import_playbook: grafana.yml
 - import_playbook: grafana_auto_annotations.yml
