@@ -5,6 +5,18 @@
   become: true
   become_user: root
   tasks:
+    - name: Add haproxy.debian.net repository key
+      apt_key:
+        url: https://haproxy.debian.net/bernat.debian.org.gpg
+        state: present
+
+    - name: Add haproxy.debian.net repository
+      apt_repository:
+        repo: "deb http://haproxy.debian.net {{ ansible_distribution_release }}-backports-2.5 main"
+        state: present
+        filename: haproxy
+        update_cache: true
+
     - name: Install haproxy & co.
       apt:
         name:
