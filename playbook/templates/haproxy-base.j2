@@ -1,10 +1,8 @@
 global
     daemon
-    master-worker
-    log-send-hostname
+    log stdout local0
 
     chroot              /var/lib/haproxy
-    log                 127.0.0.1 local2
 
     pidfile             /var/run/haproxy.pid
     server-state-base   /var/lib/haproxy/state
@@ -16,10 +14,6 @@ global
 
     stats socket /var/run/haproxy.sock mode 666 level admin
     stats timeout 30s
-
-    # utilize system-wide crypto-policies
-    ssl-default-bind-ciphers    PROFILE=SYSTEM
-    ssl-default-server-ciphers  PROFILE=SYSTEM
 
 defaults
     log                             global
