@@ -52,6 +52,8 @@ prometheus_remote_cortex:
     url: "http://{{ private_ip }}:9009/api/v1/push"
     name: cortex
     send_exemplars: true
+    headers:
+      X-Scope-OrgID: "tenant-{{ tenant_id| default('default') }}"
     queue_config:
       max_samples_per_send: 1000
       retry_on_http_429: true
@@ -62,6 +64,8 @@ prometheus_remote_cortex:
     # load balancing
     url: http://query-frontend.cortex.service.dc1.consul:9009/prometheus/api/v1/read
     name: cortex
+    headers:
+      X-Scope-OrgID: "tenant-{{ tenant_id| default('default') }}"
 
 prometheus_scrape_configs:
   - job_name: node-exporter

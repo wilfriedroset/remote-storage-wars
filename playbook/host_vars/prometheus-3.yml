@@ -1,5 +1,6 @@
 ---
 cluster_id: 2
+tenant_id: 1
 prometheus_scrape_configs:
   - job_name: node-exporter-bench
     metrics_path: /metrics
