@@ -6,8 +6,6 @@ listen query-frontend
     option  httpchk GET /ready
     # Enable all backups in case of failover
     option  allbackups
-    maxconn             40000
-    fullconn            40000
 
 {%- raw -%}
 {{ range service "query-frontend.cortex|any" }}
