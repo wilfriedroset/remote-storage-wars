@@ -99,12 +99,13 @@ cortex_frontend:
   log_queries_longer_than: 1s
   grpc_client_config: "{{ cortex_grpc_client_config }}"
   instance_interface_names: "{{ cortex_instance_interface_names }}"
-  # This will be load balanced thanks to consul
-  downstream_url: 'http://querier.cortex.service.dc1.consul:9009'
 
 cortex_frontend_worker:
   match_max_concurrent: true
   grpc_client_config: "{{ cortex_grpc_client_config }}"
+  # See https://github.com/cortexproject/cortex/issues/3430
+  # The following fqdn/port is loadbalanced by haproxy on query-frontend grpc port only
+  frontend_address: ro.cortex.service.dc1.consul:9095
 
 cortex_ingester:
   walconfig:
