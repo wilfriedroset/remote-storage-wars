@@ -12,4 +12,20 @@ listen query-frontend-http
     server {{ .Node }} {{ .Address }}:{{ .Port }} check{{ end }}
 {{ range service "querier.cortex|any" }}
     server {{ .Node }} {{ .Address }}:{{ .Port }} check backup{{ end }}
+{%- endraw %}
+
+listen query-frontend-grpc
+    bind                            {{ private_ip }}:{{ cortex_query_frontend_port|default(9095) }} alpn h2,http/1.1
+
+{% include 'haproxy-tcp-listen-options.j2' %}
+
+    # We are not checking on /ready because the query-frontend will become ready
+    # if and only if at least one querier has register. The frontend will not be
+    # open, so querier will not be able to register. To avoid this circular deps
+    # we will only check if the query-frontend answer on the root ui.
+    option  httpchk GET /
+
+{%- raw -%}
+{{ range service "query-frontend.cortex|any" }}
+    server {{ .Node }} {{ .Address }}:9095 check port 9009{{ end }}
 {%- endraw -%}
