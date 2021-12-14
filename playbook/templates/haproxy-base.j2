@@ -11,6 +11,7 @@ global
     group               haproxy
 
     maxconn             40000
+    nbthread            {{ ansible_processor_nproc }}
 
     stats socket /var/run/haproxy.sock mode 666 level admin
     stats timeout 30s
