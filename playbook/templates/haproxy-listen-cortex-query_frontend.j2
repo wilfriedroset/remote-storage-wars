@@ -1,4 +1,4 @@
-listen query-frontend
+listen query-frontend-http
     bind                            {{ private_ip }}:{{ cortex_query_frontend_port|default(9090) }}
 
 {% include 'haproxy-http-listen-options.j2' %}
