@@ -6,8 +6,10 @@ roles:
     version: 3.1.1
   - name: andrewrothstein.go
     version: v2.1.51
+  # Switch to fork until https://github.com/cloudalchemy/ansible-grafana/pull/281 is merged
   - name: cloudalchemy.grafana
-    version: 0.18.0
+    src: https://github.com/wilfriedroset/ansible-grafana.git
+    version: 596465c
   - name: cloudalchemy.prometheus
     version: 4.0.0
   # Switch to fork until cloudalchemy/ansible-node-exporter/pull/249 is merged
