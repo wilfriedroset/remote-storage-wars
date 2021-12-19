@@ -84,6 +84,8 @@ grafana_dashboards:
 
 grafana_dashboards_dir: files/grafana/dashboards/
 
+grafana_tracing:
+  address: tempo.service.dc1.consul:6831
 
-# See:
-# https://github.com/opstrace/opstrace/tree/be59d0eb45d55045bea1e06f494d0a00280af9cd/packages/controller/src/resources/monitoring/system/dashboards
+grafana_feature_toggles:
+  - tempoSearch
