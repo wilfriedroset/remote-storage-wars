@@ -18,6 +18,20 @@
         state: restarted
         sleep: 5
   tasks:
+    - name: Enable logrotate hourly
+      file:
+        src: /etc/cron.daily/logrotate
+        dest: /etc/cron.hourly/logrotate
+        state: link
+    - name: Configure logrotate
+      copy:
+        src: "files/logrotate.d/{{ item }}"
+        dest: "/etc/logrotate.d/{{ item }}"
+        owner: root
+        group: root
+        mode: 0755
+      loop:
+        - rsyslog
     - name: Deploy extra authorized keys
       authorized_key:
         user: "{{ item.value.user|default(ansible_ssh_user) }}"
