@@ -224,4 +224,4 @@ memcached_config: {}
 memcached_client:
   addresses: dns+memcached.service.consul:11211
   timeout: "200ms"
-  max_item_size: 5242880  # 5 MiB
+  max_item_size: 52428800  # 50 MiB
