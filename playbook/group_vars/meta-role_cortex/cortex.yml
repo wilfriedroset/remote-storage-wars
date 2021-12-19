@@ -51,6 +51,7 @@ cortex_blocks_storage:
   s3: "{{ cortex_storage_s3 }}"
   bucket_store:
     sync_dir: "{{ cortex_tsdb_sync_directory }}"
+    ignore_deletion_mark_delay: 1h0m0s
     bucket_index:
       enabled: true
     index_cache:
@@ -66,6 +67,7 @@ cortex_blocks_storage:
     dir: "{{ cortex_tsdb_directory }}"
     flush_blocks_on_shutdown: true
     wal_compression_enabled: true
+    retention_period: 6h
 
 cortex_compactor:
   data_dir: "{{ cortex_data_directory }}"
@@ -144,6 +146,8 @@ cortex_querier:
   store_gateway_addresses: "dns+store-gateway.cortex.service.dc1.consul:9095"
   timeout: 5m
   max_concurrent: 40
+  query_store_after: 6h45m
+  query_ingesters_within: 6h50m
 
 cortex_ruler:
   storage:
