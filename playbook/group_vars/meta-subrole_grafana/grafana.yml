@@ -43,6 +43,12 @@ grafana_datasources:
     access: "proxy"
     url: "http://loki.service.dc1.consul:3100"
 
+  - access: proxy
+    name: Tempo
+    type: tempo
+    uid: tempo
+    url: http://tempo.service.dc1.consul:3200
+
 grafana_plugins:
   - grafana-worldmap-panel
   - grafana-piechart-panel
