@@ -74,5 +74,4 @@ cortex_table_manager: {}
 cortex_runtime_config: {}
 cortex_prealloc: {}
 
-# Extra envvar
 cortex_extra_envvars: {}
