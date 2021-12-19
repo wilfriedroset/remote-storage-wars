@@ -40,6 +40,8 @@ roles:
     version: 2.2.0
   - name: cloudalchemy.memcached_exporter
     version: cb89fa5
+  - name: wilfriedroset.ansible-tempo
+    src: https://github.com/wilfriedroset/ansible-tempo.git
 
 collections:
   - name: devsec.hardening

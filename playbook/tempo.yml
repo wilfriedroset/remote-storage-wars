@@ -1,0 +1,8 @@
+---
+- name: Install Tempo
+  hosts: meta-role_tempo
+  any_errors_fatal: true
+  become: true
+  become_user: root
+  roles:
+    - wilfriedroset.ansible-tempo
