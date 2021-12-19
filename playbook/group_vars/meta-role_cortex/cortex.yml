@@ -1,5 +1,5 @@
 ---
-cortex_log_level: debug
+cortex_log_level: info
 cortex_target: all
 cortex_auth_enabled: true
 
