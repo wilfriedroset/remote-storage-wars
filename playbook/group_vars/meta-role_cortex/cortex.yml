@@ -56,13 +56,22 @@ cortex_blocks_storage:
       enabled: true
     index_cache:
       backend: "memcached"
-      memcached: "{{ memcached_client }}"
+      memcached:
+        addresses: dns+cortex-index.memcached.service.consul:11211
+        timeout: "200ms"
+        max_item_size: 0
     chunks_cache:
       backend: "memcached"
-      memcached: "{{ memcached_client }}"
+      memcached:
+        addresses: dns+cortex-chunks.memcached.service.consul:11211
+        timeout: "200ms"
+        max_item_size: 0
     metadata_cache:
       backend: "memcached"
-      memcached: "{{ memcached_client }}"
+      memcached:
+        addresses: dns+cortex-metadata.memcached.service.consul:11211
+        timeout: "200ms"
+        max_item_size: 0
   tsdb:
     dir: "{{ cortex_tsdb_directory }}"
     flush_blocks_on_shutdown: true
@@ -199,7 +208,11 @@ cortex_storage:
   delete_store:
     store: boltdb
   index_queries_cache_config:
-    memcached_client: "{{ memcached_client }}"
+    memcached: "{{ memcached_config }}"
+    memcached_client:
+      addresses: dns+cortex-index.memcached.service.consul:11211
+      timeout: "200ms"
+      max_item_size: 0
 
 cortex_store_gateway:
   sharding_enabled: true
@@ -221,14 +234,15 @@ cortex_query_range:
     cache:
       enable_fifocache: false
       memcached: "{{ memcached_config }}"
-      memcached_client: "{{ memcached_client }}"
+      memcached_client:
+        addresses: dns+cortex-index.memcached.service.consul:11211
+        timeout: "200ms"
+        max_item_size: 0
 
-memcached_config: {}
-
-memcached_client:
-  addresses: dns+memcached.service.consul:11211
-  timeout: "200ms"
-  max_item_size: 52428800  # 50 MiB
+memcached_config:
+  expiration: 24h
+  batch_size: 4096
+  parallelism: 10000
 
 cortex_extra_envvars:
   JAEGER_AGENT_HOST: tempo.service.dc1.consul

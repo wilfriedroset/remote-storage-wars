@@ -16,8 +16,6 @@ consul_services:
         interval: "10s"
     tags:
       - cortex-index
-      - cortex-metadata
-      - cortex-chunks
   - name: "memcached-exporter"
     id: "memcached-exporter"
     address: "{{ private_ip }}"

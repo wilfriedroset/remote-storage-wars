@@ -7,5 +7,5 @@ variable "memcached_instance_flavor" {
 variable "memcached_count" {
   description = "The number of memcached instance."
   type        = number
-  default     = 1
+  default     = 3
 }
