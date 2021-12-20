@@ -30,4 +30,12 @@ resource "openstack_compute_instance_v2" "linuxhost" {
       "cloud-init status --wait > /dev/null"
     ]
   }
+  lifecycle {
+    create_before_destroy = true
+    ignore_changes = [
+      # Prevent from destroy/create all instance because the image use to spawn
+      # instance has been remove or replace in-place
+      image_name,
+    ]
+  }
 }
