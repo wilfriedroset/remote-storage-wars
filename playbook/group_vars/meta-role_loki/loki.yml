@@ -9,3 +9,16 @@ loki_server_config:
   http_listen_address: 0.0.0.0
   grpc_listen_address: 127.0.0.1
   http_listen_port: 3100
+
+loki_ingester_config:
+  lifecycler:
+    address: 127.0.0.1
+    ring:
+      kvstore:
+        store: inmemory
+      replication_factor: 1
+    final_sleep: 0s
+  chunk_idle_period: 5m
+  chunk_retain_period: 30s
+  wal:
+    dir: "{{ loki_storage_dir }}/wal"
