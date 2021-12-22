@@ -231,6 +231,7 @@ cortex_query_range:
   split_queries_by_interval: 24h
   cache_results: true
   results_cache:
+    compression: snappy
     cache:
       enable_fifocache: false
       memcached: "{{ memcached_config }}"
