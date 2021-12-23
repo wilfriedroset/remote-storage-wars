@@ -74,7 +74,7 @@ cortex_blocks_storage:
         max_item_size: 0
   tsdb:
     dir: "{{ cortex_tsdb_directory }}"
-    flush_blocks_on_shutdown: true
+    flush_blocks_on_shutdown: false
     wal_compression_enabled: true
     retention_period: 6h
 
@@ -124,7 +124,7 @@ cortex_ingester:
     checkpoint_enabled: true
     recover_from_wal: true
     wal_dir: "{{ cortex_wal_directory }}"
-    flush_on_shutdown_with_wal_enabled: true
+    flush_on_shutdown_with_wal_enabled: false
   lifecycler:
     ring:
       kvstore:
