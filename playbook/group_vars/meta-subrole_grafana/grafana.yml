@@ -5,17 +5,20 @@ grafana_security:
 
 grafana_datasources:
   - name: "Prometheus"
+    uid: prometheus
     type: "prometheus"
     access: "proxy"
     url: "http://prometheus-0.node.consul:9090"
     isDefault: true
 
   - name: "VictoriaMetrics"
+    uid: victoriametrics
     type: "prometheus"
     access: "proxy"
     url: "http://ro.victoriametrics.service.dc1.consul:8481/select/0/prometheus"
 
   - name: "promscale"
+    uid: promscale
     type: "prometheus"
     access: "proxy"
     url: "http://ro.promscale.service.dc1.consul:9201"
@@ -26,6 +29,7 @@ grafana_datasources:
     url: "http://ro.cortex.service.dc1.consul:9090/prometheus"
 
   - name: "timescaledb"
+    uid: timescaledb
     type: "postgres"
     sslmode: "require"
     access: "proxy"
@@ -39,6 +43,7 @@ grafana_datasources:
       postgresVersion: 1200
 
   - name: "loki"
+    uid: loki
     type: "loki"
     access: "proxy"
     url: "http://loki.service.dc1.consul:3100"
