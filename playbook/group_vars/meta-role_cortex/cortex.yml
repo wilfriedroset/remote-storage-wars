@@ -17,7 +17,7 @@ cortex_api:
   prometheus_http_prefix: /prometheus
 
 cortex_tenant_federation:
-  enabled: false
+  enabled: true
 
 cortex_grpc_client_config:
   grpc_compression: gzip
