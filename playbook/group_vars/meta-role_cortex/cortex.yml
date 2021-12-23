@@ -172,6 +172,8 @@ cortex_querier:
   max_concurrent: 40
   query_store_after: 6h45m
   query_ingesters_within: 6h50m
+  iterators: true
+  batch_iterators: true
 
 cortex_ruler:
   storage:
