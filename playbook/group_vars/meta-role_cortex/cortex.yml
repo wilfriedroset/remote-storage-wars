@@ -58,20 +58,35 @@ cortex_blocks_storage:
       backend: "memcached"
       memcached:
         addresses: dns+cortex-index.memcached.service.consul:11211
-        timeout: "200ms"
-        max_item_size: 0
+        timeout: 1s
+        max_idle_connections: 750
+        max_async_concurrency: 100
+        max_async_buffer_size: 10000000
+        max_get_multi_concurrency: 750
+        max_get_multi_batch_size: 1000
+        max_item_size: 16777216
     chunks_cache:
       backend: "memcached"
       memcached:
         addresses: dns+cortex-chunks.memcached.service.consul:11211
-        timeout: "200ms"
-        max_item_size: 0
+        timeout: 1s
+        max_idle_connections: 750
+        max_async_concurrency: 100
+        max_async_buffer_size: 10000000
+        max_get_multi_concurrency: 750
+        max_get_multi_batch_size: 1000
+        max_item_size: 33554432
     metadata_cache:
       backend: "memcached"
       memcached:
         addresses: dns+cortex-metadata.memcached.service.consul:11211
-        timeout: "200ms"
-        max_item_size: 0
+        timeout: 1s
+        max_idle_connections: 750
+        max_async_concurrency: 100
+        max_async_buffer_size: 10000000
+        max_get_multi_concurrency: 750
+        max_get_multi_batch_size: 1000
+        max_item_size: 16777216
   tsdb:
     dir: "{{ cortex_tsdb_directory }}"
     flush_blocks_on_shutdown: false
@@ -211,7 +226,7 @@ cortex_storage:
     memcached: "{{ memcached_config }}"
     memcached_client:
       addresses: dns+cortex-index.memcached.service.consul:11211
-      timeout: "200ms"
+      timeout: "1s"
       max_item_size: 0
 
 cortex_store_gateway:
@@ -237,7 +252,7 @@ cortex_query_range:
       memcached: "{{ memcached_config }}"
       memcached_client:
         addresses: dns+cortex-index.memcached.service.consul:11211
-        timeout: "200ms"
+        timeout: "1s"
         max_item_size: 0
 
 memcached_config:
