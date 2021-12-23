@@ -10,6 +10,12 @@ grafana_datasources:
     access: "proxy"
     url: "http://prometheus-0.node.consul:9090"
     isDefault: true
+    jsonData:
+      disableMetricsLookup: false
+      exemplarTraceIdDestinations:
+        - datasourceUid: tempo
+          name: traceID
+      httpMethod: POST
 
   - name: "VictoriaMetrics"
     uid: victoriametrics
