@@ -29,10 +29,65 @@ grafana_datasources:
     access: "proxy"
     url: "http://ro.promscale.service.dc1.consul:9201"
 
-  - name: "cortex"
+  - name: "cortex-all-tenants"
+    uid: cortex-all-tenants
     type: "prometheus"
     access: "proxy"
     url: "http://ro.cortex.service.dc1.consul:9090/prometheus"
+    jsonData:
+      disableMetricsLookup: false
+      exemplarTraceIdDestinations:
+        - datasourceUid: tempo
+          name: traceID
+      httpMethod: POST
+      httpHeaderName1: 'X-Scope-OrgID'
+    secureJsonData:
+      httpHeaderValue1: 'tenant-1|tenant-2|tenant-3'
+
+  - name: "cortex-tenant-1"
+    uid: cortex-tenant-1
+    type: "prometheus"
+    access: "proxy"
+    url: "http://ro.cortex.service.dc1.consul:9090/prometheus"
+    jsonData:
+      disableMetricsLookup: false
+      exemplarTraceIdDestinations:
+        - datasourceUid: tempo
+          name: traceID
+      httpMethod: POST
+      httpHeaderName1: 'X-Scope-OrgID'
+    secureJsonData:
+      httpHeaderValue1: 'tenant-1'
+
+  - name: "cortex-tenant-2"
+    uid: cortex-tenant-2
+    type: "prometheus"
+    access: "proxy"
+    url: "http://ro.cortex.service.dc1.consul:9090/prometheus"
+    jsonData:
+      disableMetricsLookup: false
+      exemplarTraceIdDestinations:
+        - datasourceUid: tempo
+          name: traceID
+      httpMethod: POST
+      httpHeaderName1: 'X-Scope-OrgID'
+    secureJsonData:
+      httpHeaderValue1: 'tenant-2'
+
+  - name: "cortex-tenant-3"
+    uid: cortex-tenant-3
+    type: "prometheus"
+    access: "proxy"
+    url: "http://ro.cortex.service.dc1.consul:9090/prometheus"
+    jsonData:
+      disableMetricsLookup: false
+      exemplarTraceIdDestinations:
+        - datasourceUid: tempo
+          name: traceID
+      httpMethod: POST
+      httpHeaderName1: 'X-Scope-OrgID'
+    secureJsonData:
+      httpHeaderValue1: 'tenant-3'
 
   - name: "timescaledb"
     uid: timescaledb
