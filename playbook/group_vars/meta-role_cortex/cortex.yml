@@ -95,7 +95,7 @@ cortex_blocks_storage:
 
 cortex_compactor:
   data_dir: "{{ cortex_data_directory }}"
-  sharding_enabled: false
+  sharding_enabled: true
   block_deletion_marks_migration_enabled: false
   sharding_ring:
     kvstore:
