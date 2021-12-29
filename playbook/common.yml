@@ -7,7 +7,6 @@
   collections:
     - devsec.hardening
   roles:
-    - local.common-packages
     - cloudalchemy.node_exporter
     - devsec.hardening.os_hardening
     - devsec.hardening.ssh_hardening
@@ -18,6 +17,11 @@
         state: restarted
         sleep: 5
   tasks:
+    - name: Install common packages
+      apt:
+        name: "{{ common_packages }}"
+        state: "present"
+        install_recommends: false
     - name: Enable logrotate hourly
       file:
         src: /etc/cron.daily/logrotate
