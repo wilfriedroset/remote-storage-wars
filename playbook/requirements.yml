@@ -1,7 +1,11 @@
 ---
 roles:
-  - name: brianshumate.consul
-    version: v2.5.4
+  - name: ansible-consul
+    # Switch to fork until https://github.com/ansible-community/ansible-consul/pull/459 is merged
+    # src: https://github.com/ansible-community/ansible-consul.git
+    src: https://github.com/wilfriedroset/ansible-consul.git
+    version: a8ff6f4
+    scm: git
   - name: geerlingguy.postgresql
     version: 3.1.1
   - name: andrewrothstein.go
