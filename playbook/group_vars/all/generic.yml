@@ -17,6 +17,7 @@ common_packages:
   - iotop
   - net-tools
   - nmap
+  - syslog-ng
   - sysstat
   - telnet
 
