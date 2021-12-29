@@ -20,7 +20,7 @@
     - name: Install haproxy & co.
       apt:
         name:
-          - haproxy
+          - haproxy=2.5.*
           - haproxyctl
           - hatop
         state: present
