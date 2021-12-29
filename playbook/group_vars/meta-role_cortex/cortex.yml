@@ -206,7 +206,7 @@ cortex_server:
   grpc_server_max_concurrent_streams: 1000
   grpc_server_max_recv_msg_size: 209715200
   grpc_server_max_send_msg_size: 209715200
-  log_format: logfmt
+  log_format: json
   log_level: "{{ cortex_log_level }}"
   log_source_ips_enabled: true
 
