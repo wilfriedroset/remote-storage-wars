@@ -1,4 +1,6 @@
 ---
+cortex_version: 1.11.0
+
 cortex_log_level: info
 cortex_target: all
 cortex_auth_enabled: true

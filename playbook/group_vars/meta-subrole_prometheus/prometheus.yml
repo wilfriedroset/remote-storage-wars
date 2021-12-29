@@ -1,5 +1,5 @@
 ---
-prometheus_version: 2.30.2
+prometheus_version: 2.32.1
 prometheus_web_external_url: "http://{{ ansible_host }}:9090"
 prometheus_storage_retention_size: 350GB
 prometheus_external_labels:
