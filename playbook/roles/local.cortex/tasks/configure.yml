@@ -30,11 +30,6 @@
     - daemon-reload
     - restart cortex
 
-- name: Remove default configuration file from package
-  file:
-    path: /etc/cortex/single-process-config.yaml
-    state: absent
-
 - name: Enable and start Cortex systemd unit
   systemd:
     name: cortex
