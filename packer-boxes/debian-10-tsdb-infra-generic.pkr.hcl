@@ -27,7 +27,11 @@ build {
   provisioner "ansible-local" {
     playbook_dir  = "../playbook/"
     galaxy_file   = "../playbook/requirements.yml"
-    playbook_file = "../playbook/common.yml"
+    playbook_files = [
+      "../playbook/hardening.yml",
+      "../playbook/common.yml",
+      "../playbook/node_exporter.yml"
+    ]
   }
 
 }

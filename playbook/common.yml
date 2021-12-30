@@ -4,12 +4,8 @@
   any_errors_fatal: true
   become: true
   become_user: root
-  collections:
-    - devsec.hardening
   roles:
     - cloudalchemy.node_exporter
-    - devsec.hardening.os_hardening
-    - devsec.hardening.ssh_hardening
   handlers:
     - name: restart networking
       service:
@@ -22,11 +18,13 @@
         name: "{{ common_packages }}"
         state: "present"
         install_recommends: false
+
     - name: Enable logrotate hourly
       file:
         src: /etc/cron.daily/logrotate
         dest: /etc/cron.hourly/logrotate
         state: link
+
     - name: Configure logrotate
       copy:
         src: "files/logrotate.d/{{ item }}"
@@ -36,6 +34,7 @@
         mode: 0755
       loop:
         - rsyslog
+
     - name: Deploy extra authorized keys
       authorized_key:
         user: "{{ item.value.user|default(ansible_ssh_user) }}"
