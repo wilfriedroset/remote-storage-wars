@@ -9,6 +9,7 @@ promtail_server_config:
   http_listen_port: 9080
   grpc_listen_address: "{{ promtail_listen_address }}"
   grpc_listen_port: 0
+  log_format: json
 
 promtail_scrape_config:
   - job_name: journald
