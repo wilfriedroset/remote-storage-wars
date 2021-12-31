@@ -7,7 +7,7 @@ loki_bins:
 
 loki_server_config:
   http_listen_address: 0.0.0.0
-  grpc_listen_address: 127.0.0.1
+  grpc_listen_address: 0.0.0.0
   http_listen_port: 3100
 
 loki_ingester_config:
