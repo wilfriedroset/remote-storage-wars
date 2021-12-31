@@ -55,7 +55,7 @@ promtail_scrape_config:
           - localhost
         labels:
           job: consul
-          host: cortex-compactor-6
+          host: "{{ ansible_hostname }}"
           __path__: /var/log/consul/*.log
 
 promtail_target_config: []
