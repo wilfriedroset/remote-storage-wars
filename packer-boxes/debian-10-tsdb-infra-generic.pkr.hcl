@@ -30,6 +30,7 @@ build {
     playbook_files = [
       "../playbook/hardening.yml",
       "../playbook/common.yml",
+      "../playbook/log_management.yml",
       "../playbook/node_exporter.yml"
     ]
   }

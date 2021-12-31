@@ -1,0 +1,37 @@
+- name: Log management
+  hosts: all
+  any_errors_fatal: true
+  become: true
+  become_user: root
+  handlers:
+    - name: restart syslog-ng
+      service:
+        name: syslog-ng
+        state: restarted
+        sleep: 5
+  tasks:
+    - name: Deploy syslog-ng configuration
+      copy:
+        src: files/syslog-ng.conf
+        dest: /etc/syslog-ng/syslog-ng.conf
+        owner: root
+        group: root
+        mode: 0644
+      notify:
+        - restart syslog-ng
+
+    - name: Enable logrotate hourly
+      file:
+        src: /etc/cron.daily/logrotate
+        dest: /etc/cron.hourly/logrotate
+        state: link
+
+    - name: Configure logrotate
+      copy:
+        src: "files/logrotate.d/{{ item }}"
+        dest: "/etc/logrotate.d/{{ item }}"
+        owner: root
+        group: root
+        mode: 0755
+      loop:
+        - rsyslog
