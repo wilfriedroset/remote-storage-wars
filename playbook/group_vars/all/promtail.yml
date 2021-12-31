@@ -111,7 +111,31 @@ promtail_scrape_config:
           job: loki
           host: "{{ ansible_hostname }}"
           __path__: /var/log/loki.log
-
+  - job_name: cortex
+    pipeline_stages:
+      - json:
+          expressions:
+            level: level
+            message: msg
+            timestamp: ts
+            component: component
+            caller: caller
+      - labels:
+          level: level
+          component: component
+          caller: caller
+      - timestamp:
+          source: timestamp
+          format: RFC3339
+      - output:
+          source: message
+    static_configs:
+      - targets:
+          - localhost
+        labels:
+          job: cortex
+          host: "{{ ansible_hostname }}"
+          __path__: /var/log/cortex.log
 
 promtail_target_config: []
 promtail_positions_config:
