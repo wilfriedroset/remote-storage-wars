@@ -6,3 +6,19 @@
   become_user: root
   roles:
     - diogenxs.loki
+  handlers:
+    - name: restart syslog-ng
+      service:
+        name: syslog-ng
+        state: restarted
+        sleep: 5
+  tasks:
+    - name: Deploy syslog-ng for promtail
+      copy:
+        src: files/syslog-ng-d-promtail.conf
+        dest: /etc/syslog-ng/conf.d/promtail.conf
+        owner: root
+        group: root
+        mode: 0644
+      notify:
+        - restart syslog-ng
