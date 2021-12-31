@@ -9,6 +9,7 @@ loki_server_config:
   http_listen_address: 0.0.0.0
   grpc_listen_address: 0.0.0.0
   http_listen_port: 3100
+  log_format: json
 
 loki_ingester_config:
   lifecycler:
