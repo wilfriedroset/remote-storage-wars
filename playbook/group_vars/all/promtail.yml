@@ -57,6 +57,61 @@ promtail_scrape_config:
           job: consul
           host: "{{ ansible_hostname }}"
           __path__: /var/log/consul/*.log
+  - job_name: promtail
+    pipeline_stages:
+      - json:
+          expressions:
+            level: level
+            message: msg
+            timestamp: ts
+            component: component
+            caller: caller
+            path: path
+      - labels:
+          level: level
+          component: component
+          caller: caller
+          module: module
+      - timestamp:
+          source: timestamp
+          format: RFC3339
+      - output:
+          source: message
+    static_configs:
+      - targets:
+          - localhost
+        labels:
+          job: promtail
+          host: "{{ ansible_hostname }}"
+          __path__: /var/log/promtail.log
+  - job_name: loki
+    pipeline_stages:
+      - json:
+          expressions:
+            level: level
+            message: msg
+            timestamp: ts
+            component: component
+            caller: caller
+            dir: dir
+      - labels:
+          level: level
+          component: component
+          caller: caller
+          module: module
+      - timestamp:
+          source: timestamp
+          format: RFC3339
+      - output:
+          source: message
+    static_configs:
+      - targets:
+          - localhost
+        labels:
+          job: loki
+          host: "{{ ansible_hostname }}"
+          __path__: /var/log/loki.log
+
 
 promtail_target_config: []
 promtail_positions_config:
