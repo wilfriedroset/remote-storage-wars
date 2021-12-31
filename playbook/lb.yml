@@ -24,6 +24,13 @@
           - haproxyctl
           - hatop
         state: present
+    - name: Create server stat directory
+      file:
+        name: /var/lib/haproxy/state
+        state: directory
+        owner: haproxy
+        group: haproxy
+        mode: 0750
   roles:
     - griggheo.consul-template
     - bdellegrazie.haproxy_exporter
