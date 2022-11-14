@@ -164,7 +164,7 @@ This will install all Python packages needed to deploy the infrastructure. All o
 
 ### Build your image
 
-In order to include common settings across all instances we build our own image based on `Debian 10`. For this matter we rely on [Packer Ansible Local Provisioner](https://www.packer.io/docs/provisioners/ansible-local).
+In order to include common settings across all instances we build our own image based on `Debian 10`. For this matter we rely on [Packer Ansible Local Provisioner](https://developer.hashicorp.com/packer/plugins/provisioners/ansible/ansible-local).
 The definition on how the image is built is under [packer-boxes](packer-boxes/). The build is quite straight forward, it will:
 * Spawn an small Debian 10 instance attached to public network
 * [Install a recent version of Ansible](https://docs.ansible.com/ansible/2.9/installation_guide/intro_installation.html#installing-ansible-on-debian)
